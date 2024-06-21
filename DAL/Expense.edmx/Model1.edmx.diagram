@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="720a471663884fef8cac9005af126a01" Name="Diagram1">
+        <EntityTypeShape EntityType="ExpensesTrackerModel.Permission" Width="1.5" PointX="0.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExpensesTrackerModel.Role" Width="1.5" PointX="0.75" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExpensesTrackerModel.User" Width="1.5" PointX="0.75" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExpensesTrackerModel.RolePermission" Width="1.5" PointX="3" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExpensesTrackerModel.UserRole" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="ExpensesTrackerModel.FK__RolePermi__Permi__3C69FB99" ManuallyRouted="false" />
+        <AssociationConnector Association="ExpensesTrackerModel.FK__RolePermi__RoleI__3B75D760" ManuallyRouted="false" />
+        <AssociationConnector Association="ExpensesTrackerModel.FK__UserRole__RoleId__37A5467C" ManuallyRouted="false" />
+        <AssociationConnector Association="ExpensesTrackerModel.FK__UserRole__UserId__36B12243" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

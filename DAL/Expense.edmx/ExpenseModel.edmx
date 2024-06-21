@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="ExpensesTrackerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="ExpensesTrackerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Permissions">
           <Key>
             <PropertyRef Name="Id" />
@@ -67,6 +67,7 @@ warning 6002: The table/view 'ExpensesTracker.dbo.UserRole' does not have a prim
           <Property Name="CreatedBy" Type="varchar" MaxLength="256" />
           <Property Name="UpdatedAt" Type="datetime" />
           <Property Name="UpdatedBy" Type="varchar" MaxLength="256" />
+          <Property Name="DOB" Type="date" />
         </EntityType>
         <Association Name="FK__RolePermi__Permi__3C69FB99">
           <End Role="Permissions" Type="Self.Permissions" Multiplicity="0..1" />
@@ -156,7 +157,8 @@ warning 6002: The table/view 'ExpensesTracker.dbo.UserRole' does not have a prim
             <End Role="UserRole" EntitySet="UserRole" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ExpensesTrackerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -201,6 +203,7 @@ warning 6002: The table/view 'ExpensesTracker.dbo.UserRole' does not have a prim
           <Property Name="CreatedBy" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
           <Property Name="UpdatedAt" Type="DateTime" Precision="3" />
           <Property Name="UpdatedBy" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="DOB" Type="DateTime" Precision="0" />
           <NavigationProperty Name="UserRoles" Relationship="Self.FK__UserRole__UserId__36B12243" FromRole="Users" ToRole="UserRole" />
         </EntityType>
         <EntityType Name="RolePermission">
@@ -275,7 +278,7 @@ warning 6002: The table/view 'ExpensesTracker.dbo.UserRole' does not have a prim
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="ExpensesTrackerEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="ExpensesTrackerEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Permissions" EntityType="Self.Permission" />
           <EntitySet Name="Roles" EntityType="Self.Role" />
           <EntitySet Name="Users" EntityType="Self.User" />
@@ -306,7 +309,7 @@ warning 6002: The table/view 'ExpensesTracker.dbo.UserRole' does not have a prim
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="ExpensesTrackerModelStoreContainer" CdmEntityContainer="ExpensesTrackerEntities">
+        <EntityContainerMapping StorageEntityContainer="ExpensesTrackerModelStoreContainer" CdmEntityContainer="ExpensesTrackerEntities1">
           <EntitySetMapping Name="Permissions">
             <EntityTypeMapping TypeName="ExpensesTrackerModel.Permission">
               <MappingFragment StoreEntitySet="Permissions">
@@ -346,6 +349,7 @@ warning 6002: The table/view 'ExpensesTracker.dbo.UserRole' does not have a prim
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
                 <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

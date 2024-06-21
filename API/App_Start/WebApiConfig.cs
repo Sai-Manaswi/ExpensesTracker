@@ -19,8 +19,8 @@ namespace API
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
-            EnableCorsAttribute Cors = new EnableCorsAttribute("*", "*", "*");
-            config.EnableCors(Cors);
+            //EnableCorsAttribute Cors = new EnableCorsAttribute("*", "*", "*");
+            //config.EnableCors(Cors);
             //json
             GlobalConfiguration.Configuration.Formatters.JsonFormatter.SerializerSettings
                 .ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;

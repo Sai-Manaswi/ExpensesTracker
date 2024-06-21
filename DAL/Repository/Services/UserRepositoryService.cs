@@ -11,7 +11,7 @@ namespace DAL.Repository.Services
 {
     public class UserRepositoryServices : IUser
     {
-        ExpensesTrackerEntities context = new ExpensesTrackerEntities();
+        ExpensesTrackerEntities1 context = new ExpensesTrackerEntities1();
 
 
         public List<User> GetUsers()

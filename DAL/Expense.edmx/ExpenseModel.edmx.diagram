@@ -4,10 +4,10 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="720a471663884fef8cac9005af126a01" Name="Diagram1">
-        <EntityTypeShape EntityType="ExpensesTrackerModel.Permission" Width="1.5" PointX="0.75" PointY="11.75" IsExpanded="true" />
+      <Diagram DiagramId="45c9e7f88bf447e9bb744499de4fc2c6" Name="Diagram1">
+        <EntityTypeShape EntityType="ExpensesTrackerModel.Permission" Width="1.5" PointX="0.75" PointY="12.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ExpensesTrackerModel.Role" Width="1.5" PointX="0.75" PointY="3.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="ExpensesTrackerModel.User" Width="1.5" PointX="0.75" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExpensesTrackerModel.User" Width="1.5" PointX="0.75" PointY="7.25" IsExpanded="true" />
         <EntityTypeShape EntityType="ExpensesTrackerModel.RolePermission" Width="1.5" PointX="3" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ExpensesTrackerModel.UserRole" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
         <AssociationConnector Association="ExpensesTrackerModel.FK__RolePermi__Permi__3C69FB99" ManuallyRouted="false" />

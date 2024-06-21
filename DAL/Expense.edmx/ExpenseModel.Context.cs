@@ -15,10 +15,10 @@ namespace DAL.Expense.edmx
     using System.Data.Entity.Core.Objects;
     using System.Linq;
     
-    public partial class ExpensesTrackerEntities : DbContext
+    public partial class ExpensesTrackerEntities1 : DbContext
     {
-        public ExpensesTrackerEntities()
-            : base("name=ExpensesTrackerEntities")
+        public ExpensesTrackerEntities1()
+            : base("name=ExpensesTrackerEntities1")
         {
         }
     

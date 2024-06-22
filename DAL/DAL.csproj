@@ -123,6 +123,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ExpenseModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Expense.edmx\GetHighestExpenseCategory_Result.cs">
+      <DependentUpon>ExpenseModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Expense.edmx\GetUsersSP_Result.cs">
       <DependentUpon>ExpenseModel.tt</DependentUpon>
     </Compile>

@@ -121,6 +121,10 @@ warning 6002: The table/view 'ExpensesTracker.dbo.UserRole' does not have a prim
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="GetHighestExpenseCategory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Year" Type="int" Mode="In" />
+          <Parameter Name="Month" Type="int" Mode="In" />
+        </Function>
         <Function Name="GetUserPermissionsByUsername" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="UserName" Type="nvarchar" Mode="In" />
         </Function>
@@ -220,7 +224,6 @@ warning 6002: The table/view 'ExpensesTracker.dbo.UserRole' does not have a prim
           <Parameter Name="UserName" Mode="In" Type="String" />
           </FunctionImport>
           <EntitySet Name="RolePermissions" EntityType="ExpensesTrackerModel.RolePermission" />
-          <EntitySet Name="UserRoles" EntityType="ExpensesTrackerModel.UserRole" />
           <AssociationSet Name="FK__RolePermi__Permi__68487DD7" Association="ExpensesTrackerModel.FK__RolePermi__Permi__68487DD7">
             <End Role="Permission" EntitySet="Permissions" />
             <End Role="RolePermission" EntitySet="RolePermissions" />
@@ -229,6 +232,11 @@ warning 6002: The table/view 'ExpensesTracker.dbo.UserRole' does not have a prim
             <End Role="Role" EntitySet="Roles" />
             <End Role="RolePermission" EntitySet="RolePermissions" />
           </AssociationSet>
+          <FunctionImport Name="GetHighestExpenseCategory" ReturnType="Collection(ExpensesTrackerModel.GetHighestExpenseCategory_Result)">
+            <Parameter Name="Year" Mode="In" Type="Int32" />
+            <Parameter Name="Month" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="UserRoles" EntityType="ExpensesTrackerModel.UserRole" />
           <AssociationSet Name="FK__UserRole__RoleId__6383C8BA" Association="ExpensesTrackerModel.FK__UserRole__RoleId__6383C8BA">
             <End Role="Role" EntitySet="Roles" />
             <End Role="UserRole" EntitySet="UserRoles" />
@@ -248,18 +256,6 @@ warning 6002: The table/view 'ExpensesTracker.dbo.UserRole' does not have a prim
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="RoleId" Type="Int32" />
           <Property Name="PermissionId" Type="Int32" />
-          <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="UpdatedAt" Type="DateTime" Nullable="false" Precision="3" />
-        </EntityType>
-        <EntityType Name="UserRole">
-          <Key>
-            <PropertyRef Name="Id" />
-            <PropertyRef Name="CreatedAt" />
-            <PropertyRef Name="UpdatedAt" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserId" Type="Int32" />
-          <Property Name="RoleId" Type="Int32" />
           <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="UpdatedAt" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
@@ -287,6 +283,24 @@ warning 6002: The table/view 'ExpensesTracker.dbo.UserRole' does not have a prim
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <ComplexType Name="GetHighestExpenseCategory_Result">
+          <Property Type="String" Name="HighestCategoryName" Nullable="true" MaxLength="255" />
+          <Property Type="Int32" Name="HighestCategoryId" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="UserRole">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="CreatedAt" />
+            <PropertyRef Name="UpdatedAt" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="RoleId" Type="Int32" />
+          <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedAt" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Role" Relationship="ExpensesTrackerModel.FK__UserRole__RoleId__6383C8BA" FromRole="UserRole" ToRole="Role" />
+          <NavigationProperty Name="User" Relationship="ExpensesTrackerModel.FK__UserRole__UserId__628FA481" FromRole="UserRole" ToRole="User" />
+        </EntityType>
         <Association Name="FK__UserRole__RoleId__6383C8BA">
           <End Type="ExpensesTrackerModel.Role" Role="Role" Multiplicity="0..1" />
           <End Type="ExpensesTrackerModel.UserRole" Role="UserRole" Multiplicity="*" />
@@ -318,6 +332,7 @@ warning 6002: The table/view 'ExpensesTracker.dbo.UserRole' does not have a prim
           <Property Type="String" Name="EMail" Nullable="false" MaxLength="20" />
           <Property Type="String" Name="MobileNumber" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="UserName" Nullable="false" MaxLength="256" />
+          <Property Type="String" Name="Password" Nullable="false" MaxLength="256" />
           <Property Type="Boolean" Name="IsActive" Nullable="false" />
           <Property Type="DateTime" Name="CreatedAt" Nullable="false" Precision="23" />
           <Property Type="String" Name="CreatedBy" Nullable="true" MaxLength="256" />
@@ -388,6 +403,14 @@ warning 6002: The table/view 'ExpensesTracker.dbo.UserRole' does not have a prim
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetHighestExpenseCategory" FunctionName="ExpensesTrackerModel.Store.GetHighestExpenseCategory">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ExpensesTrackerModel.GetHighestExpenseCategory_Result">
+                <ScalarProperty Name="HighestCategoryName" ColumnName="HighestCategoryName" />
+                <ScalarProperty Name="HighestCategoryId" ColumnName="HighestCategoryId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <EntitySetMapping Name="UserRoles">
             <EntityTypeMapping TypeName="ExpensesTrackerModel.UserRole">
               <MappingFragment StoreEntitySet="UserRole">
@@ -408,6 +431,7 @@ warning 6002: The table/view 'ExpensesTracker.dbo.UserRole' does not have a prim
                 <ScalarProperty Name="EMail" ColumnName="EMail" />
                 <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />

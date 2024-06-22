@@ -42,6 +42,19 @@ namespace DAL.Expense.edmx
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("GetUserPermissionsByUsername", userNameParameter);
         }
     
+        public virtual ObjectResult<GetHighestExpenseCategory_Result> GetHighestExpenseCategory(Nullable<int> year, Nullable<int> month)
+        {
+            var yearParameter = year.HasValue ?
+                new ObjectParameter("Year", year) :
+                new ObjectParameter("Year", typeof(int));
+    
+            var monthParameter = month.HasValue ?
+                new ObjectParameter("Month", month) :
+                new ObjectParameter("Month", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetHighestExpenseCategory_Result>("GetHighestExpenseCategory", yearParameter, monthParameter);
+        }
+    
         public virtual ObjectResult<GetUsersSP_Result> GetUsersSP()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetUsersSP_Result>("GetUsersSP");

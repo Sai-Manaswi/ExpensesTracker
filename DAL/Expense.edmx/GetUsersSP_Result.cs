@@ -19,6 +19,7 @@ namespace DAL.Expense.edmx
         public string EMail { get; set; }
         public string MobileNumber { get; set; }
         public string UserName { get; set; }
+        public string Password { get; set; }
         public bool IsActive { get; set; }
         public System.DateTime CreatedAt { get; set; }
         public string CreatedBy { get; set; }

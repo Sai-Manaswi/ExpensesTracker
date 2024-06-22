@@ -29,37 +29,37 @@ namespace DAL.Repository.Services
                 var existingUser = context.Users.FirstOrDefault(s => s.Id == user.Id);
                 if (existingUser == null)
                 {
-                    var obj = new User()
+                    var newUser = new User
                     {
-                        // Id = user.Id, // Id should not be set manually if it's an identity column
                         FirstName = user.FirstName,
                         LastName = user.LastName,
                         EMail = user.EMail,
                         MobileNumber = user.MobileNumber,
                         UserName = user.UserName,
-                        Password = user.Password,
-                        IsActive = true,
-                        CreatedAt = DateTime.Now,
+                        Password = user.Password, // Note: Handle password securely (not shown here)
+                        IsActive = user.IsActive,
+                        CreatedAt = user.CreatedAt,
                         CreatedBy = user.CreatedBy,
-                        UpdatedAt = DateTime.Now,
+                        UpdatedAt = user.UpdatedAt,
                         UpdatedBy = user.UpdatedBy,
                         DOB = user.DOB
                     };
-                    context.Users.Add(obj);
-                    context.SaveChanges(); // Save to get the Id
+
+                    context.Users.Add(newUser);
 
                     foreach (var userRole in user.UserRoles)
                     {
                         var newUserRole = new UserRole
                         {
-                            UserId = obj.Id,
+                            UserId = newUser.Id,
                             RoleId = userRole.RoleId,
-                            CreatedAt = DateTime.Now,
-                            UpdatedAt = DateTime.Now
+                            CreatedAt = userRole.CreatedAt,
+                            UpdatedAt = userRole.UpdatedAt
                         };
                         context.UserRoles.Add(newUserRole);
                     }
-                    context.SaveChanges();
+
+                    context.SaveChanges(); 
 
                     response.IsSuccess = true;
                     response.EndUserMessage = "User added successfully";

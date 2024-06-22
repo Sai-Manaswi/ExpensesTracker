@@ -10,17 +10,10 @@
 namespace DAL.Expense.edmx
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class UserRole
+    public partial class GetHighestExpenseCategory_Result
     {
-        public int Id { get; set; }
-        public Nullable<int> UserId { get; set; }
-        public Nullable<int> RoleId { get; set; }
-        public System.DateTime CreatedAt { get; set; }
-        public System.DateTime UpdatedAt { get; set; }
-    
-        public virtual Role Role { get; set; }
-        public virtual User User { get; set; }
+        public string HighestCategoryName { get; set; }
+        public Nullable<int> HighestCategoryId { get; set; }
     }
 }

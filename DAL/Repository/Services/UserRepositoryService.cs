@@ -14,9 +14,9 @@ namespace DAL.Repository.Services
         ExpensesTrackerEntities1 context = new ExpensesTrackerEntities1();
 
 
-        public List<User> GetUsers()
+        public List<GetUsersSP_Result> GetUsers()
         {
-            var res = context.Users.ToList();
+            var res = context.GetUsersSP().ToList();
             return res;
         }
 
@@ -26,12 +26,12 @@ namespace DAL.Repository.Services
 
             try
             {
-                var existinguser = context.Users.FirstOrDefault(s => s.Id == user.Id);
-                if (existinguser == null)
+                var existingUser = context.Users.FirstOrDefault(s => s.Id == user.Id);
+                if (existingUser == null)
                 {
                     var obj = new User()
                     {
-                        //Id = user.Id, // Id should not be set manually if it's an identity column
+                        // Id = user.Id, // Id should not be set manually if it's an identity column
                         FirstName = user.FirstName,
                         LastName = user.LastName,
                         EMail = user.EMail,
@@ -41,17 +41,18 @@ namespace DAL.Repository.Services
                         IsActive = true,
                         CreatedAt = DateTime.Now,
                         CreatedBy = user.CreatedBy,
-                        UpdatedAt = user.UpdatedAt,
-                        UpdatedBy = user.UpdatedBy
+                        UpdatedAt = DateTime.Now,
+                        UpdatedBy = user.UpdatedBy,
+                        DOB = user.DOB
                     };
                     context.Users.Add(obj);
-                    context.SaveChanges(); 
+                    context.SaveChanges(); // Save to get the Id
 
                     foreach (var userRole in user.UserRoles)
                     {
                         var newUserRole = new UserRole
                         {
-                            UserId = obj.Id, 
+                            UserId = obj.Id,
                             RoleId = userRole.RoleId,
                             CreatedAt = DateTime.Now,
                             UpdatedAt = DateTime.Now
@@ -62,7 +63,6 @@ namespace DAL.Repository.Services
 
                     response.IsSuccess = true;
                     response.EndUserMessage = "User added successfully";
-                 
                 }
                 else
                 {
@@ -70,15 +70,15 @@ namespace DAL.Repository.Services
                     response.EndUserMessage = "User already exists";
                 }
             }
-            catch (Exception )
+            catch (Exception ex)
             {
                 response.IsSuccess = false;
-                response.EndUserMessage = "An error occurred while creating the user";
-                
+                response.EndUserMessage = $"An error occurred while creating the user: {ex.Message}";
             }
 
             return response;
         }
+
 
 
 

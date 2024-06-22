@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ExpensesTrackerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ExpensesTrackerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Permissions">
           <Key>
             <PropertyRef Name="Id" />
@@ -19,9 +19,11 @@
 warning 6002: The table/view 'ExpensesTracker.dbo.RolePermissions' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="RolePermissions">
           <Key>
+            <PropertyRef Name="Id" />
             <PropertyRef Name="CreatedAt" />
             <PropertyRef Name="UpdatedAt" />
           </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="RoleId" Type="int" />
           <Property Name="PermissionId" Type="int" />
           <Property Name="CreatedAt" Type="datetime" Nullable="false" />
@@ -43,9 +45,11 @@ warning 6002: The table/view 'ExpensesTracker.dbo.RolePermissions' does not have
 warning 6002: The table/view 'ExpensesTracker.dbo.UserRole' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="UserRole">
           <Key>
+            <PropertyRef Name="Id" />
             <PropertyRef Name="CreatedAt" />
             <PropertyRef Name="UpdatedAt" />
           </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserId" Type="int" />
           <Property Name="RoleId" Type="int" />
           <Property Name="CreatedAt" Type="datetime" Nullable="false" />
@@ -69,7 +73,7 @@ warning 6002: The table/view 'ExpensesTracker.dbo.UserRole' does not have a prim
           <Property Name="UpdatedBy" Type="varchar" MaxLength="256" />
           <Property Name="DOB" Type="date" />
         </EntityType>
-        <Association Name="FK__RolePermi__Permi__3C69FB99">
+        <Association Name="FK__RolePermi__Permi__68487DD7">
           <End Role="Permissions" Type="Self.Permissions" Multiplicity="0..1" />
           <End Role="RolePermissions" Type="Self.RolePermissions" Multiplicity="*" />
           <ReferentialConstraint>
@@ -81,7 +85,7 @@ warning 6002: The table/view 'ExpensesTracker.dbo.UserRole' does not have a prim
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__RolePermi__RoleI__3B75D760">
+        <Association Name="FK__RolePermi__RoleI__6754599E">
           <End Role="Roles" Type="Self.Roles" Multiplicity="0..1" />
           <End Role="RolePermissions" Type="Self.RolePermissions" Multiplicity="*" />
           <ReferentialConstraint>
@@ -93,7 +97,7 @@ warning 6002: The table/view 'ExpensesTracker.dbo.UserRole' does not have a prim
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__UserRole__RoleId__37A5467C">
+        <Association Name="FK__UserRole__RoleId__6383C8BA">
           <End Role="Roles" Type="Self.Roles" Multiplicity="0..1" />
           <End Role="UserRole" Type="Self.UserRole" Multiplicity="*" />
           <ReferentialConstraint>
@@ -105,7 +109,7 @@ warning 6002: The table/view 'ExpensesTracker.dbo.UserRole' does not have a prim
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__UserRole__UserId__36B12243">
+        <Association Name="FK__UserRole__UserId__628FA481">
           <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
           <End Role="UserRole" Type="Self.UserRole" Multiplicity="*" />
           <ReferentialConstraint>
@@ -120,12 +124,14 @@ warning 6002: The table/view 'ExpensesTracker.dbo.UserRole' does not have a prim
         <Function Name="GetUserPermissionsByUsername" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="UserName" Type="nvarchar" Mode="In" />
         </Function>
+        <Function Name="GetUsersSP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="ExpensesTrackerModelStoreContainer">
           <EntitySet Name="Permissions" EntityType="Self.Permissions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RolePermissions" EntityType="Self.RolePermissions" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
+    [RolePermissions].[Id] AS [Id], 
     [RolePermissions].[RoleId] AS [RoleId], 
     [RolePermissions].[PermissionId] AS [PermissionId], 
     [RolePermissions].[CreatedAt] AS [CreatedAt], 
@@ -134,31 +140,31 @@ warning 6002: The table/view 'ExpensesTracker.dbo.UserRole' does not have a prim
           </EntitySet>
           <EntitySet Name="UserRole" EntityType="Self.UserRole" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
+    [UserRole].[Id] AS [Id], 
     [UserRole].[UserId] AS [UserId], 
     [UserRole].[RoleId] AS [RoleId], 
     [UserRole].[CreatedAt] AS [CreatedAt], 
     [UserRole].[UpdatedAt] AS [UpdatedAt]
     FROM [dbo].[UserRole] AS [UserRole]</DefiningQuery>
           </EntitySet>
-          <AssociationSet Name="FK__RolePermi__Permi__3C69FB99" Association="Self.FK__RolePermi__Permi__3C69FB99">
+          <AssociationSet Name="FK__RolePermi__Permi__68487DD7" Association="Self.FK__RolePermi__Permi__68487DD7">
             <End Role="Permissions" EntitySet="Permissions" />
             <End Role="RolePermissions" EntitySet="RolePermissions" />
           </AssociationSet>
-          <AssociationSet Name="FK__RolePermi__RoleI__3B75D760" Association="Self.FK__RolePermi__RoleI__3B75D760">
+          <AssociationSet Name="FK__RolePermi__RoleI__6754599E" Association="Self.FK__RolePermi__RoleI__6754599E">
             <End Role="Roles" EntitySet="Roles" />
             <End Role="RolePermissions" EntitySet="RolePermissions" />
           </AssociationSet>
-          <AssociationSet Name="FK__UserRole__RoleId__37A5467C" Association="Self.FK__UserRole__RoleId__37A5467C">
+          <AssociationSet Name="FK__UserRole__RoleId__6383C8BA" Association="Self.FK__UserRole__RoleId__6383C8BA">
             <End Role="Roles" EntitySet="Roles" />
             <End Role="UserRole" EntitySet="UserRole" />
           </AssociationSet>
-          <AssociationSet Name="FK__UserRole__UserId__36B12243" Association="Self.FK__UserRole__UserId__36B12243">
+          <AssociationSet Name="FK__UserRole__UserId__628FA481" Association="Self.FK__UserRole__UserId__628FA481">
             <End Role="Users" EntitySet="Users" />
             <End Role="UserRole" EntitySet="UserRole" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ExpensesTrackerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -171,7 +177,7 @@ warning 6002: The table/view 'ExpensesTracker.dbo.UserRole' does not have a prim
           <Property Name="ScreenName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="DisplayName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="RolePermissions" Relationship="Self.FK__RolePermi__Permi__3C69FB99" FromRole="Permissions" ToRole="RolePermissions" />
+          <NavigationProperty Name="RolePermissions" Relationship="ExpensesTrackerModel.FK__RolePermi__Permi__68487DD7" FromRole="Permission" ToRole="RolePermission" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -184,8 +190,8 @@ warning 6002: The table/view 'ExpensesTracker.dbo.UserRole' does not have a prim
           <Property Name="CreatedBy" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
           <Property Name="UpdatedAt" Type="DateTime" Precision="3" />
           <Property Name="UpdatedBy" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="RolePermissions" Relationship="Self.FK__RolePermi__RoleI__3B75D760" FromRole="Roles" ToRole="RolePermissions" />
-          <NavigationProperty Name="UserRoles" Relationship="Self.FK__UserRole__RoleId__37A5467C" FromRole="Roles" ToRole="UserRole" />
+          <NavigationProperty Name="RolePermissions" Relationship="ExpensesTrackerModel.FK__RolePermi__RoleI__6754599E" FromRole="Role" ToRole="RolePermission" />
+          <NavigationProperty Name="UserRoles" Relationship="ExpensesTrackerModel.FK__UserRole__RoleId__6383C8BA" FromRole="Role" ToRole="UserRole" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -204,61 +210,88 @@ warning 6002: The table/view 'ExpensesTracker.dbo.UserRole' does not have a prim
           <Property Name="UpdatedAt" Type="DateTime" Precision="3" />
           <Property Name="UpdatedBy" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
           <Property Name="DOB" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="UserRoles" Relationship="Self.FK__UserRole__UserId__36B12243" FromRole="Users" ToRole="UserRole" />
+          <NavigationProperty Name="UserRoles" Relationship="ExpensesTrackerModel.FK__UserRole__UserId__628FA481" FromRole="User" ToRole="UserRole" />
         </EntityType>
+        <EntityContainer Name="ExpensesTrackerEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Permissions" EntityType="Self.Permission" />
+          <EntitySet Name="Roles" EntityType="Self.Role" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <FunctionImport Name="GetUserPermissionsByUsername" ReturnType="Collection(String)">
+          <Parameter Name="UserName" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="RolePermissions" EntityType="ExpensesTrackerModel.RolePermission" />
+          <EntitySet Name="UserRoles" EntityType="ExpensesTrackerModel.UserRole" />
+          <AssociationSet Name="FK__RolePermi__Permi__68487DD7" Association="ExpensesTrackerModel.FK__RolePermi__Permi__68487DD7">
+            <End Role="Permission" EntitySet="Permissions" />
+            <End Role="RolePermission" EntitySet="RolePermissions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__RolePermi__RoleI__6754599E" Association="ExpensesTrackerModel.FK__RolePermi__RoleI__6754599E">
+            <End Role="Role" EntitySet="Roles" />
+            <End Role="RolePermission" EntitySet="RolePermissions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserRole__RoleId__6383C8BA" Association="ExpensesTrackerModel.FK__UserRole__RoleId__6383C8BA">
+            <End Role="Role" EntitySet="Roles" />
+            <End Role="UserRole" EntitySet="UserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserRole__UserId__628FA481" Association="ExpensesTrackerModel.FK__UserRole__UserId__628FA481">
+            <End Role="User" EntitySet="Users" />
+            <End Role="UserRole" EntitySet="UserRoles" />
+          </AssociationSet>
+          <FunctionImport Name="GetUsersSP" ReturnType="Collection(ExpensesTrackerModel.GetUsersSP_Result)" />
+        </EntityContainer>
         <EntityType Name="RolePermission">
           <Key>
+            <PropertyRef Name="Id" />
             <PropertyRef Name="CreatedAt" />
             <PropertyRef Name="UpdatedAt" />
           </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="RoleId" Type="Int32" />
           <Property Name="PermissionId" Type="Int32" />
           <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="UpdatedAt" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="Permission" Relationship="Self.FK__RolePermi__Permi__3C69FB99" FromRole="RolePermissions" ToRole="Permissions" />
-          <NavigationProperty Name="Role" Relationship="Self.FK__RolePermi__RoleI__3B75D760" FromRole="RolePermissions" ToRole="Roles" />
         </EntityType>
         <EntityType Name="UserRole">
           <Key>
+            <PropertyRef Name="Id" />
             <PropertyRef Name="CreatedAt" />
             <PropertyRef Name="UpdatedAt" />
           </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserId" Type="Int32" />
           <Property Name="RoleId" Type="Int32" />
           <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="UpdatedAt" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="Role" Relationship="Self.FK__UserRole__RoleId__37A5467C" FromRole="UserRole" ToRole="Roles" />
-          <NavigationProperty Name="User" Relationship="Self.FK__UserRole__UserId__36B12243" FromRole="UserRole" ToRole="Users" />
         </EntityType>
-        <Association Name="FK__RolePermi__Permi__3C69FB99">
-          <End Role="Permissions" Type="Self.Permission" Multiplicity="0..1" />
-          <End Role="RolePermissions" Type="Self.RolePermission" Multiplicity="*" />
+        <Association Name="FK__RolePermi__Permi__68487DD7">
+          <End Type="ExpensesTrackerModel.Permission" Role="Permission" Multiplicity="0..1" />
+          <End Type="ExpensesTrackerModel.RolePermission" Role="RolePermission" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Permissions">
+            <Principal Role="Permission">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="RolePermissions">
+            <Dependent Role="RolePermission">
               <PropertyRef Name="PermissionId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__RolePermi__RoleI__3B75D760">
-          <End Role="Roles" Type="Self.Role" Multiplicity="0..1" />
-          <End Role="RolePermissions" Type="Self.RolePermission" Multiplicity="*" />
+        <Association Name="FK__RolePermi__RoleI__6754599E">
+          <End Type="ExpensesTrackerModel.Role" Role="Role" Multiplicity="0..1" />
+          <End Type="ExpensesTrackerModel.RolePermission" Role="RolePermission" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Roles">
+            <Principal Role="Role">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="RolePermissions">
+            <Dependent Role="RolePermission">
               <PropertyRef Name="RoleId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__UserRole__RoleId__37A5467C">
-          <End Role="Roles" Type="Self.Role" Multiplicity="0..1" />
-          <End Role="UserRole" Type="Self.UserRole" Multiplicity="*" />
+        <Association Name="FK__UserRole__RoleId__6383C8BA">
+          <End Type="ExpensesTrackerModel.Role" Role="Role" Multiplicity="0..1" />
+          <End Type="ExpensesTrackerModel.UserRole" Role="UserRole" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Roles">
+            <Principal Role="Role">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="UserRole">
@@ -266,11 +299,11 @@ warning 6002: The table/view 'ExpensesTracker.dbo.UserRole' does not have a prim
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__UserRole__UserId__36B12243">
-          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
-          <End Role="UserRole" Type="Self.UserRole" Multiplicity="*" />
+        <Association Name="FK__UserRole__UserId__628FA481">
+          <End Type="ExpensesTrackerModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="ExpensesTrackerModel.UserRole" Role="UserRole" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Users">
+            <Principal Role="User">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="UserRole">
@@ -278,32 +311,22 @@ warning 6002: The table/view 'ExpensesTracker.dbo.UserRole' does not have a prim
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="ExpensesTrackerEntities1" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Permissions" EntityType="Self.Permission" />
-          <EntitySet Name="Roles" EntityType="Self.Role" />
-          <EntitySet Name="Users" EntityType="Self.User" />
-          <EntitySet Name="RolePermissions" EntityType="Self.RolePermission" />
-          <EntitySet Name="UserRoles" EntityType="Self.UserRole" />
-          <AssociationSet Name="FK__RolePermi__Permi__3C69FB99" Association="Self.FK__RolePermi__Permi__3C69FB99">
-            <End Role="Permissions" EntitySet="Permissions" />
-            <End Role="RolePermissions" EntitySet="RolePermissions" />
-          </AssociationSet>
-          <AssociationSet Name="FK__RolePermi__RoleI__3B75D760" Association="Self.FK__RolePermi__RoleI__3B75D760">
-            <End Role="Roles" EntitySet="Roles" />
-            <End Role="RolePermissions" EntitySet="RolePermissions" />
-          </AssociationSet>
-          <AssociationSet Name="FK__UserRole__RoleId__37A5467C" Association="Self.FK__UserRole__RoleId__37A5467C">
-            <End Role="Roles" EntitySet="Roles" />
-            <End Role="UserRole" EntitySet="UserRoles" />
-          </AssociationSet>
-          <AssociationSet Name="FK__UserRole__UserId__36B12243" Association="Self.FK__UserRole__UserId__36B12243">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="UserRole" EntitySet="UserRoles" />
-          </AssociationSet>
-          <FunctionImport Name="GetUserPermissionsByUsername" ReturnType="Collection(String)">
-            <Parameter Name="UserName" Mode="In" Type="String" />
-          </FunctionImport>
-        </EntityContainer>
+        <ComplexType Name="GetUsersSP_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="FirstName" Nullable="false" />
+          <Property Type="String" Name="LastName" Nullable="false" />
+          <Property Type="String" Name="EMail" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="MobileNumber" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="UserName" Nullable="false" MaxLength="256" />
+          <Property Type="Boolean" Name="IsActive" Nullable="false" />
+          <Property Type="DateTime" Name="CreatedAt" Nullable="false" Precision="23" />
+          <Property Type="String" Name="CreatedBy" Nullable="true" MaxLength="256" />
+          <Property Type="String" Name="CreatedByName" Nullable="true" MaxLength="256" />
+          <Property Type="DateTime" Name="UpdatedAt" Nullable="true" Precision="23" />
+          <Property Type="String" Name="UpdatedBy" Nullable="true" MaxLength="256" />
+          <Property Type="String" Name="UpdatedByName" Nullable="true" MaxLength="256" />
+          <Property Type="DateTime" Name="DOB" Nullable="true" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -353,27 +376,49 @@ warning 6002: The table/view 'ExpensesTracker.dbo.UserRole' does not have a prim
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetUserPermissionsByUsername" FunctionName="ExpensesTrackerModel.Store.GetUserPermissionsByUsername" />
           <EntitySetMapping Name="RolePermissions">
             <EntityTypeMapping TypeName="ExpensesTrackerModel.RolePermission">
               <MappingFragment StoreEntitySet="RolePermissions">
-                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
-                <ScalarProperty Name="PermissionId" ColumnName="PermissionId" />
-                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
                 <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="PermissionId" ColumnName="PermissionId" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="UserRoles">
             <EntityTypeMapping TypeName="ExpensesTrackerModel.UserRole">
               <MappingFragment StoreEntitySet="UserRole">
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
-                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
                 <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="GetUserPermissionsByUsername" FunctionName="ExpensesTrackerModel.Store.GetUserPermissionsByUsername" />
+          <FunctionImportMapping FunctionImportName="GetUsersSP" FunctionName="ExpensesTrackerModel.Store.GetUsersSP">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ExpensesTrackerModel.GetUsersSP_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="EMail" ColumnName="EMail" />
+                <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedByName" ColumnName="CreatedByName" />
+                <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedByName" ColumnName="UpdatedByName" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

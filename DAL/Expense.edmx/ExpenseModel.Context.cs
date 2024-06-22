@@ -41,5 +41,10 @@ namespace DAL.Expense.edmx
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("GetUserPermissionsByUsername", userNameParameter);
         }
+    
+        public virtual ObjectResult<GetUsersSP_Result> GetUsersSP()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetUsersSP_Result>("GetUsersSP");
+        }
     }
 }

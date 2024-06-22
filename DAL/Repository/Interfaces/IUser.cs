@@ -10,7 +10,7 @@ namespace DAL.Repository.Interfaces
 {
     public interface IUser
     {
-        List<User> GetUsers();
+        List<GetUsersSP_Result> GetUsers();
 
         ValueDataResponse<User> CreateUser(User user);
     }

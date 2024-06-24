@@ -32,6 +32,10 @@ namespace DAL.Expense.edmx
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<RolePermission> RolePermissions { get; set; }
         public virtual DbSet<UserRole> UserRoles { get; set; }
+        public virtual DbSet<Deposit> Deposits { get; set; }
+        public virtual DbSet<Expens> Expenses { get; set; }
+        public virtual DbSet<LookUpDetail> LookUpDetails { get; set; }
+        public virtual DbSet<Lookup> Lookups { get; set; }
     
         public virtual ObjectResult<string> GetUserPermissionsByUsername(string userName)
         {
@@ -42,7 +46,12 @@ namespace DAL.Expense.edmx
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("GetUserPermissionsByUsername", userNameParameter);
         }
     
-        public virtual ObjectResult<GetHighestExpenseCategory_Result> GetHighestExpenseCategory(Nullable<int> year, Nullable<int> month)
+        public virtual ObjectResult<GetUsersSP_Result> GetUsersSP()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetUsersSP_Result>("GetUsersSP");
+        }
+    
+        public virtual ObjectResult<GetBudgetReport_Result> GetBudgetReport(Nullable<int> year, Nullable<int> month)
         {
             var yearParameter = year.HasValue ?
                 new ObjectParameter("Year", year) :
@@ -52,12 +61,55 @@ namespace DAL.Expense.edmx
                 new ObjectParameter("Month", month) :
                 new ObjectParameter("Month", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetHighestExpenseCategory_Result>("GetHighestExpenseCategory", yearParameter, monthParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetBudgetReport_Result>("GetBudgetReport", yearParameter, monthParameter);
         }
     
-        public virtual ObjectResult<GetUsersSP_Result> GetUsersSP()
+        public virtual ObjectResult<GetMonthlyBudgetNotification_Result> GetMonthlyBudgetNotification()
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetUsersSP_Result>("GetUsersSP");
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetMonthlyBudgetNotification_Result>("GetMonthlyBudgetNotification");
+        }
+    
+        public virtual ObjectResult<GetMonthlyReport_Result> GetMonthlyReport(Nullable<int> year, Nullable<int> month)
+        {
+            var yearParameter = year.HasValue ?
+                new ObjectParameter("Year", year) :
+                new ObjectParameter("Year", typeof(int));
+    
+            var monthParameter = month.HasValue ?
+                new ObjectParameter("Month", month) :
+                new ObjectParameter("Month", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetMonthlyReport_Result>("GetMonthlyReport", yearParameter, monthParameter);
+        }
+    
+        public virtual ObjectResult<GetTotalExpensesByCategory_Result> GetTotalExpensesByCategory(Nullable<int> year, Nullable<int> month, Nullable<int> day)
+        {
+            var yearParameter = year.HasValue ?
+                new ObjectParameter("year", year) :
+                new ObjectParameter("year", typeof(int));
+    
+            var monthParameter = month.HasValue ?
+                new ObjectParameter("month", month) :
+                new ObjectParameter("month", typeof(int));
+    
+            var dayParameter = day.HasValue ?
+                new ObjectParameter("day", day) :
+                new ObjectParameter("day", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetTotalExpensesByCategory_Result>("GetTotalExpensesByCategory", yearParameter, monthParameter, dayParameter);
+        }
+    
+        public virtual ObjectResult<GetTotalExpensesByCategoryAndStatus_Result> GetTotalExpensesByCategoryAndStatus(Nullable<int> year, Nullable<int> month)
+        {
+            var yearParameter = year.HasValue ?
+                new ObjectParameter("year", year) :
+                new ObjectParameter("year", typeof(int));
+    
+            var monthParameter = month.HasValue ?
+                new ObjectParameter("month", month) :
+                new ObjectParameter("month", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetTotalExpensesByCategoryAndStatus_Result>("GetTotalExpensesByCategoryAndStatus", yearParameter, monthParameter);
         }
     }
 }

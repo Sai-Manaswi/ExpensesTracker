@@ -5,6 +5,66 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="ExpensesTrackerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Deposits">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CreditDate" Type="date" Nullable="false" />
+          <Property Name="Amount" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="PaymentMethodId" Type="int" />
+          <Property Name="CreditedBy" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="CreditedTo" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="255" />
+          <Property Name="CarryForwardAmount" Type="varchar" MaxLength="255" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="255" />
+          <Property Name="CreatedAt" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedBy" Type="varchar" MaxLength="255" />
+          <Property Name="UpdatedAt" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Expenses">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ExpenseDate" Type="date" Nullable="false" />
+          <Property Name="Amount" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="255" />
+          <Property Name="CategoryId" Type="int" Nullable="false" />
+          <Property Name="StatusId" Type="int" Nullable="false" />
+          <Property Name="PaymentMethodId" Type="int" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="255" />
+          <Property Name="CreatedAt" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedBy" Type="varchar" MaxLength="255" />
+          <Property Name="UpdatedAt" Type="datetime" Nullable="false" />
+          <Property Name="Photo" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LookUpDetails">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LookUpId" Type="int" />
+          <Property Name="Name" Type="varchar" MaxLength="220" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="255" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="255" />
+          <Property Name="CreatedAt" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedBy" Type="varchar" MaxLength="255" />
+          <Property Name="UpdatedAt" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Lookups">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="255" />
+          <Property Name="CreatedAt" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedBy" Type="varchar" MaxLength="255" />
+          <Property Name="UpdatedAt" Type="datetime" Nullable="false" />
+        </EntityType>
         <EntityType Name="Permissions">
           <Key>
             <PropertyRef Name="Id" />
@@ -73,6 +133,66 @@ warning 6002: The table/view 'ExpensesTracker.dbo.UserRole' does not have a prim
           <Property Name="UpdatedBy" Type="varchar" MaxLength="256" />
           <Property Name="DOB" Type="date" />
         </EntityType>
+        <Association Name="FK__Deposits__Paymen__625A9A57">
+          <End Role="LookUpDetails" Type="Self.LookUpDetails" Multiplicity="0..1" />
+          <End Role="Deposits" Type="Self.Deposits" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LookUpDetails">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Deposits">
+              <PropertyRef Name="PaymentMethodId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Expenses__Catego__5BAD9CC8">
+          <End Role="LookUpDetails" Type="Self.LookUpDetails" Multiplicity="1" />
+          <End Role="Expenses" Type="Self.Expenses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LookUpDetails">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Expenses">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Expenses__Paymen__5D95E53A">
+          <End Role="LookUpDetails" Type="Self.LookUpDetails" Multiplicity="0..1" />
+          <End Role="Expenses" Type="Self.Expenses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LookUpDetails">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Expenses">
+              <PropertyRef Name="PaymentMethodId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Expenses__Status__5CA1C101">
+          <End Role="LookUpDetails" Type="Self.LookUpDetails" Multiplicity="1" />
+          <End Role="Expenses" Type="Self.Expenses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LookUpDetails">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Expenses">
+              <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__LookUpDet__LookU__55009F39">
+          <End Role="Lookups" Type="Self.Lookups" Multiplicity="0..1" />
+          <End Role="LookUpDetails" Type="Self.LookUpDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lookups">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LookUpDetails">
+              <PropertyRef Name="LookUpId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__RolePermi__Permi__68487DD7">
           <End Role="Permissions" Type="Self.Permissions" Multiplicity="0..1" />
           <End Role="RolePermissions" Type="Self.RolePermissions" Multiplicity="*" />
@@ -121,15 +241,33 @@ warning 6002: The table/view 'ExpensesTracker.dbo.UserRole' does not have a prim
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Function Name="GetHighestExpenseCategory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+        <Function Name="GetBudgetReport" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Year" Type="int" Mode="In" />
           <Parameter Name="Month" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetMonthlyBudgetNotification" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetMonthlyReport" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Year" Type="int" Mode="In" />
+          <Parameter Name="Month" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetTotalExpensesByCategory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="year" Type="int" Mode="In" />
+          <Parameter Name="month" Type="int" Mode="In" />
+          <Parameter Name="day" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetTotalExpensesByCategoryAndStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="year" Type="int" Mode="In" />
+          <Parameter Name="month" Type="int" Mode="In" />
         </Function>
         <Function Name="GetUserPermissionsByUsername" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="UserName" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="GetUsersSP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="ExpensesTrackerModelStoreContainer">
+          <EntitySet Name="Deposits" EntityType="Self.Deposits" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Expenses" EntityType="Self.Expenses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LookUpDetails" EntityType="Self.LookUpDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Lookups" EntityType="Self.Lookups" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Permissions" EntityType="Self.Permissions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
@@ -151,6 +289,26 @@ warning 6002: The table/view 'ExpensesTracker.dbo.UserRole' does not have a prim
     [UserRole].[UpdatedAt] AS [UpdatedAt]
     FROM [dbo].[UserRole] AS [UserRole]</DefiningQuery>
           </EntitySet>
+          <AssociationSet Name="FK__Deposits__Paymen__625A9A57" Association="Self.FK__Deposits__Paymen__625A9A57">
+            <End Role="LookUpDetails" EntitySet="LookUpDetails" />
+            <End Role="Deposits" EntitySet="Deposits" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Expenses__Catego__5BAD9CC8" Association="Self.FK__Expenses__Catego__5BAD9CC8">
+            <End Role="LookUpDetails" EntitySet="LookUpDetails" />
+            <End Role="Expenses" EntitySet="Expenses" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Expenses__Paymen__5D95E53A" Association="Self.FK__Expenses__Paymen__5D95E53A">
+            <End Role="LookUpDetails" EntitySet="LookUpDetails" />
+            <End Role="Expenses" EntitySet="Expenses" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Expenses__Status__5CA1C101" Association="Self.FK__Expenses__Status__5CA1C101">
+            <End Role="LookUpDetails" EntitySet="LookUpDetails" />
+            <End Role="Expenses" EntitySet="Expenses" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LookUpDet__LookU__55009F39" Association="Self.FK__LookUpDet__LookU__55009F39">
+            <End Role="Lookups" EntitySet="Lookups" />
+            <End Role="LookUpDetails" EntitySet="LookUpDetails" />
+          </AssociationSet>
           <AssociationSet Name="FK__RolePermi__Permi__68487DD7" Association="Self.FK__RolePermi__Permi__68487DD7">
             <End Role="Permissions" EntitySet="Permissions" />
             <End Role="RolePermissions" EntitySet="RolePermissions" />
@@ -232,10 +390,6 @@ warning 6002: The table/view 'ExpensesTracker.dbo.UserRole' does not have a prim
             <End Role="Role" EntitySet="Roles" />
             <End Role="RolePermission" EntitySet="RolePermissions" />
           </AssociationSet>
-          <FunctionImport Name="GetHighestExpenseCategory" ReturnType="Collection(ExpensesTrackerModel.GetHighestExpenseCategory_Result)">
-            <Parameter Name="Year" Mode="In" Type="Int32" />
-            <Parameter Name="Month" Mode="In" Type="Int32" />
-          </FunctionImport>
           <EntitySet Name="UserRoles" EntityType="ExpensesTrackerModel.UserRole" />
           <AssociationSet Name="FK__UserRole__RoleId__6383C8BA" Association="ExpensesTrackerModel.FK__UserRole__RoleId__6383C8BA">
             <End Role="Role" EntitySet="Roles" />
@@ -246,6 +400,48 @@ warning 6002: The table/view 'ExpensesTracker.dbo.UserRole' does not have a prim
             <End Role="UserRole" EntitySet="UserRoles" />
           </AssociationSet>
           <FunctionImport Name="GetUsersSP" ReturnType="Collection(ExpensesTrackerModel.GetUsersSP_Result)" />
+          <EntitySet Name="Deposits" EntityType="ExpensesTrackerModel.Deposit" />
+          <EntitySet Name="Expenses" EntityType="ExpensesTrackerModel.Expens" />
+          <EntitySet Name="LookUpDetails" EntityType="ExpensesTrackerModel.LookUpDetail" />
+          <EntitySet Name="Lookups" EntityType="ExpensesTrackerModel.Lookup" />
+          <AssociationSet Name="FK__Deposits__Paymen__625A9A57" Association="ExpensesTrackerModel.FK__Deposits__Paymen__625A9A57">
+            <End Role="LookUpDetail" EntitySet="LookUpDetails" />
+            <End Role="Deposit" EntitySet="Deposits" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Expenses__Catego__5BAD9CC8" Association="ExpensesTrackerModel.FK__Expenses__Catego__5BAD9CC8">
+            <End Role="LookUpDetail" EntitySet="LookUpDetails" />
+            <End Role="Expens" EntitySet="Expenses" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Expenses__Paymen__5D95E53A" Association="ExpensesTrackerModel.FK__Expenses__Paymen__5D95E53A">
+            <End Role="LookUpDetail" EntitySet="LookUpDetails" />
+            <End Role="Expens" EntitySet="Expenses" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Expenses__Status__5CA1C101" Association="ExpensesTrackerModel.FK__Expenses__Status__5CA1C101">
+            <End Role="LookUpDetail" EntitySet="LookUpDetails" />
+            <End Role="Expens" EntitySet="Expenses" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LookUpDet__LookU__55009F39" Association="ExpensesTrackerModel.FK__LookUpDet__LookU__55009F39">
+            <End Role="Lookup" EntitySet="Lookups" />
+            <End Role="LookUpDetail" EntitySet="LookUpDetails" />
+          </AssociationSet>
+          <FunctionImport Name="GetBudgetReport" ReturnType="Collection(ExpensesTrackerModel.GetBudgetReport_Result)">
+            <Parameter Name="Year" Mode="In" Type="Int32" />
+            <Parameter Name="Month" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetMonthlyBudgetNotification" ReturnType="Collection(ExpensesTrackerModel.GetMonthlyBudgetNotification_Result)" />
+          <FunctionImport Name="GetMonthlyReport" ReturnType="Collection(ExpensesTrackerModel.GetMonthlyReport_Result)">
+            <Parameter Name="Year" Mode="In" Type="Int32" />
+            <Parameter Name="Month" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetTotalExpensesByCategory" ReturnType="Collection(ExpensesTrackerModel.GetTotalExpensesByCategory_Result)">
+            <Parameter Name="year" Mode="In" Type="Int32" />
+            <Parameter Name="month" Mode="In" Type="Int32" />
+            <Parameter Name="day" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetTotalExpensesByCategoryAndStatus" ReturnType="Collection(ExpensesTrackerModel.GetTotalExpensesByCategoryAndStatus_Result)">
+            <Parameter Name="year" Mode="In" Type="Int32" />
+            <Parameter Name="month" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="RolePermission">
           <Key>
@@ -283,10 +479,6 @@ warning 6002: The table/view 'ExpensesTracker.dbo.UserRole' does not have a prim
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <ComplexType Name="GetHighestExpenseCategory_Result">
-          <Property Type="String" Name="HighestCategoryName" Nullable="true" MaxLength="255" />
-          <Property Type="Int32" Name="HighestCategoryId" Nullable="true" />
-        </ComplexType>
         <EntityType Name="UserRole">
           <Key>
             <PropertyRef Name="Id" />
@@ -341,6 +533,162 @@ warning 6002: The table/view 'ExpensesTracker.dbo.UserRole' does not have a prim
           <Property Type="String" Name="UpdatedBy" Nullable="true" MaxLength="256" />
           <Property Type="String" Name="UpdatedByName" Nullable="true" MaxLength="256" />
           <Property Type="DateTime" Name="DOB" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="Deposit">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CreditDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Amount" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="PaymentMethodId" Type="Int32" />
+          <Property Name="CreditedBy" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="CreditedTo" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="CarryForwardAmount" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="UpdatedAt" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="LookUpDetail" Relationship="ExpensesTrackerModel.FK__Deposits__Paymen__625A9A57" FromRole="Deposit" ToRole="LookUpDetail" />
+        </EntityType>
+        <EntityType Name="Expens">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ExpenseDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Amount" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="CategoryId" Type="Int32" Nullable="false" />
+          <Property Name="StatusId" Type="Int32" Nullable="false" />
+          <Property Name="PaymentMethodId" Type="Int32" />
+          <Property Name="CreatedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="UpdatedAt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Photo" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="LookUpDetail" Relationship="ExpensesTrackerModel.FK__Expenses__Catego__5BAD9CC8" FromRole="Expens" ToRole="LookUpDetail" />
+          <NavigationProperty Name="LookUpDetail1" Relationship="ExpensesTrackerModel.FK__Expenses__Paymen__5D95E53A" FromRole="Expens" ToRole="LookUpDetail" />
+          <NavigationProperty Name="LookUpDetail2" Relationship="ExpensesTrackerModel.FK__Expenses__Status__5CA1C101" FromRole="Expens" ToRole="LookUpDetail" />
+        </EntityType>
+        <EntityType Name="LookUpDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LookUpId" Type="Int32" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="220" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="UpdatedAt" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Deposits" Relationship="ExpensesTrackerModel.FK__Deposits__Paymen__625A9A57" FromRole="LookUpDetail" ToRole="Deposit" />
+          <NavigationProperty Name="Expenses" Relationship="ExpensesTrackerModel.FK__Expenses__Catego__5BAD9CC8" FromRole="LookUpDetail" ToRole="Expens" />
+          <NavigationProperty Name="Expenses1" Relationship="ExpensesTrackerModel.FK__Expenses__Paymen__5D95E53A" FromRole="LookUpDetail" ToRole="Expens" />
+          <NavigationProperty Name="Expenses2" Relationship="ExpensesTrackerModel.FK__Expenses__Status__5CA1C101" FromRole="LookUpDetail" ToRole="Expens" />
+          <NavigationProperty Name="Lookup" Relationship="ExpensesTrackerModel.FK__LookUpDet__LookU__55009F39" FromRole="LookUpDetail" ToRole="Lookup" />
+        </EntityType>
+        <EntityType Name="Lookup">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="UpdatedAt" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="LookUpDetails" Relationship="ExpensesTrackerModel.FK__LookUpDet__LookU__55009F39" FromRole="Lookup" ToRole="LookUpDetail" />
+        </EntityType>
+        <Association Name="FK__Deposits__Paymen__625A9A57">
+          <End Type="ExpensesTrackerModel.LookUpDetail" Role="LookUpDetail" Multiplicity="0..1" />
+          <End Type="ExpensesTrackerModel.Deposit" Role="Deposit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LookUpDetail">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Deposit">
+              <PropertyRef Name="PaymentMethodId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Expenses__Catego__5BAD9CC8">
+          <End Type="ExpensesTrackerModel.LookUpDetail" Role="LookUpDetail" Multiplicity="1" />
+          <End Type="ExpensesTrackerModel.Expens" Role="Expens" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LookUpDetail">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Expens">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Expenses__Paymen__5D95E53A">
+          <End Type="ExpensesTrackerModel.LookUpDetail" Role="LookUpDetail" Multiplicity="0..1" />
+          <End Type="ExpensesTrackerModel.Expens" Role="Expens" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LookUpDetail">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Expens">
+              <PropertyRef Name="PaymentMethodId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Expenses__Status__5CA1C101">
+          <End Type="ExpensesTrackerModel.LookUpDetail" Role="LookUpDetail" Multiplicity="1" />
+          <End Type="ExpensesTrackerModel.Expens" Role="Expens" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LookUpDetail">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Expens">
+              <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__LookUpDet__LookU__55009F39">
+          <End Type="ExpensesTrackerModel.Lookup" Role="Lookup" Multiplicity="0..1" />
+          <End Type="ExpensesTrackerModel.LookUpDetail" Role="LookUpDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lookup">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LookUpDetail">
+              <PropertyRef Name="LookUpId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="GetBudgetReport_Result">
+          <Property Type="Decimal" Name="TotalBudget" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="CarryForwarded" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="BudgetAmount" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="TotalExpenses" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="ExtraSpent" Nullable="true" Precision="18" Scale="2" />
+        </ComplexType>
+        <ComplexType Name="GetMonthlyBudgetNotification_Result">
+          <Property Type="String" Name="Notification" Nullable="false" MaxLength="58" />
+          <Property Type="Decimal" Name="ApprovedExpenses" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="MonthlyBudget" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="RemainingBudget" Nullable="true" Precision="18" Scale="2" />
+        </ComplexType>
+        <ComplexType Name="GetMonthlyReport_Result">
+          <Property Type="Decimal" Name="TotalExpenses" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="TotalDeposits" Nullable="true" Precision="18" Scale="2" />
+        </ComplexType>
+        <ComplexType Name="GetTotalExpensesByCategory_Result">
+          <Property Type="String" Name="CategoryName" Nullable="false" MaxLength="220" />
+          <Property Type="Decimal" Name="TotalAmount" Nullable="true" Precision="38" Scale="2" />
+        </ComplexType>
+        <ComplexType Name="GetTotalExpensesByCategoryAndStatus_Result">
+          <Property Type="String" Name="CategoryName" Nullable="false" MaxLength="220" />
+          <Property Type="String" Name="StatusName" Nullable="false" MaxLength="220" />
+          <Property Type="Decimal" Name="TotalAmount" Nullable="true" Precision="38" Scale="2" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -403,14 +751,6 @@ warning 6002: The table/view 'ExpensesTracker.dbo.UserRole' does not have a prim
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="GetHighestExpenseCategory" FunctionName="ExpensesTrackerModel.Store.GetHighestExpenseCategory">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="ExpensesTrackerModel.GetHighestExpenseCategory_Result">
-                <ScalarProperty Name="HighestCategoryName" ColumnName="HighestCategoryName" />
-                <ScalarProperty Name="HighestCategoryId" ColumnName="HighestCategoryId" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <EntitySetMapping Name="UserRoles">
             <EntityTypeMapping TypeName="ExpensesTrackerModel.UserRole">
               <MappingFragment StoreEntitySet="UserRole">
@@ -440,6 +780,116 @@ warning 6002: The table/view 'ExpensesTracker.dbo.UserRole' does not have a prim
                 <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
                 <ScalarProperty Name="UpdatedByName" ColumnName="UpdatedByName" />
                 <ScalarProperty Name="DOB" ColumnName="DOB" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="Deposits">
+            <EntityTypeMapping TypeName="ExpensesTrackerModel.Deposit">
+              <MappingFragment StoreEntitySet="Deposits">
+                <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CarryForwardAmount" ColumnName="CarryForwardAmount" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="CreditedTo" ColumnName="CreditedTo" />
+                <ScalarProperty Name="CreditedBy" ColumnName="CreditedBy" />
+                <ScalarProperty Name="PaymentMethodId" ColumnName="PaymentMethodId" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="CreditDate" ColumnName="CreditDate" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Expenses">
+            <EntityTypeMapping TypeName="ExpensesTrackerModel.Expens">
+              <MappingFragment StoreEntitySet="Expenses">
+                <ScalarProperty Name="Photo" ColumnName="Photo" />
+                <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="PaymentMethodId" ColumnName="PaymentMethodId" />
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="ExpenseDate" ColumnName="ExpenseDate" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LookUpDetails">
+            <EntityTypeMapping TypeName="ExpensesTrackerModel.LookUpDetail">
+              <MappingFragment StoreEntitySet="LookUpDetails">
+                <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="LookUpId" ColumnName="LookUpId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Lookups">
+            <EntityTypeMapping TypeName="ExpensesTrackerModel.Lookup">
+              <MappingFragment StoreEntitySet="Lookups">
+                <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetBudgetReport" FunctionName="ExpensesTrackerModel.Store.GetBudgetReport">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ExpensesTrackerModel.GetBudgetReport_Result">
+                <ScalarProperty Name="TotalBudget" ColumnName="TotalBudget" />
+                <ScalarProperty Name="CarryForwarded" ColumnName="CarryForwarded" />
+                <ScalarProperty Name="BudgetAmount" ColumnName="BudgetAmount" />
+                <ScalarProperty Name="TotalExpenses" ColumnName="TotalExpenses" />
+                <ScalarProperty Name="ExtraSpent" ColumnName="ExtraSpent" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetMonthlyBudgetNotification" FunctionName="ExpensesTrackerModel.Store.GetMonthlyBudgetNotification">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ExpensesTrackerModel.GetMonthlyBudgetNotification_Result">
+                <ScalarProperty Name="Notification" ColumnName="Notification" />
+                <ScalarProperty Name="ApprovedExpenses" ColumnName="ApprovedExpenses" />
+                <ScalarProperty Name="MonthlyBudget" ColumnName="MonthlyBudget" />
+                <ScalarProperty Name="RemainingBudget" ColumnName="RemainingBudget" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetMonthlyReport" FunctionName="ExpensesTrackerModel.Store.GetMonthlyReport">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ExpensesTrackerModel.GetMonthlyReport_Result">
+                <ScalarProperty Name="TotalExpenses" ColumnName="TotalExpenses" />
+                <ScalarProperty Name="TotalDeposits" ColumnName="TotalDeposits" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetTotalExpensesByCategory" FunctionName="ExpensesTrackerModel.Store.GetTotalExpensesByCategory">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ExpensesTrackerModel.GetTotalExpensesByCategory_Result">
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+                <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetTotalExpensesByCategoryAndStatus" FunctionName="ExpensesTrackerModel.Store.GetTotalExpensesByCategoryAndStatus">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ExpensesTrackerModel.GetTotalExpensesByCategoryAndStatus_Result">
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+                <ScalarProperty Name="StatusName" ColumnName="StatusName" />
+                <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

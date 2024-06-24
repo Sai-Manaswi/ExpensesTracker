@@ -14,6 +14,15 @@
         <EntityTypeShape EntityType="ExpensesTrackerModel.UserRole" Width="1.5" PointX="3" PointY="6" />
         <AssociationConnector Association="ExpensesTrackerModel.FK__UserRole__RoleId__6383C8BA" />
         <AssociationConnector Association="ExpensesTrackerModel.FK__UserRole__UserId__628FA481" />
+        <EntityTypeShape EntityType="ExpensesTrackerModel.Deposit" Width="1.5" PointX="9.875" PointY="5.875" />
+        <EntityTypeShape EntityType="ExpensesTrackerModel.Expens" Width="1.5" PointX="9.875" PointY="1.25" />
+        <EntityTypeShape EntityType="ExpensesTrackerModel.LookUpDetail" Width="1.5" PointX="7.625" PointY="3.5" />
+        <EntityTypeShape EntityType="ExpensesTrackerModel.Lookup" Width="1.5" PointX="5.375" PointY="4" />
+        <AssociationConnector Association="ExpensesTrackerModel.FK__Deposits__Paymen__625A9A57" />
+        <AssociationConnector Association="ExpensesTrackerModel.FK__Expenses__Catego__5BAD9CC8" />
+        <AssociationConnector Association="ExpensesTrackerModel.FK__Expenses__Paymen__5D95E53A" />
+        <AssociationConnector Association="ExpensesTrackerModel.FK__Expenses__Status__5CA1C101" />
+        <AssociationConnector Association="ExpensesTrackerModel.FK__LookUpDet__LookU__55009F39" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

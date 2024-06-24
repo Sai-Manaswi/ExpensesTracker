@@ -86,6 +86,8 @@ namespace API.Controllers
                 return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
             }
         }
+        [HttpGet]
+        [Route("GetExpenses")]
 
         [HttpGet]
         [Route("api/expenses/GetAllExpenses()")]

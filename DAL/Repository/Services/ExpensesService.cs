@@ -20,6 +20,12 @@ namespace DAL.Repository.Services
             return expenses;
         }
 
+        public List<Expens> GetExpens()
+        {
+            var res=context.Expenses.ToList();
+            return res;
+        }
+
         public List<GetMonthlyBudgetNotification_Result> GetMonthlyBudgetNotification()
         {
             var expenses = context.GetMonthlyBudgetNotification().ToList();

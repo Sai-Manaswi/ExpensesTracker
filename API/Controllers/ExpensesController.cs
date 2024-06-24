@@ -59,7 +59,7 @@ namespace API.Controllers
 
         [HttpGet]
         [Route("api/expenses/GetBudgetReport")]
-        public HttpResponseMessage GetBudgetReport(int year, int month)
+        public HttpResponseMessage GetBudgetReport(int year, int? month=null)
         {
             try
             {

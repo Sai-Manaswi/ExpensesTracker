@@ -233,7 +233,42 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Function Name="DropdownRoles" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+          <Parameter Name="ExpenseDate" Type="date" Mode="In" />
+          <Parameter Name="Amount" Type="varchar" Mode="In" />
+          <Parameter Name="Description" Type="varchar" Mode="In" />
+          <Parameter Name="CategoryId" Type="int" Mode="In" />
+          <Parameter Name="StatusId" Type="int" Mode="In" />
+          <Parameter Name="PaymentMethodId" Type="int" Mode="In" />
+          <Parameter Name="CreatedBy" Type="varchar" Mode="In" />
+          <Parameter Name="Photo" Type="varchar" Mode="In" />
+        </Function>
+          <Parameter Name="ExpenseDate" Type="date" Mode="In" />
+          <Parameter Name="Amount" Type="varchar" Mode="In" />
+          <Parameter Name="Description" Type="varchar" Mode="In" />
+          <Parameter Name="CategoryId" Type="int" Mode="In" />
+          <Parameter Name="StatusId" Type="int" Mode="In" />
+          <Parameter Name="PaymentMethodId" Type="int" Mode="In" />
+          <Parameter Name="CreatedBy" Type="varchar" Mode="In" />
+          <Parameter Name="Photo" Type="varchar" Mode="In" />
+        </Function>
+          <Parameter Name="ExpenseDate" Type="date" Mode="In" />
+          <Parameter Name="Amount" Type="varchar" Mode="In" />
+          <Parameter Name="Description" Type="varchar" Mode="In" />
+          <Parameter Name="CategoryId" Type="int" Mode="In" />
+          <Parameter Name="StatusId" Type="int" Mode="In" />
+          <Parameter Name="PaymentMethodId" Type="int" Mode="In" />
+          <Parameter Name="CreatedBy" Type="varchar" Mode="In" />
+          <Parameter Name="Photo" Type="varchar" Mode="In" />
+        </Function>
+          <Parameter Name="ExpenseDate" Type="date" Mode="In" />
+          <Parameter Name="Amount" Type="varchar" Mode="In" />
+          <Parameter Name="Description" Type="varchar" Mode="In" />
+          <Parameter Name="CategoryId" Type="int" Mode="In" />
+          <Parameter Name="StatusId" Type="int" Mode="In" />
+          <Parameter Name="PaymentMethodId" Type="int" Mode="In" />
+          <Parameter Name="CreatedBy" Type="varchar" Mode="In" />
+          <Parameter Name="Photo" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="GetAllExpenses" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetBudgetReport" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Year" Type="int" Mode="In" />
@@ -259,6 +294,18 @@
           <Parameter Name="UserName" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="GetUsersSP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="usp_AddOrUpdateExpense" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ExpenseId" Type="int" Mode="In" />
+          <Parameter Name="ExpenseDate" Type="date" Mode="In" />
+          <Parameter Name="Amount" Type="varchar" Mode="In" />
+          <Parameter Name="Description" Type="varchar" Mode="In" />
+          <Parameter Name="CategoryId" Type="int" Mode="In" />
+          <Parameter Name="StatusId" Type="int" Mode="In" />
+          <Parameter Name="PaymentMethodId" Type="int" Mode="In" />
+          <Parameter Name="CreatedBy" Type="varchar" Mode="In" />
+          <Parameter Name="UpdatedBy" Type="varchar" Mode="In" />
+          <Parameter Name="Photo" Type="varchar(max)" Mode="In" />
+        </Function>
         <EntityContainer Name="ExpensesTrackerModelStoreContainer">
           <EntitySet Name="Deposits" EntityType="Self.Deposits" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Expenses" EntityType="Self.Expenses" Schema="dbo" store:Type="Tables" />
@@ -270,7 +317,7 @@
           <EntitySet Name="UserRole" EntityType="Self.UserRole" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__Deposits__Paymen__625A9A57" Association="Self.FK__Deposits__Paymen__625A9A57">
-            <End Role="LookUpDetails" EntitySet="LookUpDetails" />
+      </Schema></edmx:StorageModels>
             <End Role="Deposits" EntitySet="Deposits" />
           </AssociationSet>
           <AssociationSet Name="FK__Expenses__Catego__5BAD9CC8" Association="Self.FK__Expenses__Catego__5BAD9CC8">
@@ -600,6 +647,20 @@
           </AssociationSet>
           <AssociationSet Name="FK__UserRole__UserId__628FA481" Association="Self.FK__UserRole__UserId__628FA481">
             <End Role="Users" EntitySet="Users" />
+          <FunctionImport Name="usp_AddOrUpdateExpense" ReturnType="Collection(Decimal)">
+            <Parameter Name="ExpenseId" Mode="In" Type="Int32" />
+            <Parameter Name="ExpenseDate" Mode="In" Type="DateTime" />
+            <Parameter Name="Amount" Mode="In" Type="String" />
+            <Parameter Name="Description" Mode="In" Type="String" />
+            <Parameter Name="CategoryId" Mode="In" Type="Int32" />
+            <Parameter Name="StatusId" Mode="In" Type="Int32" />
+            <Parameter Name="PaymentMethodId" Mode="In" Type="Int32" />
+            <Parameter Name="CreatedBy" Mode="In" Type="String" />
+            <Parameter Name="UpdatedBy" Mode="In" Type="String" />
+            <Parameter Name="Photo" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetRoles" ReturnType="Collection(ExpensesTrackerModel.GetRoles_Result)" />
+          <FunctionImport Name="DropdownRoles" ReturnType="Collection(ExpensesTrackerModel.DropdownRoles_Result)" />
             <End Role="UserRole" EntitySet="UserRoles" />
           </AssociationSet>
           <FunctionImport Name="AddExpense">
@@ -636,8 +697,6 @@
           <Parameter Name="UserName" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="GetUsersSP" ReturnType="Collection(ExpensesTrackerModel.GetUsersSP_Result)" />
-          <FunctionImport Name="GetRoles" ReturnType="Collection(ExpensesTrackerModel.GetRoles_Result)" />
-          <FunctionImport Name="DropdownRoles" ReturnType="Collection(ExpensesTrackerModel.DropdownRoles_Result)" />
         </EntityContainer>
         <ComplexType Name="GetAllExpenses_Result">
           <Property Type="Int32" Name="Id" Nullable="false" />
@@ -914,6 +973,30 @@
           <FunctionImportMapping FunctionImportName="GetTotalExpensesByCategory" FunctionName="ExpensesTrackerModel.Store.GetTotalExpensesByCategory">
             <ResultMapping>
               <ComplexTypeMapping TypeName="ExpensesTrackerModel.GetTotalExpensesByCategory_Result">
+          <FunctionImportMapping FunctionImportName="usp_AddOrUpdateExpense" FunctionName="ExpensesTrackerModel.Store.usp_AddOrUpdateExpense" />
+          <FunctionImportMapping FunctionImportName="GetRoles" FunctionName="ExpensesTrackerModel.Store.GetRoles">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ExpensesTrackerModel.GetRoles_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedByName" ColumnName="CreatedByName" />
+                <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedByName" ColumnName="UpdatedByName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="DropdownRoles" FunctionName="ExpensesTrackerModel.Store.DropdownRoles">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ExpensesTrackerModel.DropdownRoles_Result">
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
                 <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
                 <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
               </ComplexTypeMapping>
@@ -947,29 +1030,6 @@
                 <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
                 <ScalarProperty Name="UpdatedByName" ColumnName="UpdatedByName" />
                 <ScalarProperty Name="DOB" ColumnName="DOB" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="GetRoles" FunctionName="ExpensesTrackerModel.Store.GetRoles">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="ExpensesTrackerModel.GetRoles_Result">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedByName" ColumnName="CreatedByName" />
-                <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="UpdatedByName" ColumnName="UpdatedByName" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="DropdownRoles" FunctionName="ExpensesTrackerModel.Store.DropdownRoles">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="ExpensesTrackerModel.DropdownRoles_Result">
-                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

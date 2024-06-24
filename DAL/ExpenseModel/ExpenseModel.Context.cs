@@ -158,5 +158,15 @@ namespace DAL.ExpenseModel
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetUsersSP_Result>("GetUsersSP");
         }
+    
+        public virtual ObjectResult<GetRoles_Result> GetRoles()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetRoles_Result>("GetRoles");
+        }
+    
+        public virtual ObjectResult<DropdownRoles_Result> DropdownRoles()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<DropdownRoles_Result>("DropdownRoles");
+        }
     }
 }

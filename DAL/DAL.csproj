@@ -111,6 +111,9 @@
     <Compile Include="ExpenseModel\Deposit.cs">
       <DependentUpon>ExpenseModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ExpenseModel\DropdownRoles_Result.cs">
+      <DependentUpon>ExpenseModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="ExpenseModel\Expens.cs">
       <DependentUpon>ExpenseModel.tt</DependentUpon>
     </Compile>
@@ -144,6 +147,9 @@
     <Compile Include="ExpenseModel\GetMonthlyReport_Result.cs">
       <DependentUpon>ExpenseModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ExpenseModel\GetRoles_Result.cs">
+      <DependentUpon>ExpenseModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="ExpenseModel\GetTotalExpensesByCategoryAndStatus_Result.cs">
       <DependentUpon>ExpenseModel.tt</DependentUpon>
     </Compile>
@@ -175,6 +181,7 @@
       <DependentUpon>ExpenseModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\Interfaces\IDeposite.cs" />
     <Compile Include="Repository\Interfaces\IExpenses.cs" />
     <Compile Include="Repository\Interfaces\ILogin.cs" />
     <Compile Include="Repository\Interfaces\IRoles.cs" />

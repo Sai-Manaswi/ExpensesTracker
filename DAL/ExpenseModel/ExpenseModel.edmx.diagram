@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="cf88e5d3e4a44e64b20ac867b23ebc06" Name="Diagram1">
+        <EntityTypeShape EntityType="ExpensesTrackerModel.Deposit" Width="1.5" PointX="5.25" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExpensesTrackerModel.Expens" Width="1.5" PointX="5.25" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExpensesTrackerModel.LookUpDetail" Width="1.5" PointX="3" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExpensesTrackerModel.Lookup" Width="1.5" PointX="0.75" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExpensesTrackerModel.Permission" Width="1.5" PointX="7.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExpensesTrackerModel.RolePermission" Width="1.5" PointX="10" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExpensesTrackerModel.Role" Width="1.5" PointX="7.75" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExpensesTrackerModel.UserRole" Width="1.5" PointX="13" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ExpensesTrackerModel.User" Width="1.5" PointX="10.75" PointY="7" IsExpanded="true" />
+        <AssociationConnector Association="ExpensesTrackerModel.FK__Deposits__Paymen__625A9A57" ManuallyRouted="false" />
+        <AssociationConnector Association="ExpensesTrackerModel.FK__Expenses__Catego__5BAD9CC8" ManuallyRouted="false" />
+        <AssociationConnector Association="ExpensesTrackerModel.FK__Expenses__Paymen__5D95E53A" ManuallyRouted="false" />
+        <AssociationConnector Association="ExpensesTrackerModel.FK__Expenses__Status__5CA1C101" ManuallyRouted="false" />
+        <AssociationConnector Association="ExpensesTrackerModel.FK__LookUpDet__LookU__55009F39" ManuallyRouted="false" />
+        <AssociationConnector Association="ExpensesTrackerModel.FK__RolePermi__Permi__68487DD7" ManuallyRouted="false" />
+        <AssociationConnector Association="ExpensesTrackerModel.FK__RolePermi__RoleI__6754599E" ManuallyRouted="false" />
+        <AssociationConnector Association="ExpensesTrackerModel.FK__UserRole__RoleId__6383C8BA" ManuallyRouted="false" />
+        <AssociationConnector Association="ExpensesTrackerModel.FK__UserRole__UserId__628FA481" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

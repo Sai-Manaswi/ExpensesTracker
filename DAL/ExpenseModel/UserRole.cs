@@ -7,16 +7,20 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DAL.Expense.edmx
+namespace DAL.ExpenseModel
 {
     using System;
+    using System.Collections.Generic;
     
-    public partial class GetBudgetReport_Result
+    public partial class UserRole
     {
-        public Nullable<decimal> TotalBudget { get; set; }
-        public Nullable<decimal> CarryForwarded { get; set; }
-        public Nullable<decimal> BudgetAmount { get; set; }
-        public Nullable<decimal> TotalExpenses { get; set; }
-        public Nullable<decimal> ExtraSpent { get; set; }
+        public int Id { get; set; }
+        public Nullable<int> UserId { get; set; }
+        public Nullable<int> RoleId { get; set; }
+        public System.DateTime CreatedAt { get; set; }
+        public System.DateTime UpdatedAt { get; set; }
+    
+        public virtual Role Role { get; set; }
+        public virtual User User { get; set; }
     }
 }

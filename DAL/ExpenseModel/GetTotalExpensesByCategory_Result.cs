@@ -7,14 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DAL.Expense.edmx
+namespace DAL.ExpenseModel
 {
     using System;
     
-    public partial class GetTotalExpensesByCategoryAndStatus_Result
+    public partial class GetTotalExpensesByCategory_Result
     {
         public string CategoryName { get; set; }
-        public string StatusName { get; set; }
         public Nullable<decimal> TotalAmount { get; set; }
     }
 }

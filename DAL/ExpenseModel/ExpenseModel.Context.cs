@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DAL.Expense.edmx
+namespace DAL.ExpenseModel
 {
     using System;
     using System.Data.Entity;
@@ -15,10 +15,10 @@ namespace DAL.Expense.edmx
     using System.Data.Entity.Core.Objects;
     using System.Linq;
     
-    public partial class ExpensesTrackerEntities1 : DbContext
+    public partial class ExpensesTrackerEntities : DbContext
     {
-        public ExpensesTrackerEntities1()
-            : base("name=ExpensesTrackerEntities1")
+        public ExpensesTrackerEntities()
+            : base("name=ExpensesTrackerEntities")
         {
         }
     
@@ -27,29 +27,56 @@ namespace DAL.Expense.edmx
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Permission> Permissions { get; set; }
-        public virtual DbSet<Role> Roles { get; set; }
-        public virtual DbSet<User> Users { get; set; }
-        public virtual DbSet<UserRole> UserRoles { get; set; }
-        public virtual DbSet<RolePermission> RolePermissions { get; set; }
-        public virtual DbSet<UserRole> UserRoles { get; set; }
         public virtual DbSet<Deposit> Deposits { get; set; }
         public virtual DbSet<Expens> Expenses { get; set; }
         public virtual DbSet<LookUpDetail> LookUpDetails { get; set; }
         public virtual DbSet<Lookup> Lookups { get; set; }
+        public virtual DbSet<Permission> Permissions { get; set; }
+        public virtual DbSet<RolePermission> RolePermissions { get; set; }
+        public virtual DbSet<Role> Roles { get; set; }
+        public virtual DbSet<UserRole> UserRoles { get; set; }
+        public virtual DbSet<User> Users { get; set; }
     
-        public virtual ObjectResult<string> GetUserPermissionsByUsername(string userName)
+        public virtual int AddExpense(Nullable<System.DateTime> expenseDate, string amount, string description, Nullable<int> categoryId, Nullable<int> statusId, Nullable<int> paymentMethodId, string createdBy, string photo)
         {
-            var userNameParameter = userName != null ?
-                new ObjectParameter("UserName", userName) :
-                new ObjectParameter("UserName", typeof(string));
+            var expenseDateParameter = expenseDate.HasValue ?
+                new ObjectParameter("ExpenseDate", expenseDate) :
+                new ObjectParameter("ExpenseDate", typeof(System.DateTime));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("GetUserPermissionsByUsername", userNameParameter);
+            var amountParameter = amount != null ?
+                new ObjectParameter("Amount", amount) :
+                new ObjectParameter("Amount", typeof(string));
+    
+            var descriptionParameter = description != null ?
+                new ObjectParameter("Description", description) :
+                new ObjectParameter("Description", typeof(string));
+    
+            var categoryIdParameter = categoryId.HasValue ?
+                new ObjectParameter("CategoryId", categoryId) :
+                new ObjectParameter("CategoryId", typeof(int));
+    
+            var statusIdParameter = statusId.HasValue ?
+                new ObjectParameter("StatusId", statusId) :
+                new ObjectParameter("StatusId", typeof(int));
+    
+            var paymentMethodIdParameter = paymentMethodId.HasValue ?
+                new ObjectParameter("PaymentMethodId", paymentMethodId) :
+                new ObjectParameter("PaymentMethodId", typeof(int));
+    
+            var createdByParameter = createdBy != null ?
+                new ObjectParameter("CreatedBy", createdBy) :
+                new ObjectParameter("CreatedBy", typeof(string));
+    
+            var photoParameter = photo != null ?
+                new ObjectParameter("Photo", photo) :
+                new ObjectParameter("Photo", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AddExpense", expenseDateParameter, amountParameter, descriptionParameter, categoryIdParameter, statusIdParameter, paymentMethodIdParameter, createdByParameter, photoParameter);
         }
     
-        public virtual ObjectResult<GetUsersSP_Result> GetUsersSP()
+        public virtual ObjectResult<GetAllExpenses_Result> GetAllExpenses()
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetUsersSP_Result>("GetUsersSP");
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAllExpenses_Result>("GetAllExpenses");
         }
     
         public virtual ObjectResult<GetBudgetReport_Result> GetBudgetReport(Nullable<int> year, Nullable<int> month)
@@ -63,6 +90,11 @@ namespace DAL.Expense.edmx
                 new ObjectParameter("Month", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetBudgetReport_Result>("GetBudgetReport", yearParameter, monthParameter);
+        }
+    
+        public virtual ObjectResult<GetHighestCategory_Result> GetHighestCategory()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetHighestCategory_Result>("GetHighestCategory");
         }
     
         public virtual ObjectResult<GetMonthlyBudgetNotification_Result> GetMonthlyBudgetNotification()
@@ -113,9 +145,18 @@ namespace DAL.Expense.edmx
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetTotalExpensesByCategoryAndStatus_Result>("GetTotalExpensesByCategoryAndStatus", yearParameter, monthParameter);
         }
     
-        public virtual ObjectResult<GetAllExpenses_Result> GetAllExpenses()
+        public virtual ObjectResult<string> GetUserPermissionsByUsername(string userName)
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAllExpenses_Result>("GetAllExpenses");
+            var userNameParameter = userName != null ?
+                new ObjectParameter("UserName", userName) :
+                new ObjectParameter("UserName", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("GetUserPermissionsByUsername", userNameParameter);
+        }
+    
+        public virtual ObjectResult<GetUsersSP_Result> GetUsersSP()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetUsersSP_Result>("GetUsersSP");
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using DAL.Expense.edmx;
+﻿using DAL.ExpenseModel;
 using DAL.Repository.Interfaces;
 using DAL.Responses;
 using System;
@@ -12,8 +12,13 @@ namespace DAL.Repository.Services
 {
     public class RoleRepository : IRoles
     {
-        ExpensesTrackerEntities1 context = new ExpensesTrackerEntities1();
+        ExpensesTrackerEntities context = new ExpensesTrackerEntities();
 
+        public List<Role> GetRoles()
+        {
+            var rse = context.Roles.ToList();
+            return rse;
+        }
         public ValueDataResponse<RoleReq> AddUpdateRole(RoleReq role)
         {
             ValueDataResponse<RoleReq> response = new ValueDataResponse<RoleReq>();

@@ -1,4 +1,4 @@
-﻿using DAL.Expense.edmx;
+﻿using DAL.ExpenseModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +11,7 @@ namespace DAL.Authentication
 {
     public class UserRepository : IDisposable
     {
-        ExpensesTrackerEntities1 context = new ExpensesTrackerEntities1();
+        ExpensesTrackerEntities context = new ExpensesTrackerEntities();
 
         public User ValidateUser(string UserName, string Password)
         {

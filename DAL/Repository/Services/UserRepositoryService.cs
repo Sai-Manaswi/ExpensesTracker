@@ -1,4 +1,4 @@
-﻿using DAL.Expense.edmx;
+﻿using DAL.ExpenseModel;
 using DAL.Repository.Interfaces;
 using DAL.Responses;
 using System;
@@ -13,7 +13,7 @@ namespace DAL.Repository.Services
 {
     public class UserRepositoryServices : IUser
     {
-        ExpensesTrackerEntities1 context = new ExpensesTrackerEntities1();
+        ExpensesTrackerEntities context = new ExpensesTrackerEntities();
 
 
         public List<GetUsersSP_Result> GetUsers()

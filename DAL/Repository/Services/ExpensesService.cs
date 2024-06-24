@@ -1,4 +1,4 @@
-﻿using DAL.Expense.edmx;
+﻿using DAL.ExpenseModel;
 using DAL.Repository.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -12,7 +12,7 @@ namespace DAL.Repository.Services
     {
 
 
-        ExpensesTrackerEntities1 context = new ExpensesTrackerEntities1();
+        ExpensesTrackerEntities context = new ExpensesTrackerEntities();
 
         public List<GetAllExpenses_Result> GetAllExpenses()
         {

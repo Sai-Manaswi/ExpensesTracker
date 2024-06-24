@@ -7,28 +7,26 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DAL.Expense.edmx
+namespace DAL.ExpenseModel
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Lookup
+    public partial class Permission
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Lookup()
+        public Permission()
         {
-            this.LookUpDetails = new HashSet<LookUpDetail>();
+            this.RolePermissions = new HashSet<RolePermission>();
         }
     
         public int Id { get; set; }
-        public string Name { get; set; }
-        public bool IsActive { get; set; }
-        public string CreatedBy { get; set; }
+        public string Activity { get; set; }
+        public string ScreenName { get; set; }
+        public string DisplayName { get; set; }
         public System.DateTime CreatedAt { get; set; }
-        public string UpdatedBy { get; set; }
-        public System.DateTime UpdatedAt { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<LookUpDetail> LookUpDetails { get; set; }
+        public virtual ICollection<RolePermission> RolePermissions { get; set; }
     }
 }

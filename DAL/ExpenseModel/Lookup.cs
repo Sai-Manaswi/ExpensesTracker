@@ -7,28 +7,28 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DAL.Expense.edmx
+namespace DAL.ExpenseModel
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Expens
+    public partial class Lookup
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Lookup()
+        {
+            this.LookUpDetails = new HashSet<LookUpDetail>();
+        }
+    
         public int Id { get; set; }
-        public System.DateTime ExpenseDate { get; set; }
-        public string Amount { get; set; }
-        public string Description { get; set; }
-        public int CategoryId { get; set; }
-        public int StatusId { get; set; }
-        public Nullable<int> PaymentMethodId { get; set; }
+        public string Name { get; set; }
+        public bool IsActive { get; set; }
         public string CreatedBy { get; set; }
         public System.DateTime CreatedAt { get; set; }
         public string UpdatedBy { get; set; }
         public System.DateTime UpdatedAt { get; set; }
-        public string Photo { get; set; }
     
-        public virtual LookUpDetail LookUpDetail { get; set; }
-        public virtual LookUpDetail LookUpDetail1 { get; set; }
-        public virtual LookUpDetail LookUpDetail2 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<LookUpDetail> LookUpDetails { get; set; }
     }
 }

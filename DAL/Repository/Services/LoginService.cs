@@ -1,4 +1,4 @@
-﻿using DAL.Expense.edmx;
+﻿using DAL.ExpenseModel;
 using DAL.Repository.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ namespace DAL.Repository.Services
 {
     public class LoginService : ILogin
     {
-        ExpensesTrackerEntities1 context = new ExpensesTrackerEntities1();
+        ExpensesTrackerEntities context = new ExpensesTrackerEntities();
 
         public bool ValidateUser(string UserName, string Password)
         {

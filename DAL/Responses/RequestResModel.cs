@@ -1,4 +1,4 @@
-﻿using DAL.Expense.edmx;
+﻿using DAL.ExpenseModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;

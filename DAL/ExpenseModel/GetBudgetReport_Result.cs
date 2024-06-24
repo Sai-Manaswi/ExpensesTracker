@@ -7,13 +7,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DAL.Expense.edmx
+namespace DAL.ExpenseModel
 {
     using System;
     
-    public partial class GetHighestExpenseCategory_Result
+    public partial class GetBudgetReport_Result
     {
-        public string HighestCategoryName { get; set; }
-        public Nullable<int> HighestCategoryId { get; set; }
+        public Nullable<decimal> TotalBudget { get; set; }
+        public Nullable<decimal> CarryForwarded { get; set; }
+        public Nullable<decimal> BudgetAmount { get; set; }
+        public Nullable<decimal> TotalExpenses { get; set; }
+        public Nullable<decimal> ExtraSpent { get; set; }
     }
 }

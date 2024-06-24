@@ -108,67 +108,70 @@
     <Compile Include="Authentication\ServiceProvider.cs" />
     <Compile Include="Authentication\UserRepository.cs" />
     <Compile Include="Class1.cs" />
-    <Compile Include="Expense.edmx\Deposit.cs">
+    <Compile Include="ExpenseModel\Deposit.cs">
       <DependentUpon>ExpenseModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Expense.edmx\Expens.cs">
+    <Compile Include="ExpenseModel\Expens.cs">
       <DependentUpon>ExpenseModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Expense.edmx\ExpenseModel.Context.cs">
+    <Compile Include="ExpenseModel\ExpenseModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ExpenseModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Expense.edmx\ExpenseModel.cs">
+    <Compile Include="ExpenseModel\ExpenseModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ExpenseModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Expense.edmx\ExpenseModel.Designer.cs">
+    <Compile Include="ExpenseModel\ExpenseModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ExpenseModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Expense.edmx\GetAllExpenses_Result.cs">
+    <Compile Include="ExpenseModel\GetAllExpenses_Result.cs">
       <DependentUpon>ExpenseModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Expense.edmx\GetBudgetReport_Result.cs">
+    <Compile Include="ExpenseModel\GetBudgetReport_Result.cs">
       <DependentUpon>ExpenseModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Expense.edmx\GetMonthlyBudgetNotification_Result.cs">
+    <Compile Include="ExpenseModel\GetHighestCategory_Result.cs">
       <DependentUpon>ExpenseModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Expense.edmx\GetMonthlyReport_Result.cs">
+    <Compile Include="ExpenseModel\GetMonthlyBudgetNotification_Result.cs">
       <DependentUpon>ExpenseModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Expense.edmx\GetTotalExpensesByCategoryAndStatus_Result.cs">
+    <Compile Include="ExpenseModel\GetMonthlyReport_Result.cs">
       <DependentUpon>ExpenseModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Expense.edmx\GetTotalExpensesByCategory_Result.cs">
+    <Compile Include="ExpenseModel\GetTotalExpensesByCategoryAndStatus_Result.cs">
       <DependentUpon>ExpenseModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Expense.edmx\GetUsersSP_Result.cs">
+    <Compile Include="ExpenseModel\GetTotalExpensesByCategory_Result.cs">
       <DependentUpon>ExpenseModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Expense.edmx\Lookup.cs">
+    <Compile Include="ExpenseModel\GetUsersSP_Result.cs">
       <DependentUpon>ExpenseModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Expense.edmx\LookUpDetail.cs">
+    <Compile Include="ExpenseModel\Lookup.cs">
       <DependentUpon>ExpenseModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Expense.edmx\Permission.cs">
+    <Compile Include="ExpenseModel\LookUpDetail.cs">
       <DependentUpon>ExpenseModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Expense.edmx\Role.cs">
+    <Compile Include="ExpenseModel\Permission.cs">
       <DependentUpon>ExpenseModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Expense.edmx\RolePermission.cs">
+    <Compile Include="ExpenseModel\Role.cs">
       <DependentUpon>ExpenseModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Expense.edmx\User.cs">
+    <Compile Include="ExpenseModel\RolePermission.cs">
       <DependentUpon>ExpenseModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Expense.edmx\UserRole.cs">
+    <Compile Include="ExpenseModel\User.cs">
+      <DependentUpon>ExpenseModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ExpenseModel\UserRole.cs">
       <DependentUpon>ExpenseModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -192,11 +195,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
-    <EntityDeploy Include="Expense.edmx\ExpenseModel.edmx">
+    <EntityDeploy Include="ExpenseModel\ExpenseModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>ExpenseModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="Expense.edmx\ExpenseModel.edmx.diagram">
+    <None Include="ExpenseModel\ExpenseModel.edmx.diagram">
       <DependentUpon>ExpenseModel.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
@@ -205,12 +208,12 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Expense.edmx\ExpenseModel.Context.tt">
+    <Content Include="ExpenseModel\ExpenseModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>ExpenseModel.edmx</DependentUpon>
       <LastGenOutput>ExpenseModel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Expense.edmx\ExpenseModel.tt">
+    <Content Include="ExpenseModel\ExpenseModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>ExpenseModel.edmx</DependentUpon>
       <LastGenOutput>ExpenseModel.cs</LastGenOutput>

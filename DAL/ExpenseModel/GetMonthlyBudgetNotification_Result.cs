@@ -7,13 +7,15 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DAL.Expense.edmx
+namespace DAL.ExpenseModel
 {
     using System;
     
-    public partial class GetTotalExpensesByCategory_Result
+    public partial class GetMonthlyBudgetNotification_Result
     {
-        public string CategoryName { get; set; }
-        public Nullable<decimal> TotalAmount { get; set; }
+        public string Notification { get; set; }
+        public Nullable<decimal> ApprovedExpenses { get; set; }
+        public Nullable<decimal> MonthlyBudget { get; set; }
+        public Nullable<decimal> RemainingBudget { get; set; }
     }
 }

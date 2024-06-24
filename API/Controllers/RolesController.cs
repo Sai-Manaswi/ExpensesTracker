@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using static DAL.Responses.RequestResModel;
 
 namespace API.Controllers
 {
@@ -22,5 +23,13 @@ namespace API.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, result);
         }
 
+        [HttpPost]
+        [Route("AddUpdateRole")]
+
+        public HttpResponseMessage AddUpdateRole(RoleReq role)
+        {
+            var result = obj.AddUpdateRole(role);
+            return Request.CreateResponse(HttpStatusCode.OK, result);
+        }
     }
 }

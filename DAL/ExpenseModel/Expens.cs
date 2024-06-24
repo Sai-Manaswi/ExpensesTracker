@@ -7,26 +7,28 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DAL.Expense.edmx
+namespace DAL.ExpenseModel
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Deposit
+    public partial class Expens
     {
         public int Id { get; set; }
-        public System.DateTime CreditDate { get; set; }
+        public System.DateTime ExpenseDate { get; set; }
         public string Amount { get; set; }
-        public Nullable<int> PaymentMethodId { get; set; }
-        public string CreditedBy { get; set; }
-        public string CreditedTo { get; set; }
         public string Description { get; set; }
-        public string CarryForwardAmount { get; set; }
+        public int CategoryId { get; set; }
+        public int StatusId { get; set; }
+        public Nullable<int> PaymentMethodId { get; set; }
         public string CreatedBy { get; set; }
         public System.DateTime CreatedAt { get; set; }
         public string UpdatedBy { get; set; }
         public System.DateTime UpdatedAt { get; set; }
+        public string Photo { get; set; }
     
         public virtual LookUpDetail LookUpDetail { get; set; }
+        public virtual LookUpDetail LookUpDetail1 { get; set; }
+        public virtual LookUpDetail LookUpDetail2 { get; set; }
     }
 }

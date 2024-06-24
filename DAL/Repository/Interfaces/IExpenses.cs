@@ -1,9 +1,11 @@
 ﻿using DAL.ExpenseModel;
+using DAL.Responses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace DAL.Repository.Interfaces
 {
@@ -14,7 +16,7 @@ namespace DAL.Repository.Interfaces
 
         List<GetMonthlyReport_Result> GetMonthlyReport(int year, int month);
 
-        List<GetBudgetReport_Result> GetBudgetReport(int year, int month);
+        List<GetBudgetReport_Result> GetBudgetReport(int year, int? month);
 
         //List<SP_GetDropdowns_Result> SP_GetDropdowns(string name);
 

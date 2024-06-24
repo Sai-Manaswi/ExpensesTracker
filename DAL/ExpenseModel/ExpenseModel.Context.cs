@@ -158,5 +158,50 @@ namespace DAL.ExpenseModel
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetUsersSP_Result>("GetUsersSP");
         }
+    
+        public virtual ObjectResult<Nullable<decimal>> usp_AddOrUpdateExpense(Nullable<int> expenseId, Nullable<System.DateTime> expenseDate, string amount, string description, Nullable<int> categoryId, Nullable<int> statusId, Nullable<int> paymentMethodId, string createdBy, string updatedBy, string photo)
+        {
+            var expenseIdParameter = expenseId.HasValue ?
+                new ObjectParameter("ExpenseId", expenseId) :
+                new ObjectParameter("ExpenseId", typeof(int));
+    
+            var expenseDateParameter = expenseDate.HasValue ?
+                new ObjectParameter("ExpenseDate", expenseDate) :
+                new ObjectParameter("ExpenseDate", typeof(System.DateTime));
+    
+            var amountParameter = amount != null ?
+                new ObjectParameter("Amount", amount) :
+                new ObjectParameter("Amount", typeof(string));
+    
+            var descriptionParameter = description != null ?
+                new ObjectParameter("Description", description) :
+                new ObjectParameter("Description", typeof(string));
+    
+            var categoryIdParameter = categoryId.HasValue ?
+                new ObjectParameter("CategoryId", categoryId) :
+                new ObjectParameter("CategoryId", typeof(int));
+    
+            var statusIdParameter = statusId.HasValue ?
+                new ObjectParameter("StatusId", statusId) :
+                new ObjectParameter("StatusId", typeof(int));
+    
+            var paymentMethodIdParameter = paymentMethodId.HasValue ?
+                new ObjectParameter("PaymentMethodId", paymentMethodId) :
+                new ObjectParameter("PaymentMethodId", typeof(int));
+    
+            var createdByParameter = createdBy != null ?
+                new ObjectParameter("CreatedBy", createdBy) :
+                new ObjectParameter("CreatedBy", typeof(string));
+    
+            var updatedByParameter = updatedBy != null ?
+                new ObjectParameter("UpdatedBy", updatedBy) :
+                new ObjectParameter("UpdatedBy", typeof(string));
+    
+            var photoParameter = photo != null ?
+                new ObjectParameter("Photo", photo) :
+                new ObjectParameter("Photo", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("usp_AddOrUpdateExpense", expenseIdParameter, expenseDateParameter, amountParameter, descriptionParameter, categoryIdParameter, statusIdParameter, paymentMethodIdParameter, createdByParameter, updatedByParameter, photoParameter);
+        }
     }
 }

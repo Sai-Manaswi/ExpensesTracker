@@ -20,8 +20,7 @@ namespace DAL.Repository.Services
             return expenses;
         }
 
-
-        public List<GetBudgetReport_Result> GetBudgetReport(int year, int month)
+        public List<GetBudgetReport_Result> GetBudgetReport(int year, int? month)
         {
             var expenses = context.GetBudgetReport(year, month).ToList();
             return expenses;
@@ -57,6 +56,9 @@ namespace DAL.Repository.Services
         //    var expenses = context.SP_GetDropdowns(name).ToList();
         //    return expenses;
         //}
+
+
+
     }
 
 }

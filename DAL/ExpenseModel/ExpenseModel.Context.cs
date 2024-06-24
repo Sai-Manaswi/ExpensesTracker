@@ -204,6 +204,11 @@ namespace DAL.ExpenseModel
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("usp_AddOrUpdateExpense", expenseIdParameter, expenseDateParameter, amountParameter, descriptionParameter, categoryIdParameter, statusIdParameter, paymentMethodIdParameter, createdByParameter, updatedByParameter, photoParameter);
         }
     
+        public virtual ObjectResult<GetDeposits_Result> GetDeposits()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetDeposits_Result>("GetDeposits");
+        }
+    
         public virtual ObjectResult<GetRoles_Result> GetRoles()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetRoles_Result>("GetRoles");

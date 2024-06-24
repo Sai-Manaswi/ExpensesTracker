@@ -274,6 +274,7 @@
           <Parameter Name="Year" Type="int" Mode="In" />
           <Parameter Name="Month" Type="int" Mode="In" />
         </Function>
+        <Function Name="GetDeposits" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetHighestCategory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetMonthlyBudgetNotification" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetMonthlyReport" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -697,6 +698,19 @@
           <Parameter Name="UserName" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="GetUsersSP" ReturnType="Collection(ExpensesTrackerModel.GetUsersSP_Result)" />
+          <FunctionImport Name="usp_AddOrUpdateExpense" ReturnType="Collection(Decimal)">
+            <Parameter Name="ExpenseId" Mode="In" Type="Int32" />
+            <Parameter Name="ExpenseDate" Mode="In" Type="DateTime" />
+            <Parameter Name="Amount" Mode="In" Type="String" />
+            <Parameter Name="Description" Mode="In" Type="String" />
+            <Parameter Name="CategoryId" Mode="In" Type="Int32" />
+            <Parameter Name="StatusId" Mode="In" Type="Int32" />
+            <Parameter Name="PaymentMethodId" Mode="In" Type="Int32" />
+            <Parameter Name="CreatedBy" Mode="In" Type="String" />
+            <Parameter Name="UpdatedBy" Mode="In" Type="String" />
+            <Parameter Name="Photo" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetDeposits" ReturnType="Collection(ExpensesTrackerModel.GetDeposits_Result)" />
         </EntityContainer>
         <ComplexType Name="GetAllExpenses_Result">
           <Property Type="Int32" Name="Id" Nullable="false" />
@@ -761,6 +775,20 @@
           <Property Type="String" Name="UpdatedBy" Nullable="true" MaxLength="256" />
           <Property Type="String" Name="UpdatedByName" Nullable="true" MaxLength="256" />
           <Property Type="DateTime" Name="DOB" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetDeposits_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="DateTime" Name="CreditDate" Nullable="false" />
+          <Property Type="String" Name="Amount" Nullable="false" MaxLength="20" />
+          <Property Type="Int32" Name="PaymentMethodId" Nullable="true" />
+          <Property Type="String" Name="CreditedBy" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="CreditedTo" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Description" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="CarryForwardAmount" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="CreatedBy" Nullable="true" MaxLength="255" />
+          <Property Type="DateTime" Name="CreatedAt" Nullable="false" Precision="23" />
+          <Property Type="String" Name="UpdatedBy" Nullable="true" MaxLength="255" />
+          <Property Type="DateTime" Name="UpdatedAt" Nullable="false" Precision="23" />
         </ComplexType>
         <ComplexType Name="GetRoles_Result">
           <Property Type="Int32" Name="Id" Nullable="false" />
@@ -1030,6 +1058,25 @@
                 <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
                 <ScalarProperty Name="UpdatedByName" ColumnName="UpdatedByName" />
                 <ScalarProperty Name="DOB" ColumnName="DOB" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_AddOrUpdateExpense" FunctionName="ExpensesTrackerModel.Store.usp_AddOrUpdateExpense" />
+          <FunctionImportMapping FunctionImportName="GetDeposits" FunctionName="ExpensesTrackerModel.Store.GetDeposits">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ExpensesTrackerModel.GetDeposits_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CreditDate" ColumnName="CreditDate" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="PaymentMethodId" ColumnName="PaymentMethodId" />
+                <ScalarProperty Name="CreditedBy" ColumnName="CreditedBy" />
+                <ScalarProperty Name="CreditedTo" ColumnName="CreditedTo" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="CarryForwardAmount" ColumnName="CarryForwardAmount" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

@@ -8,12 +8,12 @@
         <EntityTypeShape EntityType="ExpensesTrackerModel.Permission" Width="1.5" PointX="0.75" PointY="12.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ExpensesTrackerModel.Role" Width="1.5" PointX="0.75" PointY="3.5" IsExpanded="true" />
         <EntityTypeShape EntityType="ExpensesTrackerModel.User" Width="1.5" PointX="0.75" PointY="7.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="ExpensesTrackerModel.RolePermission" Width="1.5" PointX="3" PointY="10" />
-        <AssociationConnector Association="ExpensesTrackerModel.FK__RolePermi__Permi__68487DD7" />
-        <AssociationConnector Association="ExpensesTrackerModel.FK__RolePermi__RoleI__6754599E" />
         <EntityTypeShape EntityType="ExpensesTrackerModel.UserRole" Width="1.5" PointX="3" PointY="6" />
         <AssociationConnector Association="ExpensesTrackerModel.FK__UserRole__RoleId__6383C8BA" />
         <AssociationConnector Association="ExpensesTrackerModel.FK__UserRole__UserId__628FA481" />
+        <EntityTypeShape EntityType="ExpensesTrackerModel.RolePermission" Width="1.5" PointX="3" PointY="9" />
+        <AssociationConnector Association="ExpensesTrackerModel.FK__RolePermi__Permi__68487DD7" />
+        <AssociationConnector Association="ExpensesTrackerModel.FK__RolePermi__RoleI__6754599E" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

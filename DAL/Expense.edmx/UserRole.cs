@@ -19,8 +19,5 @@ namespace DAL.Expense.edmx
         public Nullable<int> RoleId { get; set; }
         public System.DateTime CreatedAt { get; set; }
         public System.DateTime UpdatedAt { get; set; }
-    
-        public virtual Role Role { get; set; }
-        public virtual User User { get; set; }
     }
 }

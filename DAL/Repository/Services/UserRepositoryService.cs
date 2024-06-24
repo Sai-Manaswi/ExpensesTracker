@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Security;
+using static DAL.Responses.RequestResModel;
 
 namespace DAL.Repository.Services
 {
@@ -19,16 +21,17 @@ namespace DAL.Repository.Services
             var res = context.GetUsersSP().ToList();
             return res;
         }
-
-        public ValueDataResponse<User> CreateUser(User user)
+        public ValueDataResponse<UserReq> CreateUser(UserReq user)
         {
-            ValueDataResponse<User> response = new ValueDataResponse<User>();
+            ValueDataResponse<UserReq> response = new ValueDataResponse<UserReq>();
 
             try
             {
                 var existingUser = context.Users.FirstOrDefault(s => s.Id == user.Id);
+
                 if (existingUser == null)
                 {
+                    // Creating a new user
                     var newUser = new User
                     {
                         FirstName = user.FirstName,
@@ -36,7 +39,7 @@ namespace DAL.Repository.Services
                         EMail = user.EMail,
                         MobileNumber = user.MobileNumber,
                         UserName = user.UserName,
-                        Password = user.Password, // Note: Handle password securely (not shown here)
+                        Password = user.Password,
                         IsActive = user.IsActive,
                         CreatedAt = user.CreatedAt,
                         CreatedBy = user.CreatedBy,
@@ -46,39 +49,130 @@ namespace DAL.Repository.Services
                     };
 
                     context.Users.Add(newUser);
+                    context.SaveChanges(); // Save changes after adding the new user
 
-                    foreach (var userRole in user.UserRoles)
+                    user.Id = newUser.Id; // Update user Id after saving changes
+
+                    // Add or update UserRoles
+                    if ( user.UserRolesReq.Count > 0)
                     {
-                        var newUserRole = new UserRole
+                        foreach (var userRoleReq in user.UserRolesReq)
                         {
-                            UserId = newUser.Id,
-                            RoleId = userRole.RoleId,
-                            CreatedAt = userRole.CreatedAt,
-                            UpdatedAt = userRole.UpdatedAt
-                        };
-                        context.UserRoles.Add(newUserRole);
+                            var userRole = new UserRole
+                            {
+                                UserId = newUser.Id, 
+                                RoleId = userRoleReq.RoleId,
+                                CreatedAt = userRoleReq.CreatedAt,
+                                UpdatedAt = userRoleReq.UpdatedAt
+                            };
+
+                            context.UserRoles.Add(userRole);
+                        }
+
+                        context.SaveChanges(); // Save changes after adding all UserRoles
+                        response.IsSuccess = true;
+                        response.EndUserMessage = "User and UserRole(s) added successfully";
                     }
-
-                    context.SaveChanges(); 
-
-                    response.IsSuccess = true;
-                    response.EndUserMessage = "User added successfully";
+                    else
+                    {
+                        response.IsSuccess = true;
+                        response.EndUserMessage = "Data failed to Add successfully";
+                    }
                 }
                 else
                 {
-                    response.IsSuccess = false;
-                    response.EndUserMessage = "User already exists";
+                    // Updating existing user
+                    existingUser.FirstName = user.FirstName;
+                    existingUser.LastName = user.LastName;
+                    existingUser.EMail = user.EMail;
+                    existingUser.MobileNumber = user.MobileNumber;
+                    existingUser.UserName = user.UserName;
+                    existingUser.Password = user.Password;
+                    existingUser.IsActive = user.IsActive;
+                    existingUser.CreatedAt = user.CreatedAt;
+                    existingUser.CreatedBy = user.CreatedBy;
+                    existingUser.UpdatedAt = user.UpdatedAt;
+                    existingUser.UpdatedBy = user.UpdatedBy;
+                    existingUser.DOB = user.DOB;
+
+                    context.SaveChanges(); // Save changes to update the existing user
+
+                    // Add or update UserRoles
+                    if (user.UserRolesReq != null && user.UserRolesReq.Count > 0)
+                    {
+                        foreach (var userRoleReq in user.UserRolesReq)
+                        {
+                            if (userRoleReq.Id > 0)
+                            {
+                                // Update existing UserRole
+                                var existingUserRole = context.UserRoles.FirstOrDefault(ur => ur.Id == userRoleReq.Id);
+                                if (existingUserRole != null)
+                                {
+                                    existingUserRole.RoleId = userRoleReq.RoleId;
+                                    existingUserRole.CreatedAt = userRoleReq.CreatedAt;
+                                    existingUserRole.UpdatedAt = userRoleReq.UpdatedAt;
+                                }
+                            }
+                          
+                        }
+
+                        context.SaveChanges(); // Save changes after all UserRole modifications
+                        response.IsSuccess = true;
+                        response.EndUserMessage = "User and UserRole(s) updated successfully";
+                    }
+                    else
+                    {
+                        response.IsSuccess = true;
+                        response.EndUserMessage = "User updated successfully";
+                    }
                 }
             }
             catch (Exception ex)
             {
                 response.IsSuccess = false;
-                response.EndUserMessage = $"An error occurred while creating the user: {ex.Message}";
+                response.EndUserMessage = $"An error occurred while creating/updating the user: {ex.Message}";
             }
 
             return response;
         }
 
+
+
+
+        public ValueDataResponse<User> Deleteuser(int id)
+
+        {
+            ValueDataResponse<User> response = new ValueDataResponse<User>();
+
+            try
+            {
+                var res = context.Users.Where(s => s.Id == id).FirstOrDefault();
+
+                if (res != null)
+                {
+                    res.IsActive = false;
+                    res.UpdatedAt = DateTime.Now;
+
+                    context.SaveChanges();
+
+                    response.IsSuccess = true;
+                    response.EndUserMessage = "Data deleted successfully";
+                }
+                else
+                {
+
+                    response.IsSuccess = false;
+                    response.EndUserMessage = "User Not Found";
+                }
+
+            }
+            catch (Exception ex)
+            {
+                response.IsSuccess = false;
+                response.EndUserMessage = "Data failed to delete:" + ex;
+            }
+            return response;
+        }
 
 
 

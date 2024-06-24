@@ -17,8 +17,8 @@ namespace DAL.Expense.edmx
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Role()
         {
-            this.RolePermissions = new HashSet<RolePermission>();
             this.UserRoles = new HashSet<UserRole>();
+            this.RolePermissions = new HashSet<RolePermission>();
         }
     
         public int Id { get; set; }
@@ -30,8 +30,8 @@ namespace DAL.Expense.edmx
         public string UpdatedBy { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<RolePermission> RolePermissions { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserRole> UserRoles { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RolePermission> RolePermissions { get; set; }
     }
 }

@@ -30,8 +30,8 @@ namespace DAL.Expense.edmx
         public virtual DbSet<Permission> Permissions { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<User> Users { get; set; }
-        public virtual DbSet<RolePermission> RolePermissions { get; set; }
         public virtual DbSet<UserRole> UserRoles { get; set; }
+        public virtual DbSet<RolePermission> RolePermissions { get; set; }
     
         public virtual ObjectResult<string> GetUserPermissionsByUsername(string userName)
         {

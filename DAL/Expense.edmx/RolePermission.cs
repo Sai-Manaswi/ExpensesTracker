@@ -19,5 +19,8 @@ namespace DAL.Expense.edmx
         public Nullable<int> PermissionId { get; set; }
         public System.DateTime CreatedAt { get; set; }
         public System.DateTime UpdatedAt { get; set; }
+    
+        public virtual Permission Permission { get; set; }
+        public virtual Role Role { get; set; }
     }
 }

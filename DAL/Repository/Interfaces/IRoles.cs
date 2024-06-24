@@ -9,16 +9,10 @@ using static DAL.Responses.RequestResModel;
 
 namespace DAL.Repository.Interfaces
 {
-    public interface IUser
+    public interface IRoles
     {
-        List<GetUsersSP_Result> GetUsers();
+        //ValueDataResponse<Role> AddRoleWithPermissions(Role role, List<int> permissionIds);
 
-        ValueDataResponse<UserReq> CreateUser(UserReq user);
-
-        ValueDataResponse<User> Deleteuser(int id);
-
-
-
-
+        ValueDataResponse<RoleReq> AddUpdateRole(RoleReq role);
     }
 }

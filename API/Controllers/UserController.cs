@@ -9,6 +9,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using static DAL.Responses.RequestResModel;
 
 namespace API.Controllers
 {
@@ -30,12 +31,18 @@ namespace API.Controllers
         [HttpPost]
         [Route("CreateUser")]
 
-        public HttpResponseMessage CreateUser(User user)
+        public HttpResponseMessage CreateUser(UserReq user)
         {
             var result = obj.CreateUser(user);
             return Request.CreateResponse(HttpStatusCode.OK, result);
         }
 
-
+        [HttpDelete]
+        [Route("Deleteuser")]
+        public HttpResponseMessage Deleteuser(int id)
+        {
+            var result = obj.Deleteuser(id);
+            return Request.CreateResponse(HttpStatusCode.OK, result);
+        }
     }
 }

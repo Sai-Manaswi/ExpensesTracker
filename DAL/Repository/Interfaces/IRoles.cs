@@ -11,6 +11,7 @@ namespace DAL.Repository.Interfaces
 {
     public interface IRoles
     {
+        List<Role> GetRoles();
         //ValueDataResponse<Role> AddRoleWithPermissions(Role role, List<int> permissionIds);
 
         ValueDataResponse<RoleReq> AddUpdateRole(RoleReq role);

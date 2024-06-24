@@ -101,13 +101,9 @@ warning 6002: The table/view 'ExpensesTracker.dbo.RolePermissions' does not have
           <Property Name="UpdatedAt" Type="datetime" />
           <Property Name="UpdatedBy" Type="varchar" MaxLength="256" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'ExpensesTracker.dbo.UserRole' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="UserRole">
           <Key>
             <PropertyRef Name="Id" />
-            <PropertyRef Name="CreatedAt" />
-            <PropertyRef Name="UpdatedAt" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserId" Type="int" />
@@ -241,6 +237,7 @@ warning 6002: The table/view 'ExpensesTracker.dbo.UserRole' does not have a prim
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="GetAllExpenses" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetBudgetReport" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Year" Type="int" Mode="In" />
           <Parameter Name="Month" Type="int" Mode="In" />
@@ -270,6 +267,7 @@ warning 6002: The table/view 'ExpensesTracker.dbo.UserRole' does not have a prim
           <EntitySet Name="Lookups" EntityType="Self.Lookups" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Permissions" EntityType="Self.Permissions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserRole" EntityType="Self.UserRole" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RolePermissions" EntityType="Self.RolePermissions" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -279,15 +277,6 @@ warning 6002: The table/view 'ExpensesTracker.dbo.UserRole' does not have a prim
     [RolePermissions].[CreatedAt] AS [CreatedAt], 
     [RolePermissions].[UpdatedAt] AS [UpdatedAt]
     FROM [dbo].[RolePermissions] AS [RolePermissions]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="UserRole" EntityType="Self.UserRole" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [UserRole].[Id] AS [Id], 
-    [UserRole].[UserId] AS [UserId], 
-    [UserRole].[RoleId] AS [RoleId], 
-    [UserRole].[CreatedAt] AS [CreatedAt], 
-    [UserRole].[UpdatedAt] AS [UpdatedAt]
-    FROM [dbo].[UserRole] AS [UserRole]</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="FK__Deposits__Paymen__625A9A57" Association="Self.FK__Deposits__Paymen__625A9A57">
             <End Role="LookUpDetails" EntitySet="LookUpDetails" />
@@ -442,6 +431,7 @@ warning 6002: The table/view 'ExpensesTracker.dbo.UserRole' does not have a prim
             <Parameter Name="year" Mode="In" Type="Int32" />
             <Parameter Name="month" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="GetAllExpenses" ReturnType="Collection(ExpensesTrackerModel.GetAllExpenses_Result)" />
         </EntityContainer>
         <EntityType Name="RolePermission">
           <Key>
@@ -690,6 +680,22 @@ warning 6002: The table/view 'ExpensesTracker.dbo.UserRole' does not have a prim
           <Property Type="String" Name="StatusName" Nullable="false" MaxLength="220" />
           <Property Type="Decimal" Name="TotalAmount" Nullable="true" Precision="38" Scale="2" />
         </ComplexType>
+        <ComplexType Name="GetAllExpenses_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="DateTime" Name="ExpenseDate" Nullable="false" />
+          <Property Type="String" Name="Amount" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="Description" Nullable="true" MaxLength="255" />
+          <Property Type="Int32" Name="CategoryId" Nullable="false" />
+          <Property Type="String" Name="CategoryName" Nullable="true" MaxLength="220" />
+          <Property Type="Int32" Name="StatusId" Nullable="false" />
+          <Property Type="String" Name="StatusName" Nullable="true" MaxLength="220" />
+          <Property Type="Int32" Name="PaymentMethodId" Nullable="true" />
+          <Property Type="String" Name="PaymentMethodName" Nullable="true" MaxLength="220" />
+          <Property Type="String" Name="CreatedBy" Nullable="true" MaxLength="255" />
+          <Property Type="DateTime" Name="CreatedAt" Nullable="false" Precision="23" />
+          <Property Type="String" Name="UpdatedBy" Nullable="true" MaxLength="255" />
+          <Property Type="DateTime" Name="UpdatedAt" Nullable="false" Precision="23" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -890,6 +896,26 @@ warning 6002: The table/view 'ExpensesTracker.dbo.UserRole' does not have a prim
                 <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
                 <ScalarProperty Name="StatusName" ColumnName="StatusName" />
                 <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetAllExpenses" FunctionName="ExpensesTrackerModel.Store.GetAllExpenses">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ExpensesTrackerModel.GetAllExpenses_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ExpenseDate" ColumnName="ExpenseDate" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="StatusName" ColumnName="StatusName" />
+                <ScalarProperty Name="PaymentMethodId" ColumnName="PaymentMethodId" />
+                <ScalarProperty Name="PaymentMethodName" ColumnName="PaymentMethodName" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

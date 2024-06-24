@@ -14,12 +14,20 @@ namespace DAL.Repository.Services
 
         ExpensesTrackerEntities1 context = new ExpensesTrackerEntities1();
 
+        public List<GetAllExpenses_Result> GetAllExpenses()
+        {
+            var expenses=context.GetAllExpenses().ToList();
+            return expenses;
+        }
+
+
         public List<GetBudgetReport_Result> GetBudgetReport(int year, int month)
         {
             var expenses = context.GetBudgetReport(year, month).ToList();
             return expenses;
         }
 
+     
         public List<GetMonthlyBudgetNotification_Result> GetMonthlyBudgetNotification()
         {
             var expenses = context.GetMonthlyBudgetNotification().ToList();

@@ -129,6 +129,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ExpenseModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Expense.edmx\GetAllExpenses_Result.cs">
+      <DependentUpon>ExpenseModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Expense.edmx\GetBudgetReport_Result.cs">
       <DependentUpon>ExpenseModel.tt</DependentUpon>
     </Compile>

@@ -111,5 +111,10 @@ namespace DAL.Expense.edmx
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetTotalExpensesByCategoryAndStatus_Result>("GetTotalExpensesByCategoryAndStatus", yearParameter, monthParameter);
         }
+    
+        public virtual ObjectResult<GetAllExpenses_Result> GetAllExpenses()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAllExpenses_Result>("GetAllExpenses");
+        }
     }
 }

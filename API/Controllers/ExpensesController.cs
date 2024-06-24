@@ -87,5 +87,19 @@ namespace API.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("api/expenses/GetAllExpenses()")]
+        public HttpResponseMessage GetAllExpenses()
+        {
+            try
+            {
+                var expenses = _expensesRepository.GetAllExpenses();
+                return Request.CreateResponse(HttpStatusCode.OK, expenses);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
     }
 }

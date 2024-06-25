@@ -15,5 +15,10 @@ namespace DAL.Repository.Services
     {
         ExpensesTrackerEntities1 context = new ExpensesTrackerEntities1();
 
+        public List<GetDeposits1_Result> GetDeposits1()
+        {
+            var expenses = context.GetDeposits1().ToList();
+            return expenses;
+        }
     }
 }

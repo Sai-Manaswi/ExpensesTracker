@@ -11,6 +11,6 @@ namespace DAL.Repository.Interfaces
     public interface IDeposit
     {
 
-
+        List<GetDeposits1_Result> GetDeposits1();
     }
 }

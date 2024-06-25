@@ -156,6 +156,9 @@
     <Compile Include="ExpenseModel\GetHighestCategory_Result.cs">
       <DependentUpon>ExpenseModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ExpenseModel\GetHighestPurchaseCategory_Result.cs">
+      <DependentUpon>ExpenseModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="ExpenseModel\GetMonthlyBudgetNotification_Result.cs">
       <DependentUpon>ExpenseModel.tt</DependentUpon>
     </Compile>

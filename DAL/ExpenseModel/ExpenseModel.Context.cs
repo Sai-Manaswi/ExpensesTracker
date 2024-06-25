@@ -236,5 +236,10 @@ namespace DAL.ExpenseModel
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_GetDropdowns_Result>("SP_GetDropdowns", nameParameter);
         }
+    
+        public virtual ObjectResult<GetHighestPurchaseCategory_Result> GetHighestPurchaseCategory()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetHighestPurchaseCategory_Result>("GetHighestPurchaseCategory");
+        }
     }
 }

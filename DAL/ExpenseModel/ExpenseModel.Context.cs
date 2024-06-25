@@ -15,10 +15,10 @@ namespace DAL.ExpenseModel
     using System.Data.Entity.Core.Objects;
     using System.Linq;
     
-    public partial class ExpensesTrackerEntities : DbContext
+    public partial class ExpensesTrackerEntities1 : DbContext
     {
-        public ExpensesTrackerEntities()
-            : base("name=ExpensesTrackerEntities")
+        public ExpensesTrackerEntities1()
+            : base("name=ExpensesTrackerEntities1")
         {
         }
     
@@ -37,41 +37,14 @@ namespace DAL.ExpenseModel
         public virtual DbSet<UserRole> UserRoles { get; set; }
         public virtual DbSet<User> Users { get; set; }
     
-        public virtual int AddExpense(Nullable<System.DateTime> expenseDate, string amount, string description, Nullable<int> categoryId, Nullable<int> statusId, Nullable<int> paymentMethodId, string createdBy, string photo)
+        public virtual ObjectResult<DropdownRoles_Result> DropdownRoles()
         {
-            var expenseDateParameter = expenseDate.HasValue ?
-                new ObjectParameter("ExpenseDate", expenseDate) :
-                new ObjectParameter("ExpenseDate", typeof(System.DateTime));
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<DropdownRoles_Result>("DropdownRoles");
+        }
     
-            var amountParameter = amount != null ?
-                new ObjectParameter("Amount", amount) :
-                new ObjectParameter("Amount", typeof(string));
-    
-            var descriptionParameter = description != null ?
-                new ObjectParameter("Description", description) :
-                new ObjectParameter("Description", typeof(string));
-    
-            var categoryIdParameter = categoryId.HasValue ?
-                new ObjectParameter("CategoryId", categoryId) :
-                new ObjectParameter("CategoryId", typeof(int));
-    
-            var statusIdParameter = statusId.HasValue ?
-                new ObjectParameter("StatusId", statusId) :
-                new ObjectParameter("StatusId", typeof(int));
-    
-            var paymentMethodIdParameter = paymentMethodId.HasValue ?
-                new ObjectParameter("PaymentMethodId", paymentMethodId) :
-                new ObjectParameter("PaymentMethodId", typeof(int));
-    
-            var createdByParameter = createdBy != null ?
-                new ObjectParameter("CreatedBy", createdBy) :
-                new ObjectParameter("CreatedBy", typeof(string));
-    
-            var photoParameter = photo != null ?
-                new ObjectParameter("Photo", photo) :
-                new ObjectParameter("Photo", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AddExpense", expenseDateParameter, amountParameter, descriptionParameter, categoryIdParameter, statusIdParameter, paymentMethodIdParameter, createdByParameter, photoParameter);
+        public virtual ObjectResult<GetAllDeposits_Result> GetAllDeposits()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAllDeposits_Result>("GetAllDeposits");
         }
     
         public virtual ObjectResult<GetAllExpenses_Result> GetAllExpenses()
@@ -90,6 +63,24 @@ namespace DAL.ExpenseModel
                 new ObjectParameter("Month", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetBudgetReport_Result>("GetBudgetReport", yearParameter, monthParameter);
+        }
+    
+        public virtual ObjectResult<GetBudgetReports_Result> GetBudgetReports(Nullable<int> year, Nullable<int> month)
+        {
+            var yearParameter = year.HasValue ?
+                new ObjectParameter("Year", year) :
+                new ObjectParameter("Year", typeof(int));
+    
+            var monthParameter = month.HasValue ?
+                new ObjectParameter("Month", month) :
+                new ObjectParameter("Month", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetBudgetReports_Result>("GetBudgetReports", yearParameter, monthParameter);
+        }
+    
+        public virtual ObjectResult<GetDeposits_Result> GetDeposits()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetDeposits_Result>("GetDeposits");
         }
     
         public virtual ObjectResult<GetHighestCategory_Result> GetHighestCategory()
@@ -113,6 +104,11 @@ namespace DAL.ExpenseModel
                 new ObjectParameter("Month", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetMonthlyReport_Result>("GetMonthlyReport", yearParameter, monthParameter);
+        }
+    
+        public virtual ObjectResult<GetRoles_Result> GetRoles()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetRoles_Result>("GetRoles");
         }
     
         public virtual ObjectResult<GetTotalExpensesByCategory_Result> GetTotalExpensesByCategory(Nullable<int> year, Nullable<int> month, Nullable<int> day)

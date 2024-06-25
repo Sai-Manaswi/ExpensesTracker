@@ -11,19 +11,16 @@ namespace DAL.ExpenseModel
 {
     using System;
     
-    public partial class GetDeposits_Result
+    public partial class GetRoles_Result
     {
         public int Id { get; set; }
-        public System.DateTime CreditDate { get; set; }
-        public string Amount { get; set; }
-        public string PaymentMethodName { get; set; }
-        public string CreditedBy { get; set; }
-        public string CreditedTo { get; set; }
-        public string Description { get; set; }
-        public string CarryForwardAmount { get; set; }
-        public string CreatedBy { get; set; }
+        public string Name { get; set; }
+        public bool IsActive { get; set; }
         public System.DateTime CreatedAt { get; set; }
+        public string CreatedBy { get; set; }
+        public string CreatedByName { get; set; }
+        public Nullable<System.DateTime> UpdatedAt { get; set; }
         public string UpdatedBy { get; set; }
-        public System.DateTime UpdatedAt { get; set; }
+        public string UpdatedByName { get; set; }
     }
 }

@@ -12,13 +12,29 @@ namespace DAL.Repository.Services
 {
     public class RoleRepository : IRoles
     {
-        ExpensesTrackerEntities context = new ExpensesTrackerEntities();
+        ExpensesTrackerEntities1 context = new ExpensesTrackerEntities1();
 
         public List<Role> GetRoles()
         {
             var rse = context.Roles.ToList();
             return rse;
         }
+
+
+
+        public  List<GetRoles_Result> GetAllRolesSP()
+        {
+            var result = context.GetRoles().ToList();
+            return result;
+        }
+
+
+        public List<DropdownRoles_Result> DropdownRoles()
+        {
+            var result = context.DropdownRoles().ToList();
+            return result;
+        }
+
         public ValueDataResponse<RoleReq> AddUpdateRole(RoleReq role)
         {
             ValueDataResponse<RoleReq> response = new ValueDataResponse<RoleReq>();

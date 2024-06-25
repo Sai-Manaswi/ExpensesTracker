@@ -13,7 +13,7 @@ namespace DAL.Repository.Services
     public class DepositService : IDeposit
 
     {
-        ExpensesTrackerEntities context = new ExpensesTrackerEntities();
+        ExpensesTrackerEntities1 context = new ExpensesTrackerEntities1();
 
 
         public List<GetAllDeposits_Result> GetAllDeposits()

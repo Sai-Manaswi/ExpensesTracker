@@ -12,7 +12,7 @@ namespace API.Controllers
 {
     public class RolesController : ApiController
     {
-        IRoles obj = new RoleService();
+        IRoles obj = new RoleRepository();
 
         [HttpGet]
         [Route("GetRoles")]
@@ -20,6 +20,28 @@ namespace API.Controllers
         public HttpResponseMessage GetUsers()
         {
             var result = obj.GetRoles();
+            return Request.CreateResponse(HttpStatusCode.OK, result);
+        }
+
+ 
+
+        [HttpGet]
+        [Route("GetAllRolesSP")]
+
+        public HttpResponseMessage GetAllRolesSP()
+        {
+            var result = obj.GetAllRolesSP();
+            return Request.CreateResponse(HttpStatusCode.OK, result);
+        }
+
+        
+
+        [HttpGet]
+        [Route("DropdownRoles")]
+
+        public HttpResponseMessage DropdownRoles()
+        {
+            var result = obj.DropdownRoles();
             return Request.CreateResponse(HttpStatusCode.OK, result);
         }
 

@@ -1,4 +1,5 @@
 ﻿using DAL.ExpenseModel;
+using DAL.Responses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,8 @@ namespace DAL.Repository.Interfaces
 {
     public interface IDeposit
     {
-        List<GetDeposits_Result> GetDeposits();
+
+        List<GetAllDeposits_Result> GetAllDeposits();
 
     }
 }

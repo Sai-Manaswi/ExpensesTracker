@@ -208,5 +208,30 @@ namespace DAL.ExpenseModel
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetDeposits_Result>("GetDeposits");
         }
+    
+        public virtual ObjectResult<GetAllDeposits_Result> GetAllDeposits()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAllDeposits_Result>("GetAllDeposits");
+        }
+    
+        public virtual ObjectResult<SP_GetDropdowns_Result> SP_GetDropdowns(string name)
+        {
+            var nameParameter = name != null ?
+                new ObjectParameter("Name", name) :
+                new ObjectParameter("Name", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_GetDropdowns_Result>("SP_GetDropdowns", nameParameter);
+        }
+    
+        public virtual ObjectResult<GetHighestCategoryPurchased_Result> GetHighestCategoryPurchased(string periodType)
+        {
+            var periodTypeParameter = periodType != null ?
+                new ObjectParameter("PeriodType", periodType) :
+                new ObjectParameter("PeriodType", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetHighestCategoryPurchased_Result>("GetHighestCategoryPurchased", periodTypeParameter);
+        }
+    
+        
     }
 }

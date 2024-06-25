@@ -1,11 +1,14 @@
-﻿using DAL.Repository.Interfaces;
+﻿using DAL.ExpenseModel;
+using DAL.Repository.Interfaces;
 using DAL.Repository.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
+using System.Xml.Linq;
 
 namespace API.Controllers
 {
@@ -59,7 +62,7 @@ namespace API.Controllers
 
         [HttpGet]
         [Route("api/expenses/GetBudgetReport")]
-        public HttpResponseMessage GetBudgetReport(int year, int? month=null)
+        public HttpResponseMessage GetBudgetReport(int year, int? month = null)
         {
             try
             {
@@ -86,7 +89,7 @@ namespace API.Controllers
                 return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
             }
         }
-        
+
 
         [HttpGet]
         [Route("api/expenses/GetAllExpenses()")]
@@ -102,5 +105,21 @@ namespace API.Controllers
                 return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
             }
         }
+
+        [HttpGet]
+        [Route("api/expenses/GetDropdowns()")]
+        public HttpResponseMessage SP_GetDropdowns(string name)
+        {
+            try
+            {
+                var expenses = _expensesRepository.SP_GetDropdowns(name);
+                return Request.CreateResponse(HttpStatusCode.OK, expenses);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+       
     }
 }

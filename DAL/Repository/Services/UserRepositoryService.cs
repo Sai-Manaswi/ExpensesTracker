@@ -27,6 +27,32 @@ namespace DAL.Repository.Services
 
             try
             {
+                var existingMobileNumber = context.Users.Where(c => c.MobileNumber == user.MobileNumber && c.Id != user.Id).FirstOrDefault();
+                if (existingMobileNumber != null)
+                {
+                    response.IsSuccess = false;
+                    response.EndUserMessage = "Contact number has already existed for another candidate.";
+                    return response;
+                }
+
+                var existingEmail = context.Users.FirstOrDefault(c => c.EMail == user.EMail && c.Id != user.Id);
+
+                if (existingEmail != null)
+                {
+                    response.IsSuccess = false;
+                    response.EndUserMessage = "Email address has already existed for another candidate.";
+                    return response;
+                }
+
+
+                var existingNumberEmail = context.Users.FirstOrDefault(c => c.MobileNumber == user.MobileNumber && c.EMail == user.EMail && c.Id != user.Id);
+
+                if (existingNumberEmail != null)
+                {
+                    response.IsSuccess = false;
+                    response.EndUserMessage = "Number and Email address has already existed for another candidate.";
+                    return response;
+                }
                 var existingUser = context.Users.FirstOrDefault(s => s.Id == user.Id);
 
                 if (existingUser == null)

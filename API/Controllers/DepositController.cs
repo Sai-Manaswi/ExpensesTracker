@@ -19,7 +19,7 @@ namespace API.Controllers
         {
             try
             {
-                var expenses = _depositRepository.GetDeposits();
+                var expenses = _depositRepository.GetAllDeposits();
                 return Request.CreateResponse(HttpStatusCode.OK, expenses);
             }
             catch (Exception ex)

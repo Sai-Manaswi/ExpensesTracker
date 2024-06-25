@@ -1,5 +1,6 @@
 ﻿using DAL.ExpenseModel;
 using DAL.Repository.Interfaces;
+using DAL.Responses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,10 +15,11 @@ namespace DAL.Repository.Services
     {
         ExpensesTrackerEntities context = new ExpensesTrackerEntities();
 
-        public List<GetDeposits_Result> GetDeposits()
+
+        public List<GetAllDeposits_Result> GetAllDeposits()
         {
-            var deposit = context.GetDeposits().ToList();
-            return deposit;
+            var deposits = context.GetAllDeposits().ToList();
+            return deposits;
         }
     }
 }

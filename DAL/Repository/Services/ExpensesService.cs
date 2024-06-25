@@ -26,7 +26,7 @@ namespace DAL.Repository.Services
             return expenses;
         }
 
-     
+
         public List<GetMonthlyBudgetNotification_Result> GetMonthlyBudgetNotification()
         {
             var expenses = context.GetMonthlyBudgetNotification().ToList();
@@ -51,11 +51,11 @@ namespace DAL.Repository.Services
             return expenses;
         }
 
-        //public List<SP_GetDropdowns_Result> SP_GetDropdowns(string name)
-        //{
-        //    var expenses = context.SP_GetDropdowns(name).ToList();
-        //    return expenses;
-        //}
+        public List<SP_GetDropdowns_Result> SP_GetDropdowns(string name)
+        {
+            var expenses = context.SP_GetDropdowns(name).ToList();
+            return expenses;
+        }
 
 
 

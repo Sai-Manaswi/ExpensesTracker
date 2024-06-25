@@ -18,10 +18,12 @@ namespace DAL.Repository.Interfaces
 
         List<GetBudgetReport_Result> GetBudgetReport(int year, int? month);
 
-        //List<SP_GetDropdowns_Result> SP_GetDropdowns(string name);
+        List<SP_GetDropdowns_Result> SP_GetDropdowns(string name);
 
         List<GetMonthlyBudgetNotification_Result> GetMonthlyBudgetNotification();
         List<GetAllExpenses_Result> GetAllExpenses();
+
+
 
     }
 }

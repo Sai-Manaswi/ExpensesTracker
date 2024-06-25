@@ -67,9 +67,9 @@ namespace DAL.Repository.Services
                         UserName = user.UserName,
                         Password = user.Password,
                         IsActive = user.IsActive,
-                        CreatedAt = user.CreatedAt,
+                        CreatedAt = DateTime.Now,
                         CreatedBy = user.CreatedBy,
-                        UpdatedAt = user.UpdatedAt,
+                        UpdatedAt = DateTime.Now,
                         UpdatedBy = user.UpdatedBy,
                         DOB = user.DOB
                     };
@@ -88,8 +88,8 @@ namespace DAL.Repository.Services
                             {
                                 UserId = newUser.Id, 
                                 RoleId = userRoleReq.RoleId,
-                                CreatedAt = userRoleReq.CreatedAt,
-                                UpdatedAt = userRoleReq.UpdatedAt
+                                CreatedAt = DateTime.Now,
+                                UpdatedAt = DateTime.Now
                             };
 
                             context.UserRoles.Add(userRole);
@@ -115,9 +115,9 @@ namespace DAL.Repository.Services
                     existingUser.UserName = user.UserName;
                     existingUser.Password = user.Password;
                     existingUser.IsActive = user.IsActive;
-                    existingUser.CreatedAt = user.CreatedAt;
+                    existingUser.CreatedAt = existingUser.CreatedAt;
                     existingUser.CreatedBy = user.CreatedBy;
-                    existingUser.UpdatedAt = user.UpdatedAt;
+                    existingUser.UpdatedAt = DateTime.Now;
                     existingUser.UpdatedBy = user.UpdatedBy;
                     existingUser.DOB = user.DOB;
 
@@ -135,8 +135,8 @@ namespace DAL.Repository.Services
                                 if (existingUserRole != null)
                                 {
                                     existingUserRole.RoleId = userRoleReq.RoleId;
-                                    existingUserRole.CreatedAt = userRoleReq.CreatedAt;
-                                    existingUserRole.UpdatedAt = userRoleReq.UpdatedAt;
+                                    existingUserRole.CreatedAt = existingUserRole.CreatedAt;
+                                    existingUserRole.UpdatedAt =DateTime.Now;
                                 }
                             }
                           

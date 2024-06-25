@@ -11,7 +11,7 @@ namespace DAL.ExpenseModel
 {
     using System;
     
-    public partial class GetDeposits_Result
+    public partial class GetAllDeposits_Result
     {
         public int Id { get; set; }
         public System.DateTime CreditDate { get; set; }

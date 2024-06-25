@@ -11,7 +11,7 @@ namespace DAL.Authentication
 {
     public class UserRepository : IDisposable
     {
-        ExpensesTrackerEntities context = new ExpensesTrackerEntities();
+        ExpensesTrackerEntities1 context = new ExpensesTrackerEntities1();
 
         public User ValidateUser(string UserName, string Password)
         {

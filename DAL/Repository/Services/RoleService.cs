@@ -12,7 +12,7 @@ namespace DAL.Repository.Services
 {
     public class RoleService
     {
-        ExpensesTrackerEntities context = new ExpensesTrackerEntities();
+        ExpensesTrackerEntities1 context = new ExpensesTrackerEntities1();
 
         //public List<Role> GetRoles()
         //{

@@ -14,7 +14,7 @@ namespace API.Controllers
         IDeposit _depositRepository = new DepositService();
 
         [HttpGet]
-        [Route("api/expenses/GetAllDeposits()")]
+        [Route("api/expenses/GetAllDeposits")]
         public HttpResponseMessage GetAllExpenses()
         {
             try

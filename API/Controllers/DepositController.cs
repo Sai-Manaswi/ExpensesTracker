@@ -13,19 +13,6 @@ namespace API.Controllers
     {
         IDeposit _depositRepository = new DepositService();
 
-        [HttpGet]
-        [Route("api/expenses/GetAllDeposits")]
-        public HttpResponseMessage GetAllExpenses()
-        {
-            try
-            {
-                var expenses = _depositRepository.GetAllDeposits();
-                return Request.CreateResponse(HttpStatusCode.OK, expenses);
-            }
-            catch (Exception ex)
-            {
-                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
-            }
-        }
+ 
     }
 }

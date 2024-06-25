@@ -76,7 +76,7 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        [Route("api/expenses/GetMonthlyBudgetNotification()")]
+        [Route("api/expenses/GetMonthlyBudgetNotification")]
         public HttpResponseMessage GetMonthlyBudgetNotification()
         {
             try
@@ -92,7 +92,7 @@ namespace API.Controllers
 
 
         [HttpGet]
-        [Route("api/expenses/GetAllExpenses()")]
+        [Route("api/expenses/GetAllExpenses")]
         public HttpResponseMessage GetAllExpenses()
         {
             try
@@ -120,6 +120,16 @@ namespace API.Controllers
         //        return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
         //    }
         //}
-       
+
+        [HttpPost]
+        [Route("api/expenses/AddupdateExpenses")]
+
+
+        public HttpResponseMessage AddupdateExpenses(Expens req)
+        {
+            var result = _expensesRepository.AddupdateExpenses(req);
+            return Request.CreateResponse(HttpStatusCode.OK, result);
+        }
+
     }
 }

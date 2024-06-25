@@ -22,7 +22,7 @@ namespace DAL.Repository.Interfaces
         List<GetMonthlyBudgetNotification_Result> GetMonthlyBudgetNotification();
         List<GetAllExpenses_Result> GetAllExpenses();
 
-
+        ValueDataResponse<Expens> AddupdateExpenses(Expens req);
 
     }
 }

@@ -33,7 +33,7 @@ namespace API.Controllers
         [HttpPost]
         [Route("api/expenses/AddupdateDeposite")]
 
-        public HttpResponseMessage AddupdateDeposite(Deposit deposit)
+        public HttpResponseMessage  AddupdateDeposite(Deposit deposit)
         {
             var result = _depositRepository.AddupdateDeposite(deposit);
             return Request.CreateResponse(HttpStatusCode.OK, result);

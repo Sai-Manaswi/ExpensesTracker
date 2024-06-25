@@ -42,7 +42,11 @@ namespace DAL.ExpenseModel
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<DropdownRoles_Result>("DropdownRoles");
         }
     
-     
+        public virtual ObjectResult<GetAllDeposits_Result> GetAllDeposits()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAllDeposits_Result>("GetAllDeposits");
+        }
+    
         public virtual ObjectResult<GetAllExpenses_Result> GetAllExpenses()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAllExpenses_Result>("GetAllExpenses");
@@ -74,7 +78,10 @@ namespace DAL.ExpenseModel
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetBudgetReports_Result>("GetBudgetReports", yearParameter, monthParameter);
         }
     
-    
+        public virtual ObjectResult<GetDeposits_Result> GetDeposits()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetDeposits_Result>("GetDeposits");
+        }
     
         public virtual ObjectResult<GetHighestCategory_Result> GetHighestCategory()
         {
@@ -193,6 +200,10 @@ namespace DAL.ExpenseModel
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("usp_AddOrUpdateExpense", expenseIdParameter, expenseDateParameter, amountParameter, descriptionParameter, categoryIdParameter, statusIdParameter, paymentMethodIdParameter, createdByParameter, updatedByParameter, photoParameter);
         }
     
+        public virtual ObjectResult<GetAllDeposits1_Result> GetAllDeposits1()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAllDeposits1_Result>("GetAllDeposits1");
+        }
     
         public virtual ObjectResult<SP_GetLookUpDropdowns_Result> SP_GetLookUpDropdowns(string name)
         {
@@ -201,6 +212,20 @@ namespace DAL.ExpenseModel
                 new ObjectParameter("Name", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_GetLookUpDropdowns_Result>("SP_GetLookUpDropdowns", nameParameter);
+        }
+    
+        public virtual ObjectResult<SP_GetLookupwithDetails_Result> SP_GetLookupwithDetails(Nullable<bool> p_IsActive)
+        {
+            var p_IsActiveParameter = p_IsActive.HasValue ?
+                new ObjectParameter("P_IsActive", p_IsActive) :
+                new ObjectParameter("P_IsActive", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_GetLookupwithDetails_Result>("SP_GetLookupwithDetails", p_IsActiveParameter);
+        }
+    
+        public virtual ObjectResult<GetDeposits1_Result> GetDeposits1()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetDeposits1_Result>("GetDeposits1");
         }
     }
 }

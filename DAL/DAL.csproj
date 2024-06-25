@@ -132,6 +132,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ExpenseModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="ExpenseModel\GetAllDeposits1_Result.cs">
+      <DependentUpon>ExpenseModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ExpenseModel\GetAllDeposits_Result.cs">
+      <DependentUpon>ExpenseModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="ExpenseModel\GetAllExpenses_Result.cs">
       <DependentUpon>ExpenseModel.tt</DependentUpon>
     </Compile>
@@ -139,6 +145,12 @@
       <DependentUpon>ExpenseModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ExpenseModel\GetBudgetReport_Result.cs">
+      <DependentUpon>ExpenseModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ExpenseModel\GetDeposits1_Result.cs">
+      <DependentUpon>ExpenseModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ExpenseModel\GetDeposits_Result.cs">
       <DependentUpon>ExpenseModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ExpenseModel\GetHighestCategory_Result.cs">
@@ -180,6 +192,9 @@
     <Compile Include="ExpenseModel\SP_GetLookUpDropdowns_Result.cs">
       <DependentUpon>ExpenseModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ExpenseModel\SP_GetLookupwithDetails_Result.cs">
+      <DependentUpon>ExpenseModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="ExpenseModel\User.cs">
       <DependentUpon>ExpenseModel.tt</DependentUpon>
     </Compile>
@@ -190,11 +205,13 @@
     <Compile Include="Repository\Interfaces\IDeposit.cs" />
     <Compile Include="Repository\Interfaces\IExpenses.cs" />
     <Compile Include="Repository\Interfaces\ILogin.cs" />
+    <Compile Include="Repository\Interfaces\ILookup.cs" />
     <Compile Include="Repository\Interfaces\IRoles.cs" />
     <Compile Include="Repository\Interfaces\IUser.cs" />
     <Compile Include="Repository\Services\DepositService.cs" />
     <Compile Include="Repository\Services\ExpensesService.cs" />
     <Compile Include="Repository\Services\LoginService.cs" />
+    <Compile Include="Repository\Services\LookupService.cs" />
     <Compile Include="Repository\Services\RoleService.cs" />
     <Compile Include="Repository\Services\RoleRepository.cs" />
     <Compile Include="Repository\Services\UserRepositoryService.cs" />

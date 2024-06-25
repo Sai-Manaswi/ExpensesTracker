@@ -12,10 +12,17 @@ namespace DAL.Repository.Services
     {
         ExpensesTrackerEntities1 context = new ExpensesTrackerEntities1();
 
+        public List<SP_GetLookUpDropdowns_Result> SP_GetLookUpDropdowns(string name)
+        {
+            var lookup=context.SP_GetLookUpDropdowns(name).ToList();
+            return lookup;
+        }
+
         public List<SP_GetLookupwithDetails_Result> SP_GetLookupwithDetails(bool pIsActive)
         {
             var lookup = context.SP_GetLookupwithDetails(pIsActive).ToList();
             return lookup;
         }
+
     }
 }

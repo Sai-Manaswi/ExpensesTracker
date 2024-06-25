@@ -12,5 +12,9 @@ namespace DAL.Repository.Interfaces
     {
 
         List<GetDeposits1_Result> GetDeposits1();
+
+        ValueDataResponse<Deposit> AddupdateDeposite(Deposit deposit);
+
+
     }
 }

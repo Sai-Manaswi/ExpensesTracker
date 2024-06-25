@@ -227,5 +227,14 @@ namespace DAL.ExpenseModel
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetDeposits1_Result>("GetDeposits1");
         }
+    
+        public virtual ObjectResult<SP_GetDropdowns_Result> SP_GetDropdowns(string name)
+        {
+            var nameParameter = name != null ?
+                new ObjectParameter("Name", name) :
+                new ObjectParameter("Name", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_GetDropdowns_Result>("SP_GetDropdowns", nameParameter);
+        }
     }
 }

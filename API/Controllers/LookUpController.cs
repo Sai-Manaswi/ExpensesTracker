@@ -27,5 +27,20 @@ namespace API.Controllers
                 return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
             }
         }
+
+        [HttpGet]
+        [Route("api/expenses/GetLookUpDropdown")]
+        public HttpResponseMessage SP_GetLookUpDropdowns(string name)
+        {
+            try
+            {
+                var expenses = _lookupRepository.SP_GetLookUpDropdowns(name);
+                return Request.CreateResponse(HttpStatusCode.OK, expenses);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
     }
 }

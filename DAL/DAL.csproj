@@ -189,6 +189,9 @@
     <Compile Include="ExpenseModel\RolePermission.cs">
       <DependentUpon>ExpenseModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ExpenseModel\SP_GetDropdowns_Result.cs">
+      <DependentUpon>ExpenseModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="ExpenseModel\SP_GetLookUpDropdowns_Result.cs">
       <DependentUpon>ExpenseModel.tt</DependentUpon>
     </Compile>

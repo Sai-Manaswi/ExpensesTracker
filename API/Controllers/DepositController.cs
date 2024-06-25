@@ -1,4 +1,5 @@
-﻿using DAL.Repository.Interfaces;
+﻿using DAL.ExpenseModel;
+using DAL.Repository.Interfaces;
 using DAL.Repository.Services;
 using System;
 using System.Collections.Generic;
@@ -27,6 +28,15 @@ namespace API.Controllers
             {
                 return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
             }
+        }
+
+        [HttpPost]
+        [Route("api/expenses/AddupdateDeposite")]
+
+        public HttpResponseMessage AddupdateDeposite(Deposit deposit)
+        {
+            var result = _depositRepository.AddupdateDeposite(deposit);
+            return Request.CreateResponse(HttpStatusCode.OK, result);
         }
 
     }

@@ -26,7 +26,5 @@ namespace DAL.ExpenseModel
         public System.DateTime CreatedAt { get; set; }
         public string UpdatedBy { get; set; }
         public System.DateTime UpdatedAt { get; set; }
-    
-        public virtual LookUpDetail LookUpDetail { get; set; }
     }
 }

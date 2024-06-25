@@ -14,13 +14,6 @@ namespace DAL.ExpenseModel
     
     public partial class Role
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Role()
-        {
-            this.RolePermissions = new HashSet<RolePermission>();
-            this.UserRoles = new HashSet<UserRole>();
-        }
-    
         public int Id { get; set; }
         public string Name { get; set; }
         public bool IsActive { get; set; }
@@ -28,10 +21,5 @@ namespace DAL.ExpenseModel
         public string CreatedBy { get; set; }
         public Nullable<System.DateTime> UpdatedAt { get; set; }
         public string UpdatedBy { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<RolePermission> RolePermissions { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UserRole> UserRoles { get; set; }
     }
 }

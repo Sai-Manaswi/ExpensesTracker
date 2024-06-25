@@ -351,7 +351,6 @@
           <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="UpdatedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="UpdatedAt" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="LookUpDetail" Relationship="Self.FK__Deposits__Paymen__625A9A57" FromRole="Deposits" ToRole="LookUpDetails" />
         </EntityType>
         <EntityType Name="Expens">
           <Key>
@@ -369,9 +368,6 @@
           <Property Name="UpdatedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="UpdatedAt" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Photo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="LookUpDetail" Relationship="Self.FK__Expenses__Catego__5BAD9CC8" FromRole="Expenses" ToRole="LookUpDetails" />
-          <NavigationProperty Name="LookUpDetail1" Relationship="Self.FK__Expenses__Paymen__5D95E53A" FromRole="Expenses" ToRole="LookUpDetails" />
-          <NavigationProperty Name="LookUpDetail2" Relationship="Self.FK__Expenses__Status__5CA1C101" FromRole="Expenses" ToRole="LookUpDetails" />
         </EntityType>
         <EntityType Name="LookUpDetail">
           <Key>
@@ -386,11 +382,6 @@
           <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="UpdatedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="UpdatedAt" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="Deposits" Relationship="Self.FK__Deposits__Paymen__625A9A57" FromRole="LookUpDetails" ToRole="Deposits" />
-          <NavigationProperty Name="Expenses" Relationship="Self.FK__Expenses__Catego__5BAD9CC8" FromRole="LookUpDetails" ToRole="Expenses" />
-          <NavigationProperty Name="Expenses1" Relationship="Self.FK__Expenses__Paymen__5D95E53A" FromRole="LookUpDetails" ToRole="Expenses" />
-          <NavigationProperty Name="Expenses2" Relationship="Self.FK__Expenses__Status__5CA1C101" FromRole="LookUpDetails" ToRole="Expenses" />
-          <NavigationProperty Name="Lookup" Relationship="Self.FK__LookUpDet__LookU__55009F39" FromRole="LookUpDetails" ToRole="Lookups" />
         </EntityType>
         <EntityType Name="Lookup">
           <Key>
@@ -403,7 +394,6 @@
           <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="UpdatedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="UpdatedAt" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="LookUpDetails" Relationship="Self.FK__LookUpDet__LookU__55009F39" FromRole="Lookups" ToRole="LookUpDetails" />
         </EntityType>
         <EntityType Name="Permission">
           <Key>
@@ -414,7 +404,6 @@
           <Property Name="ScreenName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="DisplayName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="RolePermissions" Relationship="Self.FK__RolePermi__Permi__68487DD7" FromRole="Permissions" ToRole="RolePermissions" />
         </EntityType>
         <EntityType Name="RolePermission">
           <Key>
@@ -425,8 +414,6 @@
           <Property Name="PermissionId" Type="Int32" />
           <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="UpdatedAt" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="Permission" Relationship="Self.FK__RolePermi__Permi__68487DD7" FromRole="RolePermissions" ToRole="Permissions" />
-          <NavigationProperty Name="Role" Relationship="Self.FK__RolePermi__RoleI__6754599E" FromRole="RolePermissions" ToRole="Roles" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -439,8 +426,6 @@
           <Property Name="CreatedBy" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
           <Property Name="UpdatedAt" Type="DateTime" Precision="3" />
           <Property Name="UpdatedBy" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="RolePermissions" Relationship="Self.FK__RolePermi__RoleI__6754599E" FromRole="Roles" ToRole="RolePermissions" />
-          <NavigationProperty Name="UserRoles" Relationship="Self.FK__UserRole__RoleId__6383C8BA" FromRole="Roles" ToRole="UserRole" />
         </EntityType>
         <EntityType Name="UserRole">
           <Key>
@@ -451,8 +436,6 @@
           <Property Name="RoleId" Type="Int32" />
           <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="UpdatedAt" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="Role" Relationship="Self.FK__UserRole__RoleId__6383C8BA" FromRole="UserRole" ToRole="Roles" />
-          <NavigationProperty Name="User" Relationship="Self.FK__UserRole__UserId__628FA481" FromRole="UserRole" ToRole="Users" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -471,7 +454,6 @@
           <Property Name="UpdatedAt" Type="DateTime" Precision="3" />
           <Property Name="UpdatedBy" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
           <Property Name="DOB" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="UserRoles" Relationship="Self.FK__UserRole__UserId__628FA481" FromRole="Users" ToRole="UserRole" />
         </EntityType>
         <Association Name="FK__Deposits__Paymen__625A9A57">
           <End Role="LookUpDetails" Type="Self.LookUpDetail" Multiplicity="0..1" />

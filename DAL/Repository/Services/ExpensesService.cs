@@ -49,15 +49,8 @@ namespace DAL.Repository.Services
         {
             var expenses = context.GetTotalExpensesByCategoryAndStatus(year, month).ToList();
             return expenses;
+
         }
-
-        public List<SP_GetDropdowns_Result> SP_GetDropdowns(string name)
-        {
-            var expenses = context.SP_GetDropdowns(name).ToList();
-            return expenses;
-        }
-
-
 
     }
 

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ExpensesTrackerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ExpensesTrackerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Deposits">
           <Key>
             <PropertyRef Name="Id" />
@@ -233,7 +233,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Function Name="GetAllDeposits" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="DropdownRoles" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetAllDeposits" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetAllExpenses" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
@@ -246,7 +245,6 @@
           <Parameter Name="Month" Type="int" Mode="In" />
         </Function>
         <Function Name="GetDeposits" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
-        <Function Name="GetHighestCategoryPurchaseMonthlyAndYearly" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetMonthlyBudgetNotification" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetMonthlyReport" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Year" Type="int" Mode="In" />
@@ -328,8 +326,7 @@
             <End Role="UserRole" EntitySet="UserRole" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ExpensesTrackerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -654,7 +651,7 @@
             <Parameter Name="month" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetUserPermissionsByUsername" ReturnType="Collection(String)">
-            <Parameter Name="UserName" Mode="In" Type="String" />
+          <Parameter Name="UserName" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="GetUsersSP" ReturnType="Collection(ExpensesTrackerModel.GetUsersSP_Result)" />
           <FunctionImport Name="usp_AddOrUpdateExpense" ReturnType="Collection(Decimal)">
@@ -669,6 +666,7 @@
             <Parameter Name="UpdatedBy" Mode="In" Type="String" />
             <Parameter Name="Photo" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="GetAllDeposits1" ReturnType="Collection(ExpensesTrackerModel.GetAllDeposits1_Result)" />
         </EntityContainer>
         <ComplexType Name="DropdownRoles_Result">
           <Property Type="Int32" Name="RoleId" Nullable="false" />
@@ -785,6 +783,20 @@
           <Property Type="String" Name="UpdatedBy" Nullable="true" MaxLength="256" />
           <Property Type="String" Name="UpdatedByName" Nullable="true" MaxLength="256" />
           <Property Type="DateTime" Name="DOB" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetAllDeposits1_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="DateTime" Name="CreditDate" Nullable="false" />
+          <Property Type="String" Name="Amount" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="PaymentMethodName" Nullable="true" MaxLength="220" />
+          <Property Type="String" Name="CreditedBy" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="CreditedTo" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Description" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="CarryForwardAmount" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="CreatedBy" Nullable="true" MaxLength="255" />
+          <Property Type="DateTime" Name="CreatedAt" Nullable="false" Precision="23" />
+          <Property Type="String" Name="UpdatedBy" Nullable="true" MaxLength="255" />
+          <Property Type="DateTime" Name="UpdatedAt" Nullable="false" Precision="23" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -929,24 +941,6 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="GetAllDeposits" FunctionName="ExpensesTrackerModel.Store.GetAllDeposits">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="ExpensesTrackerModel.GetAllDeposits_Result">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="CreditDate" ColumnName="CreditDate" />
-                <ScalarProperty Name="Amount" ColumnName="Amount" />
-                <ScalarProperty Name="PaymentMethodName" ColumnName="PaymentMethodName" />
-                <ScalarProperty Name="CreditedBy" ColumnName="CreditedBy" />
-                <ScalarProperty Name="CreditedTo" ColumnName="CreditedTo" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="CarryForwardAmount" ColumnName="CarryForwardAmount" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="GetAllExpenses" FunctionName="ExpensesTrackerModel.Store.GetAllExpenses">
             <ResultMapping>
               <ComplexTypeMapping TypeName="ExpensesTrackerModel.GetAllExpenses_Result">
@@ -1082,6 +1076,24 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="usp_AddOrUpdateExpense" FunctionName="ExpensesTrackerModel.Store.usp_AddOrUpdateExpense" />
+          <FunctionImportMapping FunctionImportName="GetAllDeposits1" FunctionName="ExpensesTrackerModel.Store.GetAllDeposits">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ExpensesTrackerModel.GetAllDeposits1_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CreditDate" ColumnName="CreditDate" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="PaymentMethodName" ColumnName="PaymentMethodName" />
+                <ScalarProperty Name="CreditedBy" ColumnName="CreditedBy" />
+                <ScalarProperty Name="CreditedTo" ColumnName="CreditedTo" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="CarryForwardAmount" ColumnName="CarryForwardAmount" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

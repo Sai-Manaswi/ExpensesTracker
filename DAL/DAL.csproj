@@ -132,6 +132,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ExpenseModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="ExpenseModel\GetAllDeposits1_Result.cs">
+      <DependentUpon>ExpenseModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="ExpenseModel\GetAllDeposits_Result.cs">
       <DependentUpon>ExpenseModel.tt</DependentUpon>
     </Compile>
@@ -145,12 +148,6 @@
       <DependentUpon>ExpenseModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ExpenseModel\GetDeposits_Result.cs">
-      <DependentUpon>ExpenseModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ExpenseModel\GetHighestCategoryPurchased_Result.cs">
-      <DependentUpon>ExpenseModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ExpenseModel\GetHighestCategoryPurchaseMonthlyAndYearly_Result.cs">
       <DependentUpon>ExpenseModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ExpenseModel\GetHighestCategory_Result.cs">
@@ -187,9 +184,6 @@
       <DependentUpon>ExpenseModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ExpenseModel\RolePermission.cs">
-      <DependentUpon>ExpenseModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ExpenseModel\SP_GetDropdowns_Result.cs">
       <DependentUpon>ExpenseModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ExpenseModel\User.cs">

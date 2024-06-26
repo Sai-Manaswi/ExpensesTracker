@@ -105,7 +105,6 @@ namespace API.Controllers
                 return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
             }
         }
-
         [HttpGet]
         [Route("api/expenses/GetHighestPurchaseCategory()")]
         public HttpResponseMessage GetHighestPurchaseCategory()

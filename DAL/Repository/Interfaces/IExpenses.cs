@@ -25,5 +25,6 @@ namespace DAL.Repository.Interfaces
         ValueDataResponse<Expens> AddupdateExpenses(Expens req);
         List<GetHighestPurchaseCategory_Result> GetHighestPurchaseCategory();
         List<GetExpensesByStatus_Result> GetExpensesByStatus(int statusId);
+
     }
 }

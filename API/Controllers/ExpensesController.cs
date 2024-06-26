@@ -131,6 +131,16 @@ namespace API.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, result);
         }
 
-     
+
+        [HttpPost]
+        [Route("api/expenses/updateExpenses")]
+
+
+        public HttpResponseMessage updateExpenses(Expens req)
+        {
+            var result = _expensesRepository.AddupdateExpenses(req);
+            return Request.CreateResponse(HttpStatusCode.OK, result);
+        }
+
     }
 }

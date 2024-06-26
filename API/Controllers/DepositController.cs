@@ -39,5 +39,14 @@ namespace API.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, result);
         }
 
+        [HttpPut]
+        [Route("api/expenses/UpdateDeposite")]
+        public HttpResponseMessage UpdateDeposite(Deposit deposit)
+        {
+            var result = _depositRepository.AddupdateDeposite(deposit);
+            return Request.CreateResponse(HttpStatusCode.OK, result);
+        }
+
+
     }
 }

@@ -37,7 +37,7 @@
           <Property Name="CreatedAt" Type="datetime" Nullable="false" />
           <Property Name="UpdatedBy" Type="varchar" MaxLength="255" />
           <Property Name="UpdatedAt" Type="datetime" Nullable="false" />
-          <Property Name="Photo" Type="varchar(max)" Nullable="false" />
+          <Property Name="Photo" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="LookUpDetails">
           <Key>
@@ -351,23 +351,6 @@
           <Property Name="UpdatedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="UpdatedAt" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
-        <EntityType Name="Expens">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ExpenseDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="Amount" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="CategoryId" Type="Int32" Nullable="false" />
-          <Property Name="StatusId" Type="Int32" Nullable="false" />
-          <Property Name="PaymentMethodId" Type="Int32" />
-          <Property Name="CreatedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="UpdatedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="UpdatedAt" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Photo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-        </EntityType>
         <EntityType Name="LookUpDetail">
           <Key>
             <PropertyRef Name="Id" />
@@ -381,6 +364,9 @@
           <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="UpdatedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="UpdatedAt" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Expenses" Relationship="ExpensesTrackerModel.FK__Expenses__Catego__5BAD9CC8" FromRole="LookUpDetail" ToRole="Expens" />
+          <NavigationProperty Name="Expenses1" Relationship="ExpensesTrackerModel.FK__Expenses__Paymen__5D95E53A" FromRole="LookUpDetail" ToRole="Expens" />
+          <NavigationProperty Name="Expenses2" Relationship="ExpensesTrackerModel.FK__Expenses__Status__5CA1C101" FromRole="LookUpDetail" ToRole="Expens" />
         </EntityType>
         <EntityType Name="Lookup">
           <Key>
@@ -466,42 +452,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Expenses__Catego__5BAD9CC8">
-          <End Role="LookUpDetails" Type="Self.LookUpDetail" Multiplicity="1" />
-          <End Role="Expenses" Type="Self.Expens" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="LookUpDetails">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Expenses">
-              <PropertyRef Name="CategoryId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Expenses__Paymen__5D95E53A">
-          <End Role="LookUpDetails" Type="Self.LookUpDetail" Multiplicity="0..1" />
-          <End Role="Expenses" Type="Self.Expens" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="LookUpDetails">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Expenses">
-              <PropertyRef Name="PaymentMethodId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Expenses__Status__5CA1C101">
-          <End Role="LookUpDetails" Type="Self.LookUpDetail" Multiplicity="1" />
-          <End Role="Expenses" Type="Self.Expens" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="LookUpDetails">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Expenses">
-              <PropertyRef Name="StatusId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__LookUpDet__LookU__55009F39">
           <End Role="Lookups" Type="Self.Lookup" Multiplicity="0..1" />
           <End Role="LookUpDetails" Type="Self.LookUpDetail" Multiplicity="*" />
@@ -564,7 +514,6 @@
         </Association>
         <EntityContainer Name="ExpensesTrackerEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Deposits" EntityType="Self.Deposit" />
-          <EntitySet Name="Expenses" EntityType="Self.Expens" />
           <EntitySet Name="LookUpDetails" EntityType="Self.LookUpDetail" />
           <EntitySet Name="Lookups" EntityType="Self.Lookup" />
           <EntitySet Name="Permissions" EntityType="Self.Permission" />
@@ -575,18 +524,6 @@
           <AssociationSet Name="FK__Deposits__Paymen__625A9A57" Association="Self.FK__Deposits__Paymen__625A9A57">
             <End Role="LookUpDetails" EntitySet="LookUpDetails" />
             <End Role="Deposits" EntitySet="Deposits" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Expenses__Catego__5BAD9CC8" Association="Self.FK__Expenses__Catego__5BAD9CC8">
-            <End Role="LookUpDetails" EntitySet="LookUpDetails" />
-            <End Role="Expenses" EntitySet="Expenses" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Expenses__Paymen__5D95E53A" Association="Self.FK__Expenses__Paymen__5D95E53A">
-            <End Role="LookUpDetails" EntitySet="LookUpDetails" />
-            <End Role="Expenses" EntitySet="Expenses" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Expenses__Status__5CA1C101" Association="Self.FK__Expenses__Status__5CA1C101">
-            <End Role="LookUpDetails" EntitySet="LookUpDetails" />
-            <End Role="Expenses" EntitySet="Expenses" />
           </AssociationSet>
           <AssociationSet Name="FK__LookUpDet__LookU__55009F39" Association="Self.FK__LookUpDet__LookU__55009F39">
             <End Role="Lookups" EntitySet="Lookups" />
@@ -663,6 +600,19 @@
           </FunctionImport>
           <FunctionImport Name="GetHighestPurchaseCategory" ReturnType="Collection(ExpensesTrackerModel.GetHighestPurchaseCategory_Result)" />
           <FunctionImport Name="SP_GetDeposits" ReturnType="Collection(ExpensesTrackerModel.SP_GetDeposits_Result)" />
+          <EntitySet Name="Expenses" EntityType="ExpensesTrackerModel.Expens" />
+          <AssociationSet Name="FK__Expenses__Catego__5BAD9CC8" Association="ExpensesTrackerModel.FK__Expenses__Catego__5BAD9CC8">
+            <End Role="LookUpDetail" EntitySet="LookUpDetails" />
+            <End Role="Expens" EntitySet="Expenses" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Expenses__Paymen__5D95E53A" Association="ExpensesTrackerModel.FK__Expenses__Paymen__5D95E53A">
+            <End Role="LookUpDetail" EntitySet="LookUpDetails" />
+            <End Role="Expens" EntitySet="Expenses" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Expenses__Status__5CA1C101" Association="ExpensesTrackerModel.FK__Expenses__Status__5CA1C101">
+            <End Role="LookUpDetail" EntitySet="LookUpDetails" />
+            <End Role="Expens" EntitySet="Expenses" />
+          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="DropdownRoles_Result">
           <Property Type="Int32" Name="RoleId" Nullable="false" />
@@ -831,6 +781,62 @@
           <Property Type="String" Name="UpdatedBy" Nullable="true" MaxLength="255" />
           <Property Type="DateTime" Name="UpdatedAt" Nullable="false" Precision="23" />
         </ComplexType>
+        <EntityType Name="Expens">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ExpenseDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Amount" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="CategoryId" Type="Int32" Nullable="false" />
+          <Property Name="StatusId" Type="Int32" Nullable="false" />
+          <Property Name="PaymentMethodId" Type="Int32" />
+          <Property Name="CreatedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="UpdatedAt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Photo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="LookUpDetail" Relationship="ExpensesTrackerModel.FK__Expenses__Catego__5BAD9CC8" FromRole="Expens" ToRole="LookUpDetail" />
+          <NavigationProperty Name="LookUpDetail1" Relationship="ExpensesTrackerModel.FK__Expenses__Paymen__5D95E53A" FromRole="Expens" ToRole="LookUpDetail" />
+          <NavigationProperty Name="LookUpDetail2" Relationship="ExpensesTrackerModel.FK__Expenses__Status__5CA1C101" FromRole="Expens" ToRole="LookUpDetail" />
+        </EntityType>
+        <Association Name="FK__Expenses__Catego__5BAD9CC8">
+          <End Type="ExpensesTrackerModel.LookUpDetail" Role="LookUpDetail" Multiplicity="1" />
+          <End Type="ExpensesTrackerModel.Expens" Role="Expens" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LookUpDetail">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Expens">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Expenses__Paymen__5D95E53A">
+          <End Type="ExpensesTrackerModel.LookUpDetail" Role="LookUpDetail" Multiplicity="0..1" />
+          <End Type="ExpensesTrackerModel.Expens" Role="Expens" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LookUpDetail">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Expens">
+              <PropertyRef Name="PaymentMethodId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Expenses__Status__5CA1C101">
+          <End Type="ExpensesTrackerModel.LookUpDetail" Role="LookUpDetail" Multiplicity="1" />
+          <End Type="ExpensesTrackerModel.Expens" Role="Expens" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LookUpDetail">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Expens">
+              <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -852,24 +858,6 @@
                 <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
                 <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
                 <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Expenses">
-            <EntityTypeMapping TypeName="ExpensesTrackerModel.Expens">
-              <MappingFragment StoreEntitySet="Expenses">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="ExpenseDate" ColumnName="ExpenseDate" />
-                <ScalarProperty Name="Amount" ColumnName="Amount" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
-                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
-                <ScalarProperty Name="PaymentMethodId" ColumnName="PaymentMethodId" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
-                <ScalarProperty Name="Photo" ColumnName="Photo" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1139,6 +1127,24 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="Expenses">
+            <EntityTypeMapping TypeName="ExpensesTrackerModel.Expens">
+              <MappingFragment StoreEntitySet="Expenses">
+                <ScalarProperty Name="Photo" ColumnName="Photo" />
+                <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="PaymentMethodId" ColumnName="PaymentMethodId" />
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="ExpenseDate" ColumnName="ExpenseDate" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

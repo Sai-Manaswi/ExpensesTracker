@@ -28,7 +28,6 @@ namespace DAL.ExpenseModel
         }
     
         public virtual DbSet<Deposit> Deposits { get; set; }
-        public virtual DbSet<Expens> Expenses { get; set; }
         public virtual DbSet<LookUpDetail> LookUpDetails { get; set; }
         public virtual DbSet<Lookup> Lookups { get; set; }
         public virtual DbSet<Permission> Permissions { get; set; }
@@ -36,6 +35,7 @@ namespace DAL.ExpenseModel
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<UserRole> UserRoles { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Expens> Expenses { get; set; }
     
         public virtual ObjectResult<DropdownRoles_Result> DropdownRoles()
         {

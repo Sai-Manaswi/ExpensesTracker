@@ -43,7 +43,7 @@ namespace DAL.Repository.Services
                         CreatedBy = deposit.CreatedBy,
                         CreatedAt = DateTime.Now,
                         UpdatedBy = deposit.UpdatedBy,
-                        UpdatedAt = deposit.UpdatedAt
+                        UpdatedAt =DateTime.Now
 
                     };
                     context.Deposits.Add(obj);

@@ -120,7 +120,11 @@ namespace DAL.Repository.Services
             return response;
         }
 
-
+        public List<GetHighestPurchaseCategory_Result> GetHighestPurchaseCategory()
+        {
+            var expenses = context.GetHighestPurchaseCategory().ToList();
+            return expenses;
+        }
     }
 
 }

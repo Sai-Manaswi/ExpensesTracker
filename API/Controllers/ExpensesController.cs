@@ -106,20 +106,20 @@ namespace API.Controllers
             }
         }
 
-        //[HttpGet]
-        //[Route("api/expenses/GetDropdowns()")]
-        //public HttpResponseMessage SP_GetDropdowns(string name)
-        //{
-        //    try
-        //    {
-        //        var expenses = _expensesRepository.SP_GetDropdowns(name);
-        //        return Request.CreateResponse(HttpStatusCode.OK, expenses);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
-        //    }
-        //}
+        [HttpGet]
+        [Route("api/expenses/GetHighestPurchaseCategory()")]
+        public HttpResponseMessage GetHighestPurchaseCategory()
+        {
+            try
+            {
+                var expenses = _expensesRepository.GetHighestPurchaseCategory();
+                return Request.CreateResponse(HttpStatusCode.OK, expenses);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
 
         [HttpPost]
         [Route("api/expenses/AddupdateExpenses")]

@@ -121,6 +121,23 @@ namespace API.Controllers
             }
         }
 
+
+        [HttpGet]
+        [Route("api/expenses/GetExpensesByStatus")]
+        public HttpResponseMessage GetExpensesByStatus(int statusId)
+        {
+            try
+            {
+                var expenses = _expensesRepository.GetExpensesByStatus(statusId);
+                return Request.CreateResponse(HttpStatusCode.OK, expenses);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
+
         [HttpPost]
         [Route("api/expenses/AddupdateExpenses")]
 

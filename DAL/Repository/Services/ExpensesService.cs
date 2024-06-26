@@ -125,6 +125,12 @@ namespace DAL.Repository.Services
             var expenses = context.GetHighestPurchaseCategory().ToList();
             return expenses;
         }
+
+        public List<GetExpensesByStatus_Result> GetExpensesByStatus(int statusId)
+        {
+            var expenses = context.GetExpensesByStatus(statusId).ToList();
+            return expenses;
+        }
     }
 
 }

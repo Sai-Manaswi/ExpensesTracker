@@ -236,5 +236,14 @@ namespace DAL.ExpenseModel
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_GetDeposits_Result>("SP_GetDeposits");
         }
+    
+        public virtual ObjectResult<GetExpensesByStatus_Result> GetExpensesByStatus(Nullable<int> statusId)
+        {
+            var statusIdParameter = statusId.HasValue ?
+                new ObjectParameter("StatusId", statusId) :
+                new ObjectParameter("StatusId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetExpensesByStatus_Result>("GetExpensesByStatus", statusIdParameter);
+        }
     }
 }

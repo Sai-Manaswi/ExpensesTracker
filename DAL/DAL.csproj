@@ -150,6 +150,9 @@
     <Compile Include="ExpenseModel\GetDeposits_Result.cs">
       <DependentUpon>ExpenseModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ExpenseModel\GetExpensesByStatus_Result.cs">
+      <DependentUpon>ExpenseModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="ExpenseModel\GetHighestCategory_Result.cs">
       <DependentUpon>ExpenseModel.tt</DependentUpon>
     </Compile>

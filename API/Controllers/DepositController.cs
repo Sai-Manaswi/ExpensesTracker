@@ -21,7 +21,7 @@ namespace API.Controllers
         {
             try
             {
-                var expenses = _depositRepository.GetDeposits1();
+                var expenses = _depositRepository.SP_GetDeposits();
                 return Request.CreateResponse(HttpStatusCode.OK, expenses);
             }
             catch (Exception ex)

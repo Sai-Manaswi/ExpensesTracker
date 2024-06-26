@@ -264,6 +264,7 @@
           <Parameter Name="UserName" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="GetUsersSP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_GetDeposits" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="SP_GetLookUpDropdowns" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Name" Type="varchar" Mode="In" />
         </Function>
@@ -618,7 +619,6 @@
             <Parameter Name="Year" Mode="In" Type="Int32" />
             <Parameter Name="Month" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="GetDeposits" ReturnType="Collection(ExpensesTrackerModel.GetDeposits_Result)" />
           <FunctionImport Name="GetHighestCategory" ReturnType="Collection(ExpensesTrackerModel.GetHighestCategory_Result)" />
           <FunctionImport Name="GetMonthlyBudgetNotification" ReturnType="Collection(ExpensesTrackerModel.GetMonthlyBudgetNotification_Result)" />
           <FunctionImport Name="GetMonthlyReport" ReturnType="Collection(ExpensesTrackerModel.GetMonthlyReport_Result)">
@@ -658,11 +658,11 @@
           <FunctionImport Name="SP_GetLookupwithDetails" ReturnType="Collection(ExpensesTrackerModel.SP_GetLookupwithDetails_Result)">
           <Parameter Name="P_IsActive" Mode="In" Type="Boolean" />
           </FunctionImport>
-          <FunctionImport Name="GetDeposits1" ReturnType="Collection(ExpensesTrackerModel.GetDeposits1_Result)" />
           <FunctionImport Name="SP_GetDropdowns" ReturnType="Collection(ExpensesTrackerModel.SP_GetDropdowns_Result)">
             <Parameter Name="Name" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="GetHighestPurchaseCategory" ReturnType="Collection(ExpensesTrackerModel.GetHighestPurchaseCategory_Result)" />
+          <FunctionImport Name="SP_GetDeposits" ReturnType="Collection(ExpensesTrackerModel.SP_GetDeposits_Result)" />
         </EntityContainer>
         <ComplexType Name="DropdownRoles_Result">
           <Property Type="Int32" Name="RoleId" Nullable="false" />
@@ -807,10 +807,20 @@
           <Property Type="DateTime" Name="CreatedAt" Nullable="false" Precision="23" />
           <Property Type="DateTime" Name="UpdatedAt" Nullable="false" Precision="23" />
         </ComplexType>
-        <ComplexType Name="GetDeposits1_Result">
+        <ComplexType Name="SP_GetDropdowns_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="220" />
+          <Property Type="Boolean" Name="IsActive" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="GetHighestPurchaseCategory_Result">
+          <Property Type="String" Name="CategoryName" Nullable="false" MaxLength="220" />
+          <Property Type="Decimal" Name="TotalAmount" Nullable="true" Precision="38" Scale="2" />
+        </ComplexType>
+        <ComplexType Name="SP_GetDeposits_Result">
           <Property Type="Int32" Name="Id" Nullable="false" />
           <Property Type="DateTime" Name="CreditDate" Nullable="false" />
           <Property Type="String" Name="Amount" Nullable="false" MaxLength="20" />
+          <Property Type="Int32" Name="PaymentMethodId" Nullable="true" />
           <Property Type="String" Name="PaymentMethodName" Nullable="true" MaxLength="220" />
           <Property Type="String" Name="CreditedBy" Nullable="false" MaxLength="255" />
           <Property Type="String" Name="CreditedTo" Nullable="false" MaxLength="255" />
@@ -820,15 +830,6 @@
           <Property Type="DateTime" Name="CreatedAt" Nullable="false" Precision="23" />
           <Property Type="String" Name="UpdatedBy" Nullable="true" MaxLength="255" />
           <Property Type="DateTime" Name="UpdatedAt" Nullable="false" Precision="23" />
-        </ComplexType>
-        <ComplexType Name="SP_GetDropdowns_Result">
-          <Property Type="Int32" Name="Id" Nullable="false" />
-          <Property Type="String" Name="Name" Nullable="false" MaxLength="220" />
-          <Property Type="Boolean" Name="IsActive" Nullable="false" />
-        </ComplexType>
-        <ComplexType Name="GetHighestPurchaseCategory_Result">
-          <Property Type="String" Name="CategoryName" Nullable="false" MaxLength="220" />
-          <Property Type="Decimal" Name="TotalAmount" Nullable="true" Precision="38" Scale="2" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1111,12 +1112,21 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="GetDeposits1" FunctionName="ExpensesTrackerModel.Store.GetDeposits">
+          <FunctionImportMapping FunctionImportName="GetHighestPurchaseCategory" FunctionName="ExpensesTrackerModel.Store.GetHighestPurchaseCategory">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="ExpensesTrackerModel.GetDeposits1_Result">
+              <ComplexTypeMapping TypeName="ExpensesTrackerModel.GetHighestPurchaseCategory_Result">
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+                <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_GetDeposits" FunctionName="ExpensesTrackerModel.Store.SP_GetDeposits">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ExpensesTrackerModel.SP_GetDeposits_Result">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="CreditDate" ColumnName="CreditDate" />
                 <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="PaymentMethodId" ColumnName="PaymentMethodId" />
                 <ScalarProperty Name="PaymentMethodName" ColumnName="PaymentMethodName" />
                 <ScalarProperty Name="CreditedBy" ColumnName="CreditedBy" />
                 <ScalarProperty Name="CreditedTo" ColumnName="CreditedTo" />
@@ -1126,14 +1136,6 @@
                 <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
                 <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
                 <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="GetHighestPurchaseCategory" FunctionName="ExpensesTrackerModel.Store.GetHighestPurchaseCategory">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="ExpensesTrackerModel.GetHighestPurchaseCategory_Result">
-                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
-                <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

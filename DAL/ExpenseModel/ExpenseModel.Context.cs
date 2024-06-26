@@ -78,11 +78,6 @@ namespace DAL.ExpenseModel
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetBudgetReports_Result>("GetBudgetReports", yearParameter, monthParameter);
         }
     
-        public virtual ObjectResult<GetDeposits_Result> GetDeposits()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetDeposits_Result>("GetDeposits");
-        }
-    
         public virtual ObjectResult<GetHighestCategory_Result> GetHighestCategory()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetHighestCategory_Result>("GetHighestCategory");
@@ -223,11 +218,6 @@ namespace DAL.ExpenseModel
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_GetLookupwithDetails_Result>("SP_GetLookupwithDetails", p_IsActiveParameter);
         }
     
-        public virtual ObjectResult<GetDeposits1_Result> GetDeposits1()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetDeposits1_Result>("GetDeposits1");
-        }
-    
         public virtual ObjectResult<SP_GetDropdowns_Result> SP_GetDropdowns(string name)
         {
             var nameParameter = name != null ?
@@ -240,6 +230,11 @@ namespace DAL.ExpenseModel
         public virtual ObjectResult<GetHighestPurchaseCategory_Result> GetHighestPurchaseCategory()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetHighestPurchaseCategory_Result>("GetHighestPurchaseCategory");
+        }
+    
+        public virtual ObjectResult<SP_GetDeposits_Result> SP_GetDeposits()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_GetDeposits_Result>("SP_GetDeposits");
         }
     }
 }

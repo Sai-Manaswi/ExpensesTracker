@@ -147,9 +147,6 @@
     <Compile Include="ExpenseModel\GetBudgetReport_Result.cs">
       <DependentUpon>ExpenseModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="ExpenseModel\GetDeposits1_Result.cs">
-      <DependentUpon>ExpenseModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="ExpenseModel\GetDeposits_Result.cs">
       <DependentUpon>ExpenseModel.tt</DependentUpon>
     </Compile>
@@ -190,6 +187,9 @@
       <DependentUpon>ExpenseModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ExpenseModel\RolePermission.cs">
+      <DependentUpon>ExpenseModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ExpenseModel\SP_GetDeposits_Result.cs">
       <DependentUpon>ExpenseModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ExpenseModel\SP_GetDropdowns_Result.cs">

@@ -11,7 +11,7 @@ namespace DAL.Repository.Interfaces
     public interface IDeposit
     {
 
-        List<GetDeposits1_Result> GetDeposits1();
+        List<SP_GetDeposits_Result> SP_GetDeposits();
 
         ValueDataResponse<Deposit> AddupdateDeposite(Deposit deposit);
 

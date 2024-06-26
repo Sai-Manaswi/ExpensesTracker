@@ -67,7 +67,7 @@ namespace DAL.Repository.Services
                         MobileNumber = user.MobileNumber,
                         UserName = user.UserName,
                         Password = user.Password,
-                        IsActive = user.IsActive,
+                        IsActive = true,
                         CreatedAt = DateTime.Now,
                         CreatedBy = user.CreatedBy,
                         UpdatedAt = DateTime.Now,
@@ -115,7 +115,7 @@ namespace DAL.Repository.Services
                     existingUser.MobileNumber = user.MobileNumber;
                     existingUser.UserName = user.UserName;
                     existingUser.Password = user.Password;
-                    existingUser.IsActive = user.IsActive;
+                    //existingUser.IsActive = user.IsActive;
                     existingUser.CreatedAt = existingUser.CreatedAt;
                     existingUser.CreatedBy = user.CreatedBy;
                     existingUser.UpdatedAt = DateTime.Now;

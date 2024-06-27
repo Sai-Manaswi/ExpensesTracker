@@ -47,7 +47,7 @@ namespace API.Controllers
 
         [HttpGet]
         [Route("api/expenses/GetMonthlyReport")]
-        public HttpResponseMessage GetMonthlyReport(int year, int? month)
+        public HttpResponseMessage GetMonthlyReport(int year, int? month=null)
         {
             try
             {

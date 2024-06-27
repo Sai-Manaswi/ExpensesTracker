@@ -1,11 +1,13 @@
 ﻿using DAL.Repository.Interfaces;
 using DAL.Repository.Services;
+using DAL.Responses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using static DAL.Responses.RequestResModel;
 
 namespace API.Controllers
 {
@@ -42,5 +44,15 @@ namespace API.Controllers
                 return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
             }
         }
+
+        [HttpPost]
+        [Route("api/expenses/CreateLookUP")]
+        public HttpResponseMessage CreateLookUP(LookupReq lookup)
+        {
+            var result = _lookupRepository.CreateLookUP(lookup);
+            return Request.CreateResponse(HttpStatusCode.OK, result);
+        }
+
+
     }
 }

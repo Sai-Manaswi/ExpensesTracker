@@ -254,14 +254,14 @@
           <Parameter Name="Month" Type="int" Mode="In" />
         </Function>
         <Function Name="GetRoles" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
-        <Function Name="GetTotalExpensesByCategory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="year" Type="int" Mode="In" />
-          <Parameter Name="month" Type="int" Mode="In" />
-          <Parameter Name="day" Type="int" Mode="In" />
-        </Function>
         <Function Name="GetTotalExpensesByCategoryAndStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="year" Type="int" Mode="In" />
           <Parameter Name="month" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetTotalPurchasesByCategory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="year" Type="int" Mode="In" />
+          <Parameter Name="month" Type="int" Mode="In" />
+          <Parameter Name="day" Type="int" Mode="In" />
         </Function>
         <Function Name="GetUserPermissionsByUsername" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="UserName" Type="nvarchar" Mode="In" />
@@ -563,11 +563,6 @@
             <Parameter Name="Month" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetRoles" ReturnType="Collection(ExpensesTrackerModel.GetRoles_Result)" />
-          <FunctionImport Name="GetTotalExpensesByCategory" ReturnType="Collection(ExpensesTrackerModel.GetTotalExpensesByCategory_Result)">
-            <Parameter Name="year" Mode="In" Type="Int32" />
-            <Parameter Name="month" Mode="In" Type="Int32" />
-            <Parameter Name="day" Mode="In" Type="Int32" />
-          </FunctionImport>
           <FunctionImport Name="GetTotalExpensesByCategoryAndStatus" ReturnType="Collection(ExpensesTrackerModel.GetTotalExpensesByCategoryAndStatus_Result)">
             <Parameter Name="year" Mode="In" Type="Int32" />
             <Parameter Name="month" Mode="In" Type="Int32" />
@@ -614,7 +609,12 @@
             <End Role="Expens" EntitySet="Expenses" />
           </AssociationSet>
           <FunctionImport Name="GetExpensesByStatus" ReturnType="Collection(ExpensesTrackerModel.GetExpensesByStatus_Result)">
-            <Parameter Name="StatusId" Mode="In" Type="Int32" />
+          <Parameter Name="StatusId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetTotalPurchasesByCategory" ReturnType="Collection(ExpensesTrackerModel.GetTotalPurchasesByCategory_Result)">
+            <Parameter Name="year" Mode="In" Type="Int32" />
+            <Parameter Name="month" Mode="In" Type="Int32" />
+            <Parameter Name="day" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="DropdownRoles_Result">
@@ -706,10 +706,6 @@
           <Property Type="DateTime" Name="UpdatedAt" Nullable="true" Precision="23" />
           <Property Type="String" Name="UpdatedBy" Nullable="true" MaxLength="256" />
           <Property Type="String" Name="UpdatedByName" Nullable="true" MaxLength="256" />
-        </ComplexType>
-        <ComplexType Name="GetTotalExpensesByCategory_Result">
-          <Property Type="String" Name="CategoryName" Nullable="false" MaxLength="220" />
-          <Property Type="Decimal" Name="TotalAmount" Nullable="true" Precision="38" Scale="2" />
         </ComplexType>
         <ComplexType Name="GetTotalExpensesByCategoryAndStatus_Result">
           <Property Type="String" Name="CategoryName" Nullable="false" MaxLength="220" />
@@ -853,6 +849,10 @@
           <Property Type="String" Name="UpdatedBy" Nullable="true" MaxLength="255" />
           <Property Type="DateTime" Name="UpdatedAt" Nullable="false" Precision="23" />
           <Property Type="String" Name="Photo" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetTotalPurchasesByCategory_Result">
+          <Property Type="String" Name="CategoryName" Nullable="false" MaxLength="220" />
+          <Property Type="Decimal" Name="TotalAmount" Nullable="true" Precision="38" Scale="2" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1056,14 +1056,6 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="GetTotalExpensesByCategory" FunctionName="ExpensesTrackerModel.Store.GetTotalExpensesByCategory">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="ExpensesTrackerModel.GetTotalExpensesByCategory_Result">
-                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
-                <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="GetTotalExpensesByCategoryAndStatus" FunctionName="ExpensesTrackerModel.Store.GetTotalExpensesByCategoryAndStatus">
             <ResultMapping>
               <ComplexTypeMapping TypeName="ExpensesTrackerModel.GetTotalExpensesByCategoryAndStatus_Result">
@@ -1180,6 +1172,14 @@
                 <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
                 <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
                 <ScalarProperty Name="Photo" ColumnName="Photo" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetTotalPurchasesByCategory" FunctionName="ExpensesTrackerModel.Store.GetTotalPurchasesByCategory">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ExpensesTrackerModel.GetTotalPurchasesByCategory_Result">
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+                <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

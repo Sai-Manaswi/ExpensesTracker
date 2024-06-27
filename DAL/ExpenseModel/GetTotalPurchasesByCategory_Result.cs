@@ -11,7 +11,7 @@ namespace DAL.ExpenseModel
 {
     using System;
     
-    public partial class GetTotalExpensesByCategory_Result
+    public partial class GetTotalPurchasesByCategory_Result
     {
         public string CategoryName { get; set; }
         public Nullable<decimal> TotalAmount { get; set; }

@@ -16,12 +16,12 @@ namespace API.Controllers
     {
         IExpenses _expensesRepository = new ExpensesService();
         [HttpGet]
-        [Route("api/expenses/GetTotalExpenses")]
-        public HttpResponseMessage GetTotalExpenses(int year, int month, int? day = null)
+        [Route("api/expenses/GetTotalPurchaseCategory")]
+        public HttpResponseMessage GetTotalExpenses(int year, int? month=null, int? day = null)
         {
             try
             {
-                var expenses = _expensesRepository.GetTotalExpensesByCategory(year, month, day);
+                var expenses = _expensesRepository.GetTotalPurchasesByCategory(year, month, day);
                 return Request.CreateResponse(HttpStatusCode.OK, expenses);
             }
             catch (Exception ex)

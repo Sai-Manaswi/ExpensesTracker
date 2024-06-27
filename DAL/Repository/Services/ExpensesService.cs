@@ -40,11 +40,7 @@ namespace DAL.Repository.Services
             return expenses;
         }
 
-        public List<GetTotalExpensesByCategory_Result> GetTotalExpensesByCategory(int year, int month, int? day)
-        {
-            var expenses = context.GetTotalExpensesByCategory(year, month, day).ToList();
-            return expenses;
-        }
+      
 
         public List<GetTotalExpensesByCategoryAndStatus_Result> GetTotalExpensesByCategoryAndStatus(int year, int month)
         {
@@ -129,6 +125,12 @@ namespace DAL.Repository.Services
         public  List<GetExpensesByStatus_Result> GetExpensesByStatus(int statusId)
         {
             var expenses = context.GetExpensesByStatus(statusId).ToList();
+            return expenses;
+        }
+
+        public List<GetTotalPurchasesByCategory_Result> GetTotalPurchasesByCategory(int year, int? month, int? day)
+        {
+            var expenses = context.GetTotalPurchasesByCategory( year,  month,  day).ToList();
             return expenses;
         }
     }

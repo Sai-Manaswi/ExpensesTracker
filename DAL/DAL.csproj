@@ -171,7 +171,7 @@
     <Compile Include="ExpenseModel\GetTotalExpensesByCategoryAndStatus_Result.cs">
       <DependentUpon>ExpenseModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="ExpenseModel\GetTotalExpensesByCategory_Result.cs">
+    <Compile Include="ExpenseModel\GetTotalPurchasesByCategory_Result.cs">
       <DependentUpon>ExpenseModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ExpenseModel\GetUsersSP_Result.cs">
@@ -225,6 +225,7 @@
     <Compile Include="Repository\Services\RoleRepository.cs" />
     <Compile Include="Repository\Services\UserRepositoryService.cs" />
     <Compile Include="Responses\DataResponse.cs" />
+    <Compile Include="Responses\LookupReq.cs" />
     <Compile Include="Responses\MultipleDataResponse.cs" />
     <Compile Include="Responses\RequestResModel.cs" />
     <Compile Include="Responses\ValidationItem.cs" />

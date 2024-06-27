@@ -106,23 +106,6 @@ namespace DAL.ExpenseModel
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetRoles_Result>("GetRoles");
         }
     
-        public virtual ObjectResult<GetTotalExpensesByCategory_Result> GetTotalExpensesByCategory(Nullable<int> year, Nullable<int> month, Nullable<int> day)
-        {
-            var yearParameter = year.HasValue ?
-                new ObjectParameter("year", year) :
-                new ObjectParameter("year", typeof(int));
-    
-            var monthParameter = month.HasValue ?
-                new ObjectParameter("month", month) :
-                new ObjectParameter("month", typeof(int));
-    
-            var dayParameter = day.HasValue ?
-                new ObjectParameter("day", day) :
-                new ObjectParameter("day", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetTotalExpensesByCategory_Result>("GetTotalExpensesByCategory", yearParameter, monthParameter, dayParameter);
-        }
-    
         public virtual ObjectResult<GetTotalExpensesByCategoryAndStatus_Result> GetTotalExpensesByCategoryAndStatus(Nullable<int> year, Nullable<int> month)
         {
             var yearParameter = year.HasValue ?
@@ -244,6 +227,23 @@ namespace DAL.ExpenseModel
                 new ObjectParameter("StatusId", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetExpensesByStatus_Result>("GetExpensesByStatus", statusIdParameter);
+        }
+    
+        public virtual ObjectResult<GetTotalPurchasesByCategory_Result> GetTotalPurchasesByCategory(Nullable<int> year, Nullable<int> month, Nullable<int> day)
+        {
+            var yearParameter = year.HasValue ?
+                new ObjectParameter("year", year) :
+                new ObjectParameter("year", typeof(int));
+    
+            var monthParameter = month.HasValue ?
+                new ObjectParameter("month", month) :
+                new ObjectParameter("month", typeof(int));
+    
+            var dayParameter = day.HasValue ?
+                new ObjectParameter("day", day) :
+                new ObjectParameter("day", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetTotalPurchasesByCategory_Result>("GetTotalPurchasesByCategory", yearParameter, monthParameter, dayParameter);
         }
     }
 }

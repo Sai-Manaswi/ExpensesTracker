@@ -34,7 +34,7 @@ namespace DAL.Repository.Services
             return expenses;
         }
 
-        public List<GetMonthlyReport_Result> GetMonthlyReport(int year, int month)
+        public List<GetMonthlyReport_Result> GetMonthlyReport(int year, int? month)
         {
             var expenses = context.GetMonthlyReport(year, month).ToList();
             return expenses;

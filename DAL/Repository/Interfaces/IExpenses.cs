@@ -16,7 +16,7 @@ namespace DAL.Repository.Interfaces
 
         List<GetMonthlyReport_Result> GetMonthlyReport(int year, int? month);
 
-        List<GetBudgetReports_Result> GetBudgetReport(int year,int? month);
+        List<GetBudgetReport_Result> GetBudgetReport(int year,int? month);
 
 
         List<GetMonthlyBudgetNotification_Result> GetMonthlyBudgetNotification();

@@ -19,11 +19,11 @@ namespace DAL.Repository.Services
         {
             var expenses=context.GetAllExpenses().ToList();
             return expenses;
-        }
+        }       
 
-        public List<GetBudgetReports_Result> GetBudgetReport(int year, int? month)
+        public List<GetBudgetReport_Result> GetBudgetReport(int year, int? month)
         {
-            var expenses = context.GetBudgetReports(year, month).ToList();
+            var expenses = context.GetBudgetReport(year, month).ToList();
             return expenses;
         }
 

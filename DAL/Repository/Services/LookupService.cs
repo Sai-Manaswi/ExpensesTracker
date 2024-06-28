@@ -12,13 +12,13 @@ using System.Threading.Tasks;
 
 namespace DAL.Repository.Services
 {
-    public class LookupService :ILookup
+    public class LookupService : ILookup
     {
         ExpensesTrackerEntities1 context = new ExpensesTrackerEntities1();
 
         public List<SP_GetLookUpDropdowns_Result> SP_GetLookUpDropdowns(string name)
         {
-            var lookup=context.SP_GetLookUpDropdowns(name).ToList();
+            var lookup = context.SP_GetLookUpDropdowns(name).ToList();
             return lookup;
         }
 
@@ -38,13 +38,14 @@ namespace DAL.Repository.Services
 
                 if (existingLookup == null)
                 {
+                    // Creating a new Lookup
                     var newLookup = new Lookup
                     {
                         Name = lookup.Name,
-                        IsActive = true,
+                        IsActive = lookup.IsActive,
                         CreatedAt = DateTime.Now,
                         CreatedBy = lookup.CreatedBy,
-                        UpdatedAt = DateTime.Now, 
+                        UpdatedAt = DateTime.Now,
                         UpdatedBy = lookup.UpdatedBy
                     };
 
@@ -52,39 +53,92 @@ namespace DAL.Repository.Services
                     context.SaveChanges();
 
                     lookup.Id = newLookup.Id;
-                }
 
-                if (lookup.LookUpDetailReq != null && lookup.LookUpDetailReq.Count > 0)
-                {
-                    foreach (var lookupDetailReq in lookup.LookUpDetailReq)
+                    if (lookup.LookUpDetailReq != null && lookup.LookUpDetailReq.Count > 0)
                     {
-                        if (lookupDetailReq.LookUpId > 0)
+                        foreach (var lookupDetailReq in lookup.LookUpDetailReq)
                         {
                             var newLookupDetail = new LookUpDetail
                             {
-                                LookUpId = lookupDetailReq.LookUpId,
+                                LookUpId = newLookup.Id, // Use the newly created Lookup Id
                                 Name = lookupDetailReq.Name,
                                 Description = lookupDetailReq.Description,
                                 IsActive = lookupDetailReq.IsActive,
                                 CreatedAt = DateTime.Now,
-                                UpdatedAt = DateTime.Now, 
+                                UpdatedAt = DateTime.Now,
                                 CreatedBy = lookupDetailReq.CreatedBy,
                                 UpdatedBy = lookupDetailReq.UpdatedBy
                             };
 
                             context.LookUpDetails.Add(newLookupDetail);
                         }
+
+                        context.SaveChanges();
+                        response.IsSuccess = true;
+                        response.EndUserMessage = "Lookup and LookupDetail(s) added successfully";
                     }
+                    else
+                    {
+                        response.IsSuccess = true;
+                        response.EndUserMessage = "Lookup added successfully, but no LookupDetail(s) provided";
+                    }
+                }
+
+                else if (existingLookup != null)
+                {
+                    // Updating existing Lookup
+                    existingLookup.Name = lookup.Name;
+                    existingLookup.IsActive = true;
+                    existingLookup.CreatedAt =existingLookup.CreatedAt;
+                    existingLookup.CreatedBy = lookup.CreatedBy;
+                    existingLookup.UpdatedAt = DateTime.Now;
+                    existingLookup.UpdatedBy = lookup.UpdatedBy;
 
                     context.SaveChanges();
-                    response.IsSuccess = true;
-                    response.EndUserMessage = "Lookup and LookupDetail(s) added successfully";
+
+                    if (lookup.LookUpDetailReq != null && lookup.LookUpDetailReq.Count > 0)
+                    {
+                        foreach (var lookupDetailReq in lookup.LookUpDetailReq)
+                        {
+
+                            var existingLookupDetail = context.LookUpDetails.FirstOrDefault(ld => ld.Id == lookupDetailReq.Id);
+                            if (existingLookupDetail != null)
+                            {
+                                existingLookupDetail.Name = lookupDetailReq.Name;
+                                existingLookupDetail.Description = lookupDetailReq.Description;
+                                existingLookupDetail.IsActive = lookupDetailReq.IsActive;
+                                existingLookupDetail.UpdatedAt = DateTime.Now;
+                                existingLookupDetail.UpdatedBy = lookupDetailReq.UpdatedBy;
+                            }
+                            else
+                            {
+                                var newLookupDetail = new LookUpDetail
+                                {
+                                    LookUpId = existingLookup.Id, // Use the existing Lookup Id
+                                    Name = lookupDetailReq.Name,
+                                    Description = lookupDetailReq.Description,
+                                    IsActive = lookupDetailReq.IsActive,
+                                    CreatedAt = DateTime.Now,
+                                    UpdatedAt = DateTime.Now,
+                                    CreatedBy = lookupDetailReq.CreatedBy,
+                                    UpdatedBy = lookupDetailReq.UpdatedBy
+                                };
+
+                                context.LookUpDetails.Add(newLookupDetail);
+                            }
+                        }
+
+                        context.SaveChanges();
+                        response.IsSuccess = true;
+                        response.EndUserMessage = "Lookup and LookupDetail(s) updated successfully";
+                    }
+                    else
+                    {
+                        response.IsSuccess = true;
+                        response.EndUserMessage = "Lookup updated successfully";
+                    }
                 }
-                else
-                {
-                    response.IsSuccess = true;
-                    response.EndUserMessage = "Lookup added successfully, but no LookupDetail(s) provided";
-                }
+
             }
             catch (DbEntityValidationException ex)
             {
@@ -107,12 +161,6 @@ namespace DAL.Repository.Services
 
             return response;
         }
-
-
-
-
-
-
 
     }
 }

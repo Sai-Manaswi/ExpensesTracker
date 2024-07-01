@@ -15,6 +15,7 @@ namespace API.Controllers
     public class ExpensesController : ApiController
     {
         IExpenses _expensesRepository = new ExpensesService();
+
         [HttpGet]
         [Route("api/expenses/GetTotalPurchaseCategory")]
         public HttpResponseMessage GetTotalExpenses(int year, int? month=null, int? day = null)
